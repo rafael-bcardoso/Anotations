@@ -659,14 +659,69 @@ Controller
 
 	Extend Startup with startup filters
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	How to work Depency Injection in AspNet Core
+
+	First: The AspNet Core supports Dependency Injection (DI) software design pattern, which a technique for achieving Inversion of Control
+	(IoC) between classes and their dependencies
+
+	A dependency is a object that another object depends on.
+
+		Examine the following Example
+
+		public class IndexModel: PageModel
+		{
+
+			private readonly MyDependency _myDependency = new MyDependency();
+			
+			public void OnGet() 
+			{ 
+				_myDependency.GetMethod("Text");
+			}
+		}
+
+		Code Dependencies, such as in the previous example, are problematic and should be avoided for the following reasons
+
+			- To replace MyDependency class with a different implementation, the IndexModel must be modified;
+			- If MyDependency class has dependencies, they must also be configured by the IndexModel. 			
+			  In a large project with multiple classes depending on MyDependency, the configuration code becomes scattered across the app;
+			- This implementation is difficult to unit test. The app should be mock or stub MyDependency class, which isn't possible this approach
+
+		Dependency Injection addresses these problems through:
+
+			- The use of interface or base class abstract the dependency implementation
+			- Register of the dependencies in a service container. 
+			- Injection of the service into constructor of the class where it's used. The framework takes on the responsibility of creating an instance of dependency and disposing of it when it's no longer needed;	
 
 
 
+		Services Lifetimes
+		
+			There  are 3 types of lifetimes supported by ASP.NET Core for the dependency injection
+
+			1 Transient Service: Whenever you ask the instance/object, it aways returns new/fresh instance
+			2 Scoped Service: Whenever you create instance, it will be created once per user and shared across all the request. So user specific scope. 
+			   Example Scoped:  let's say we  have a service TimeStampService that returns the current timestamp whenever invoked
+					Let's assume we have registered this service with it's abstraction ITimeStampService as "Scoped Service"
+					When we invoked this Service is various place inside our application within "one request", we should get the same TimeStamp that is recorded the first time the Service instace is created;
+
+					One common usage of this approach would be any database logic implementing classes, since one connection can be allowed within a request;
+					The DbContext class of the Entity Framework Core, when would result in scoped since;
+
+					To create a scope, we make use of the instance of IServiceProvider, which is responsible for maintaining the services.
+					We can then create  a ServiceScope using the instance of the IServiceProvider and resolve an instance of the service
+				
 
 
+			3 Singleton Service: So in this type, only one instance is created and will be shared across the application means shared across all users in the application.
+					If a service is defined as Transient, it is instantiated whenever invoked within a request. 
+					It's is almost similar to creating an instance of the same type using "new" keyword and using it. 
+					It's is also the safest option among all other service types, since we don't need to bother about the thread-safety and memory leaks
 
 
-
+			Constructor Injection
 
 
 
