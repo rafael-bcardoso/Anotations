@@ -1,0 +1,42 @@
+Criar um projeto com todas as hierarquias de que precisam ser dadas.
+
+Dentro da sua conta de usuário do Azure Devops ir em New Project para criar um projeto
+
+	- Project Name
+	- Description
+	- Type - Private
+
+	Advanced Options
+		
+		Git and Scrum
+
+	Create
+
+------ 
+
+	Com a operação acima nós criamos um projeto com as configurações básicas que o Azure Devops nos oferece.
+
+	Primeira coisa que deve ser feita: 
+	
+		Configurar os usuários do projeto
+
+	Project Settings
+
+		Em teams podemos ver apenas um time com o nome do projeto + team. Ex: Church Team
+		
+		Nessa aba de teams nós podemos apenas ver os times que o projeto tem e quais são os usuários que estão dentro desses times. E também podemos adicionar mais times ao projeto
+
+			Eu quero um time de administradores e um time de desenvolvimento
+
+			** New Team na aba Team
+				Name of team
+				Members 
+				Description
+				Administrators - Todos os times precisam ter pelo menos um administrador.
+
+
+		Criado os times e ainda sem nenhum usuário precisamos agora criar as regras para cada time
+
+			Podemos também definir qual será o time default do projeto. A titulo de teste foi definido o time de Administradores.
+
+			Regras de cada time em Permissions

@@ -1,0 +1,944 @@
+MAXIMA: O SELETOR ESPECIFICO VAI SEMPRE SOBREPOR O SELETOR MENOS ESPECIFICO;
+
+Seletores: 
+
+1-) ELEMENTO
+
+	O primeiro seletor que podemos encontrar no CSS é o Elemento, ou seja, através da TAG <a></a> podemos estilizar
+	todos os elementos da página; 
+
+	Ex: 
+		<div>Alguma coisa aqui dentro desse elemento estrutural</div>
+
+		div{
+			background: blue;
+		}
+	Podemos afirmar que todos as divs da páginas terão esse mesmo background;
+
+2-) ELEMENTO ELEMENTO
+
+	o Seletor ELEMENTO, ELEMENTO, diz para a página que somente os elementos que estiverem dentro dessa "regra" receberão a estilização.
+
+	Ex: 
+
+		<div>
+			<a href="index.html>Voltar para a Home</a>
+		</div>
+
+		<a href="contatos.html">Contatos</a>
+
+		div a{
+			background: red;
+		}
+
+	Com isso, somente a tag <a></a> que está dentro da div receberá a cor. A tag <a></a> que está fora da div não receberá a estilização acima.
+
+	div a,
+	h1 {
+  		background: red;
+	}
+	
+	Essa sintaxe diz para o navegador que queremos selecionar a tag <a></a> que está dentro das divs e as tags <h1></h1>, para que essas tags possam receber essa estilização.
+
+3-) Asterisco *
+
+	Mais simples de todos os seletores. Ele diz para o navegador que TODOS OS ELEMENTOS DA PÁGINA terão aquela estilização;
+
+4-) Class e Id
+
+	Só podemos ter uma elemento com aquele Id;
+	Podemos ter N elementos com a mesma estilização de uma determinada class
+
+
+	<div class="bloco">
+		<a href="index.html" id="voltar">Voltar</a>	
+	</div>
+
+	<div class="bloco">
+		<p> Eu sou um texto </p>
+	</div>
+
+	#voltar {
+		background: red;
+	}
+
+	.bloco {
+		background: blue;
+	}
+	
+	Selecionamos o elemento com o id=voltar e colocamos uma cor especifica para ele;
+	Selecinamos todas as classes com o nome bloco e colocamos um determinada cor para ela;
+
+	Também é possivel deixar mais especifica ainda uma seleção; 
+
+	<div>
+		<p>Clique <a href="home.html" class="link">aqui</a>
+	</div>
+
+	<div>
+		<div>Clique <a href="contatos.html" class="link" id="contatos">aqui</div>
+
+	</div>
+
+	a.link {
+		background: red;
+	}
+
+	#contatos {
+		background: blue;
+	}
+
+	Somente a class que está dentro da tag <p></p> receberá a estilização acima;
+	Somente o id contatos receberá a estilização para ficar com a cor azul;
+
+
+5-) PSEUDO-CLASS
+
+	Existem N tipos de PSEUDO-CLASS em CSS. Como por exemplo hover, visited
+
+	São estilização para uma determinada situação;
+
+	Ex: 
+
+	a:hover {
+		font-size: 30px;
+		color: red;
+	}
+	
+	Sempre que passarmos o mouse por cima das tag <a></a> ele receberá essa estilização;
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+PROPRIEDADES DE TEXTOS
+
+	- Definir a cor do texto => font-color; 
+	- Definir a altura da linha => font-wight;
+	- Definir o espaço entre as letras => letter-spacing;
+	- Definir o espaço entre as palavras => word-spacing;
+	- Definir a fonte do texto => font-family;
+	- Definir se o texto deverá ultrapassar ou não o box => word-wrap;
+	- Definir o alinhamento de um determinado texto => text-align;
+	- Definir um paragrafo => text-ident;
+	- Defini a sombra de um texto => text-shadow; (largura, altura, blur, color)
+	
+------------------------------------------------------------------------------------------------------------
+
+OUTRAS TAGS ESTRUTURAIS
+
+	Além das DIVS podemos observar que temos as tags: 
+		
+		<header></header>
+		<article></article>
+		<aside></aside>
+		<footer></footer>
+
+A tag <header></header> funciona igual a tag <div></div>, ou seja, é um elemento estrutural que quando 
+há um div em cime ou embaixo, tem o efeito de bloco. Ela consegue "empurrar" essas divs tanto pra cima como para baixo;
+
+De forma análoga, podemos obsevar a tag <footer></footer>, também é um elemento estrutural e semântico da página
+e funciona selemelhate a uma <div></div>
+
+As tags <article></article> e <aside></aside> também possuem essa característica de bloco das <div></div> 
+e são muito mais semânticos que um div;
+
+Para colocar o aside ao lado da tag article, Foi preciso dizer que a tag aside iria flutuar a esquerda. No entanto, 
+quando nós falamos que ela iria flutuar a esquerda, ela perdeu a "força" empurrar o footer e passou a flutuar
+à esquerda do footer da posição onde ela se encontrava. Com isso, foi preciso dizer que o article também estaria 
+flutuando, para que os dois pudessem trabalhar juntos; Após falar que o article também estava flutuando 
+o que conseguimos foi que os dois perdessem a força para empurrar o footer e ficassem lado a lado na página;
+
+
+Como empurrar o footer para o lugar dele novamente ???? (Canto inferior da página)
+
+1º Modo - Se colocarmos a propiedade clear: both no footer, ele não mais terá o article e o aside flutuando 
+ao seu lado. Consequentemente ele irá descer para a sua posição, deixando quem está flutuando lá pra cima.
+
+2º Modo - Podemos envolver o article e o aside em uma <div></div> estrutural e dizer que essa div possui 
+a propriedade overflow: auto; o que significa que se o conteúdo da div exceder sua largura e altura 
+a página deverá criar scrolls para que o usuário consiga enxergar esses conteudos. No entanto, 
+quando colocar a propriedade overflow nessa <div></div> também adicionamos a ela a característica de ser um 
+bloco novamente, semelhate ao que acontecia antes quando era elementos estrutura sem a propriedade float;
+	ESSE MODO É O MAIS COERENTE ATÉ AGORA;
+
+A propriedade float, diz que o elemento ira flutuar sobre os elementos que estão abaixo ele, ou seja, 
+não há como fluturar sobre o <header></header>, pois ele encontra-se acima. No entanto, sobre o <footer></footer>
+é muito possível;
+
+
+-------------------------------------------------------------------------------------------------
+
+POSITION 
+
+	O position absolute é um position que está relative ao primeiro ancestral relative da pagina 
+	Se ele não tiver nenhum position relative, ele ficará relative a página body
+
+	position relative está relative a ele mesmo, ou seja, eu tenho um elemento na página e ele está em uma 
+	posição X na tela, se ele coloco position relative, ele ficará relative com relação a essa posição X;
+
+DISPLAY
+
+	Por default o display é block para os seguintes elementos: div, article, p, h1, li e alguns outros. Portanto, sempre que adicionados eles quebram um linha; Com isso, precisaremos do float para flutuar eles.
+
+	O span, em  e strong possuem o display inline;
+
+	Elementos inline não podem possuir width e height;
+
+	O display inline-block, permite que o elemento possua width e height, mas não quebrem a linha; 
+
+	Utilizamos muito o display para colocar listas, que possuem normalmente o display block, para que elas possuam um display inline-block e possam ficar lado a lado na página;
+
+----------------------------------------------------------------------------------------------------------
+
+A propriedade box-sizing é muito importante na hora de desenhar o layout de um site, pois ela não deixa que 
+o padding e o border entrem no calculo dos elementos que são box na página;
+
+	Ex; 
+	
+		<div>Test</div>
+
+	Se a página que possui essa div tiver com a estilização para box-sizing: border-box; 
+	Todos os paddins e borders não acrescentarão valores ao elemento <div>Test</div>
+
+	.container:after, .container:before são pseudo classes, no grid, são utilizados para garantir que 
+	quando tivermos elementos flutuando, eles se comportarão como boxes na página;
+
+	Como definir o valor de um Container ???
+
+	(container / colunas x colunaX) - gutter 
+
+	Ex: container = 960
+	    colunas = 16
+	    colunaX = 5 = coluna que eu quero saber o tamanho 
+	    gutter = 20 = 10 de margem em cada lado da coluna
+------------------------------------------------------------------------------------------------------------
+
+CSS User agent Styles o que é ???
+
+Quando um browser renderiza uma página HTML, ele aplica alguns estilos básicos antes mesmo que você 
+ao menos um linha de CSS. Esse ponto é muito importante para entender como que o CSS funciona por baixo 
+dos panos. Por exemplo, as tags <h1></h1> e o <h6></h6> são tags que já possuem um estilização padrão provida
+pelo user agent stylesheet onde o font-size dessas tags são diferentes e ambas já aparecem na página 
+com um font-weight:bold, com margins no top e bottom;
+
+Como resolver o problema que cada browser tem seus próprios estilos para cada uma dessas tags ??
+
+Podemos optar pelo Normalize.css ou pelo Reset.css
+
+Em poucas palavras, podemos inferir que o Normaliza.css é uma solução mais elegante e menos agressiva e o 
+reset.css é um solução menos elegante e mais agressiva.
+ 
+
+Normalize CSS
+
+é um pequeno CSS que prove consistente padrões de elementos para diferentes navegadores. No entanto, 
+em alguns navegadores encontramos problemas ainda
+
+Como funciona o RESET CSS ???
+
+O reset CSS é uma abordagem diferente e diz, basicamente, que não precisamos desses padrões dos navegadores.
+Qualquer estilo que precisaremos no projeto, iremos defini-los no momento que estivermos desenvolvendo o código.
+Portanto, o reset CSS reseta todos os estilos dos navegadores.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Tenho um header fixed na página, como eu faço para os conteúdos que estão vindo depois irem para baixo ???
+
+	Solução até agora - Colocar um margin-top do tamanho do <header></header> para que o elemento comeca bem embaixo do elemento <header></header>
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Como colocar um elemento na página sem precisar escrever ele no HTML ???
+
+Para criarmos esse elemento na página, podemos usar as pseudo classes after and before para que possamos adicionar conteúdos ao html de forma simples. 
+Quando utilizamos as pseudo classes after and before, por default, elas aparecem na tela com display:inline, mas podemos dizer que elas estarão com display:block;
+
+	** Para quem uma imagem ocupe uma <div></div> or <section></section> inteira, é necessário que ela possua as propriedades background-size:cover e background: url(CAMINHO) no-repeat center;
+	** text-align funciona também para imagens, ou seja, não só os texto podem ser alinhados, as imagens também podem ser alinhadas ao centro;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ESTUDO DO DISPLAY
+
+	Display-Inline
+
+	A propriedade display: inline, não permite que os elementos tenha largura e altura; Também podemos observar que o display: inline possui o comportamento de uma palavra
+	Ou seja, se tivermos uma lista de <li></li> com o <ul></ul> com display: inline os elemento <li></li> terão um espaço entre cada um semelhante ao enter de um texto;
+
+	Como tirar esse espaço entre as <li></li> no navegador ???
+
+	Simples!! Para tirarmos os espaços entre as palavras é só colocarmos os <li></li> um do lado do outro;
+
+	Assim: <li>Texto1</li><li>Texto2</li><li>Texto3</li>
+	
+	Display-inline-block: 
+
+	Ele dá aos elementos o comportamento de blocos, ou seja, cada um dos elementos não poderá, a não ser que sejam feitas gambs, ter outros elementos ao lado;
+
+	Como jogar um elemento totalmente para a direita quando ele é um bloco ??
+
+	Como o display: inline-block possui largura e altura, o navegador consegue calcular o que deverá ser preenchido para que o elemento se posicione totalmente em um dos cantos da página 
+
+	No caso descrito, queremos que o elemento fique totalmente na direita. O navegador por si só faz com que o elemento seja deslocado para lá preenchendo toda a sua margem com um valor 
+	que não é visto por nós;
+
+	O text-align não justifica a ultima linha, para que tenhamos o efeito de justify no elementos precisamos colocar N elementos, mas devemos sempre nos atentar que o ultimo elemento 
+	não será justificado;
+
+	<ul class="example">
+    		<li class="example-item example-item-first">Primeiro</li>
+    		<li class="example-item example-item-second">Segundo</li>
+    		<li class="example-item example-item-third">Terceiro</li>
+    		<li class="last-line"></li>
+  	</ul>
+
+	Essa ultima linha está funcionando para que as 3 primeiras linhas fiquem justificadas na tela, ou seja, a primeira totalmente no lada esquerdo, a outra no lado direito e a outra ao centro;
+
+	ISSO É UM GAMBETA MONSTRA KKKKK
+
+	.last-line {
+  		display: inline-block;
+  		width: 100%;
+ 		height: 20px;
+  		background: blue;
+	}
+
+	CSS para que a ultima linha tenha comportamento de texto == display: inline-block, ocupando a linha toda width: 100%;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+FLOAT
+
+	Quando colocamos um elemento com float, ele entra em outro contexto do navegador (à frente) e tudo que está "embaixo" sobe para o antigo contexto do elemento;
+
+	Se o que está embaixo estiver totalmente coberto pelo elemento que está com float e foi para outro contexto, o navegador deixa o conteúdo desse elemento que está embaixo visivel de alguma forma;
+
+	Quando temos um elemento pai que possui dois elementos flutuando envolda dele, ele só entende os elementos que estão no mesmo contexto que ele, ou seja, neste caso são os elementos que estão no contexto do navagador;
+	Para que o elemento pai considire esses elementos que estão flutuando, precisaremos colocar a propriedade overflow: hidden;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+PROPRIEDADE BOX-SIZING
+
+	Por default os navegadores definem que a propriedade box-sizing deve ser content-box, só que esse comportamento não é o correto, pois ele acaba somando ao box os paddings, margens e bordas que o elemento possa vir a ter.
+	Para resolver esse problema devemos alterar o comportamento do box-sizing de content-box para border-box. Com essa modificação podemos colocar o padding e a bordar que quisermos no elemento que ela não será somada ao 
+	conteúdo final do elemento;
+
+	Ex: Tenho um navegador que possui 1920px de width, mas tenho um header que possui width: 100%, padding: 40px 60px; esse padding será somado a largura final do navegador. Portanto, a width passa a ser 1920 + 40 + 40 = 2000px;
+
+	para resolver isso precisamos alterar o box-sizing para border-box. Logo teremos: 40 + 1840 + 40 = 1920px; Comportamento que era esperado por nós quando começamos a desenhar a tela;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OBSERVAÇÕES: Quando colocamos position nos elementos. Não adianta colocar margin-top ou margim-bottom neles que eles não irão se separar dos demais elementos da página. O que precisamos fazer é com que o elemento que está 
+embaixo coloque essa diferença para que ele cuide da sua visualização na tela. Os elementos com position estão em outro contexto na página e não conseguem dar esses "respiros" entre os elementos mais.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Responsividade:
+
+Para usar o @media query, a estilização deve estar entre o tamanho exato que foi definido no CSS;
+Ex: @media only screen and (min-width: 768px) and (max-width: 959px) -> A estilização fica exatamente entre esse valores de tela;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SEO = Search Engine Optimization
+
+- Otimizar os sites para os mecanismos de busca
+
+- Uma boa otimização aumenta o número de visitantes
+
+- O mecanismo pode mudar seu algoritmo
+
+- Quanto mais especifico seu nicho, mais fácil será a otimização do seu site.
+
+- Lembre que poucas pessoas vão até a segunda página de buscas;
+
+Dicas de SEO
+
+- Código HTML limpo e semântico 
+
+- Site rápido e adptável para dispositivos móveis 
+
+- utilizar palavras chaves nas tags title, description, h1 e durante todo o site
+
+- Tentar utilizar um conceito/palavra chave por página;
+
+- Gerar conteúdo através de um blog
+
+- Possuir um conteúdo relevante e exclusivo no seu site (focado no publico alvo)
+
+- Estimular o compartilhamento do seu site em outros sites, blogs e redes sociais;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Metadados com a propriedade og são matadados de ranqueamento do site e são utilizados para subir o site nos buscadores;
+
+og significa open graph que é dizer para outras midias, pricipalmente midias sociais, o que você quer que apareça quando eles estão compartilhando o seu site;
+
+Ex: <meta property="og:type" content="website">
+    <meta property="og:title" content="Bikcraft">
+    <meta property="og:description" content="Bicicletas persolizadas">
+    <meta property="og:url" content="bikcraft.com.br">
+    <meta property="og:image" content="bikcraft.png">
+
+
+Um próximo metadado muito importante é o viewport
+
+	<meta name="viewport"  content="width=device-width, initial-scale=1">
+
+Outro metadado muito importante é o favicon
+
+	<link rel="shortcut icon" href="favicon.ico">
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Estudos box-sizing: A propriedade box-sizing permite-nos incluir um padding e uma bordar na largura e altura total de um elemento;
+
+Como funciona um elemento sem propriedade box-sizing ???
+
+	Por default, a largura e altura de um elemento is calculada assim: 
+
+		width + padding + border = largura de um elemento;
+		height + padding + border = altura de um elemento;
+
+	O que isso quer dizer ?? Quando setamos a largura/altura de um elemento. O elemento frequentimente aparece com um tamanho maior que o determinado. Isso acontece porque 
+	o padding e a borda do elemento são adicionado a sua altura e largura. Portanto, se o elemento não possuir a propriedade box-sizing definida, todos os paddings e borders que 
+	forem adicionados a ele serão somados ao seu tamanho atual;
+
+	Para isso, temos a propriedade box-sizing que resolve esse problema para nós. 
+
+Como funciona um elemento com a propriedade box-sizing ??
+
+	A propriedade box-sizing permite-nos incluir um padding e uma borda ao elemento sem afetar a largura e altura do elemento; 
+
+	Ex: 
+		Eu tenho um elemento que possui uma largura de 100px e uma altura de 100px se esse elemento estiver com a propriedade box-sizing: border-box definida, 
+		ao adicionarmos um padding e uma largura ao elemento, o elemento irá calcular seu tamanho final já considerando o padding e a border, a fim de que seu tamanho final 
+		seja exatamente igual a sua largura e altura;
+
+		* {
+			box-sizing: border-box;
+		}
+		
+		O código acima adicina o border-box a todos elemento da página;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	O webkit-box-sizing é utilizado para definir a propriedade box-sizing no Chrome e no Safari 
+
+	O moz-box-sizing é utilizado para definir a propriedade box-sizing no mozila;
+
+
+	*Quando temos um elemento que possui um display block e colocamos nele a propriedade float, o block meio que diminui ocupando apenas o conteúdo desse elemento.
+	
+	Ex: 
+		Temos uma imagem de logo que está dentro de um link <a></a>, por default todos os elementos <a></a> possuem display: inline. 
+		mas podemos altera-los para display: block. Quando fazemos isso, o elemento <a></a> passa a ocupar todo o tamanho da linha que ele está 
+		podendo ser essa linha feita através de um container ou de um max-width;
+	
+	Portanto, podemos inferir que um elemento que possui display block e não possui nenhum tipo de float ocopara toda a linha aonde 
+	ele está contido;
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Quando temos dois elementos com position: relative quem vai ficar em cima ?
+	
+	Primeiro - é quem está embaixo, ou seja, temos duas tags, a segunda tag, se possuir position: relative, irá ficar por cima;
+	Segundo - quem possuir o maior z-index;
+
+
+	Quando um elemento possui o position: relative ele sobe ou desce para onde a gente quiser, mas seu tamanho original fica aonde ele estava 
+	influenciando os elementos que estão abaixo dele;
+
+	O position absolute não possui o mesmo comportamento, ou seja, ele sobe ou desce e não deixa o tamanho dele na posição onde ele estava. 
+	Com isso, podemos inferir que o uso de position: absolute não influencia os elementos que estão abaixo, mas influencia em relação 
+	aos elementos onde ele foi parar;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Como fazer um circulo usando CSS ?
+
+	Simples!! podemos usar o border-radius
+
+	Criamos o elemento que queremos que fique em formato de circulo e utilizamos o border-radius: 50%;
+	Também podemos utilizar o valor em pixels de forma que o valor que devemos colocar seja maior que a metade da largura do elemento;
+
+	Exemplo
+
+		.produtos-item h2::before {
+
+			content: '';
+			display: block;
+			width: 100px;
+			height: 100px;
+			background: blue;
+			border-radius: 50px; //Já transforma esse elemento em um circulo, pois o valor do border-radius é maior ou igual a metade do tamanho da largura deste elemento;
+		}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como funciona o box-shadow ??
+		O box-shadow é a propriedade CSS que coloca sombra no elemetos 
+
+		box-shadow: 0 0 0 #color; //primeiro parametro = horizontal  (-) <- -> (+) || segundo parametro = vertical (+) para cima  (-) para baixo || terceiro parametro é o blur || quarto parametro é a cor; 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como funciona a tag 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+		The width=device-width part sets the width of the page to follow the screen-width of the device 
+		(which will vary depending on the device)
+
+		The initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser.
+
+	* Users are used to scroll website verticaly on both desktop and mobile device - but not horizontally!
+
+	  So, if the user is forced to scroll horinzontally, or zoom out, to see the web page it results in a poor user experience.
+
+		shrink-to-fit is true by default, because the apple need which the pages reder in all devices.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	What is clearfix hack ?
+
+		The clearfix hack inserting an element below the text and image and setting it to clear both
+
+	O clearfix funciona para os elementos que estão abaixo ou acima. Exemplo, tenho um container com 3 quadrados flutuando dentro de uma
+	div pai que eu chamei de container
+
+	<div class="pai">
+		<div class="filho"></div>
+		<div class="filho"></div>
+		<div class="filho"></div>
+	</div>
+
+	Eu coloco o clearfix na class pai, para que os elementos que vem abaixo enxerguem essa div como um bloco que possui altura. Não um bloco 
+	que está flutuando fora do context da página. Mas a merda é tentar colocar um call to action dentro dessa classe pai, pois para ele 
+	as divs com class="filho" está em outro context. Como resolver esse problema ??
+
+	Simples, precisaremos de um internal-container para que esse também tenha seu próprio clearfix e o botão entenda que esse bloco possui 
+	uma altura;
+
+	<div class="pai">
+
+		<div class="filho"></div>
+		<div class="filho"></div>
+		<div class="filho"></div>
+		
+		<a href="sobre">Sobre</a>
+	</div> 
+		Do jeito que está ai em cima o botão sobre não sabe que os filhos possui uma altura e ele baseia-se na class pai
+
+	
+	<div class="pai">
+		
+		<div class="internar-pai">
+			<div class="filho"></div>
+			<div class="filho"></div>
+			<div class="filho"></div>
+		</div>		
+		
+		<a href="sobre">Sobre</a>
+	</div> 
+
+		Na disposição dos elementos que temos acima, o botão sobre irá entender que o bloco que está acima dele possui uma altura, pois 
+		a class internal-pai irá possuir seu próprio clearfix. Com isso, resolvemos esse problema;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+	How to create circulus effect ??
+
+	Colocando o border-radius para 50% nós criamos um circulo em uma determinada <div></div>, mas para criar o efeito devemos ter em mente 
+	que depois do circulo vem a margem e depois da margem vem o box-shadow;
+
+	Colocando a margem do circulo com a cor do fundo ela fara o efeito que desejamos.
+
+	No CSS existe uma propriedade chamada currentColor que diz que irá pegar a cor que está na propriedade color;
+
+
+	Sequência para fazer o efeito que vimos no site de exemplo 
+
+	border-radius: 50% -- Deixa o que é quadrado em formato de circulo;
+	border: 5px solid #000 -- Cria uma margem preta em volta do circulo;
+	box-shadow: 0 0 0 5px #fff -- Cria o que parece ser uma margem, mas é uma sobra em volta do elemento;
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Quando colocamos um input e um button inline, sempre sobra um espaço entre os dois. Para resolver esse problema, devemos fazer com que esses elementos
+ocupem todo o espaço reservado para o grid de forma que não sobre espaco e os dois fiquem lado a lado 
+
+	Ex: Temos um grid com 100px 
+
+	o input deverá possuir uma largura de 80px e o button uma largura de 20px, mas o input deverá estar com float: left para que o button
+	possa flutuar ao lado dele.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como funciona o display: flex ?
+
+		Um elemento HTML que possui display: flex; diz que todos os filhos serão flex
+		
+		Ex: 
+
+			<div class="principal">
+				<div>Primeiro</div>
+				<div>Segundo</div>
+			</div>
+			
+			<style>
+				.principal{
+					display: flex;
+				}
+			</style>
+
+			Os elementos primeiro e segundo ocuparão 100% da sua largura de forma que os dois fiquem em uma mesma linha;
+
+
+	Propriedades: 
+
+		depois que defirmos que será o elemento com display: flex, por default todos os filhos vem com o flex do tipo row,
+		mas isso pode ser customizado.
+
+		Poderiamos dizer que o flex será em coluna
+
+		Ex: 
+
+			.principal{
+				display: flex;
+				flex-direction: column;
+			}
+
+
+		é importante destacar que a largura no display: flex é baseada no conteúdo do itens. Isso é feito pois o flex-wrap, por default 
+		é nowrap, mas podemos utilizar o flex-wrap: wrap
+
+		No caso nenhum dos elementos tenha definido qual será a largura, o seu conteúdo interno, que normalmente é um texto fica corrido, ou 
+		seja, ele vai em linha reta até o final da página e depois ele quebra;
+
+		A propriedade justify-content serve para alinhar o items; 
+
+		Ex: 
+	
+		.principal{
+			justify-content: center; Todos os itens estarão no centro da linha
+
+			justify-content: space-between // Há um espaço entre os elementos de forma que eles fiquem no máximo dos cantos
+
+			justify-content: space-around; // Criar também um espaço entre os elementos, mas ele também coloca esse espaço no inicio e no fim;
+		
+		A propriedade align-items alinha os elementos na vertical; 
+
+		Dentro de um container os itens internos podem estar alinhados no final do component, no inicio do component, no centro do 
+		component, podem esticar para caber no container todo;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+	ESTUODO SOBRE FLEX-BOX
+
+		Quando estamos trabalhando com flex box não temos um container definido igual temos no grid, mas podemos cria-lo;
+
+		Quando dizemos que um class/elemento é um display: flex; estamos dizendo que todos os elemento que estão dentro daquela 
+		classe se comportará como flex;
+
+
+		.container{
+			display: flex; //Isso define que container flex. Ele poder ser inline ou em bloco;
+		}
+
+		flex-direction -> Define em que direção os flex-items são dispostos em um container. Por default ele vem como row;
+		order -> Quando definimos um flex container, há varios flex-items dentro desse container. Podemos definir a ordem como esses itens irão aparecer na tela através da proprieade order;
+
+		.item-1{
+			order: 2;
+		}
+
+		.item-2{
+			order: 1;
+		}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Qual a diferença entre o '' e o > no CSS quando queremos selecionar elementos ?
+
+	<div class="father">
+
+		<div>
+			Kelly
+			<div>
+				Jonas Amitai
+			</div>
+			
+		</div>
+		<div>
+			Jonas
+		</div>
+	
+	</div>
+	
+	.father div{
+		background: blue;
+	} // Vai pegar TODAS AS DIVS Inclusive as que estão dentro; (No exemplo em questão são 3 Divs)
+
+	.father>div{
+		background: tomato;
+	} // Vai buscar as divs imediatamente após a classe father (No exemplo em questão são apenas duas divs)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Estudo sobre o flex-grow, flex-shrink e flex-basis
+
+		Valores default
+
+
+		FLEX GROW
+
+			Valor default é 0, ou seja, temos um container de tamanho X, mas os itens internos do container não expandem 
+			para ocupar todo o container
+
+
+			Ex: 
+
+				<div class="container">  <!--- com flex-grow: 0 --->
+					<div>1</div>
+					<div>2</div>
+				</div>
+
+				Com o flex-grow padrão, o conteúdo do container terá o tamanho relativo aos seus conteúdos, ou seja, 
+				o largura será a largura referente ao número 1 e 2 apenas;
+
+
+		FLEX BASIS
+			
+			Indica a largura inicial de um dado item, antes que sofra influência de outras propriedades (muito parecido com o widht)
+
+			valor default: flex-basis: auto <!--- Esse valor diz que o item respeitara a largura que lhe foi definida, ou seja, se não foi definida nenhuma largura ele ira ter a largura do seu conteúdo;
+
+			Por exemplo: 
+	
+				Tenho um item com uma largura especifica e um width X, será respeitado esse width que foi definido, pois há 
+			um largura e o flex-basis está definido como auto;
+
+
+				Também é possível definir a largura no próprio flex-basis: 300px;
+				Não está mais respeitando a largura do conteúdo dos itens, ele agora respeita a largura que foi definida;
+
+
+				Como funciona o flex-basis: 0 ???
+
+				Temos 4 itens em um container, foi definido um flex-grow: 1, ou seja, esses itens tentarão preencher todo 
+				o conteúdo do container. No entanto, se houver itens com conteúdos diferentes, o que será respeitado é 
+				o tamanho  desses conteúdos. Visto que não temos nenhum width e nenhum flex-basis definido.
+
+				Para que os itens fiquem distribuídos de forma uniforme no container, preenchendo toda a largura do container e 
+				tudo isso sendo feito de forma automática, sem que eu precise setar um valor de width, eu precisarei usar o flex-basis: 0;
+	
+
+		FLEX SHRINK
+
+			Defini a capacidade de redução de um item;
+
+			Valor default: flex-shrink: 1; <!--- Quando definido diz que o item poderá ter seu tamanho diminuído para caber dentro do container --->
+
+
+			Se o valor do flex-shrink for maior que 1, isso diz que o item terá seu tamanho diminuído proporcionalmente no valor que colocamos. Se o valor colocado diminuir o elemento de forma atinja o tamanho que temos no conteúdo, 
+			o que vai ser respeitado é o conteúdo do elemento;
+
+
+		DITO ISSO, O QUE É A PROPRIEDADE FLEX ?????? 
+
+		A propriedade flex é um resumo de todas essas 3 propriedades 
+
+			flex: <flex-grow> <flex-shrink>? <flex-basis>
+
+			flex: 1 === flex: 1 1 0%; 
+
+
+--------------------------------------------------------------------------------------------------------------
+
+	O align-items é utilizado em quem está segurando os itens;
+	
+-------------------------------------------------------------------------------------------------------------
+
+	Bootstrap
+
+	Como podemos ver no bootstrap quem define o display como flex é a class .row
+
+	.row{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	
+
+	Essa classe row é tipo um wrapper que armazena um lista de colunas dentro dela. Essas colunas também utilizam as propriedades de flex
+
+	Funcionando da seguinte maneira: 
+
+	A propriedade flex-grow é definida como zero para que os itens não cresçam visando ocupar todo o tamanho do container
+	A propriedade flex-shrink também é definida como zero para que o conteúdo não diminua para caber dentro do container
+
+	Essa propriedade funciona da seguinte maneira: Quando colocamo o flex-grow: 1 todos os itens vão tentar crescer de forma a preencher todo o container
+	Se o conteúdo desses itens for iguais, todos terão o mesmo tamanho. No entanto, se um elemento estiver com um conteúdo maior os demais, para que tudo fique dentro do container, irão precisar diminuir;
+	No entanto, esse diminuição de tamanho do item não é apenas até o tamanho minimo do item, de forma que seja preservado o conteúdo desse item;
+
+	Se temos um elemento com flex-grow: 1 e colocamos ele com flex-shrink:0 ele pode não respeitar o tamanho do container flex e vai embora até o fim de seu conteúdo;
+
+
+	No caso do bootstrap ele não da a minima para essas duas propriedades, pois ele resolver tudo com porcentagem e com o flex-basis
+
+	Colocando o 
+	
+	flex-grow: 0; // Os itens não irão crescer de forma a preencher todo o container
+	flex-shrink: 0; // Diz que os itens não podem diminuir seus tamanhos a fim de que todos os itens estejam dentro do container
+	flex-basis: 50%; // Diz que o tamanho da coluna, que nesse caso é a coluna 6, terá 50% do tamanho do container;
+	
+
+	Interressante que o Bootstrap trabalha com o flex-basis dentro de seu grid ele faz o seguinte:
+
+	Numero de colunas: 12
+	Tamanho total: 100%
+
+		.col-1 é 100/12 = 8.333333% com cinco casas decimais após a virgula;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como centralizar uma imagem ?
+
+	Se eu tiver uma imagem dentro de uma tag a ou de um div e colocar a margin: 0 auto; na imagem, mesmo assim ela não ira centralizar
+	Por que ?? Porque para centraliza-la ela precisa estár ocupando todo a linha e para que isso aconteça ela precisa ter o display: block;
+						
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Propriedade text-identity: Não funciona em elementos inline <a></a> <span></span>, só funciona com elementos do tipo block ou inline-block
+	como paragrafos ou divs. Portanto, caso esteja trabalhando com um elemento <a></a> ou <span></span> basta atribuir a propriedade 
+	display: inline-block or display: block
+
+	O text-identity também não funciona com textos alinhados a direita ou a esquerda.
+
+	Portanto, para que a propriedade text-identity funcione corretamente são necessários os seguintes atributos.		
+		
+		display: inline-block or display: block
+		text-align: left
+
+	Se tivermos uma lista com alguns items e quisermos sumir com esses itens e transforma-los em circulos 
+
+	<ul class="flavours">
+
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+
+---------------------------------------------------------------------------------------------------------------------------------------------------]
+
+	Propriedades do box-shadow: offset-x, offset-y, blur-radius, spread-radius, color
+	
+		Eixo X
+		Eixo Y
+		Blur
+		Raio 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+	vertical-align é usado para alinha elementos inline ou table-cell. Não funciona em elementos do tipo block
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Para usar grid dentro de grid sempre precisamos utilizar o .row
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+

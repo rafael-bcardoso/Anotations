@@ -1,0 +1,87 @@
+Módulos no Angular
+
+	O angular possui um module principal também conhecido como appModule or root
+
+	Um módulo do angular possui N components
+
+	Um submódulo do Angular possui N Components também e está ligado ao módulo principal objetivamente. É importante 
+	destacar que um submódulo pode possuir seu próprio roteamento;
+
+	Com o uso de submódulo podemos utiliza de forma clara o LazyLoad;
+
+** Existem 2 tipos de módulos no Angular: 
+	
+	1 - Módulo principal
+	2 - Módulo simples (somente agrupa algumas responsabilidades do Angular)
+
+O que tem em um módulo do Angular ???
+
+	Declarations: São os componentes que o módulo possui;
+	Imports: São módulos do Angular, Módulos seus ou módulos de terceiros que a aplicação está usando;
+	Providers: Os Providers são todos os serviços da aplicação que serão injetados nos componentes via injeção de dependencias;
+	bootstrap: Diz qual é o component que iniciara quando a aplicação subir;
+	Exports: Diz quais são os componentes que estarão visiveis a outros módulos do sistema;
+
+-----------------------------------------------------------------------------------------------------------
+
+Como eu crio um módulo no Angular ?? 
+
+	Para criar um módulo no Angular é necessário usar o metadado do Angular chamado @NgModule({})
+que recebe um JSON como paramentro;
+
+	Nesse JSON que o NgModule está esperando receber nós podemos colocar os declarations, imports e exports do Módule;
+
+*** TODO MÓDULE PRECISA DO COMMONMODULE, pois ele possui algumas functions importantes para o Módule;
+
+
+------------------------------------------------------------------------------------------------------
+
+Como adicionar o módulo de roteamento a um módulo do sistema 
+
+
+- Usar a metadado do Angular @NgModule({}), que recebe o mesmo JSON que todos os outros módulos do sistema;
+
+Imports: [RouterModule.foorRoot(CONTANT_WITH_ROUTES)] -- Importando o Módulo de roteamento do Angular para dizer quem são as rotas principais do sistema;
+Exports: [RouterModule] -- Exportando o módulo com as configurações que acabei de fazer;
+
+O que aconteceu aqui ?? Você acabou de dizer para o Angular, que no módulo de rotas dele, são as 
+rotas que estão nessa CONTANT_WITH_ROUTES que pertencem o módulo principal da aplicação, ao root, ao appModule do sistema;
+
+Dentro do app.module, nós precisaremos importar o módulo de rota do Angular que acabamos de configurar 
+e para fazer isso é somente usar o AppRoutingModule;
+
+--- Padrão de nome para Exportar NomeModuleFunçãoModule -> ProdutoRoutingModule or AppModule;
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Como adicionar uma biblioteca com uma versão especifica ??
+	npm install ngx-owl-carousel-o@3.1.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

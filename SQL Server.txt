@@ -1,0 +1,188 @@
+Deu problema na conexão remota entre o C# e um banco na nuvem ??
+
+	Verificar se o Firewall não está bloqueando o serviço SQL SERVER.
+		Dois cliques no serviço e ir em scope, lá tem todos os IPs que estão habilitados a fazer conexões com o SQL Server;
+
+		Também é importante destacar que o IP que devemos colocar para fazer conexões remotas é o IP público da nossa máquina que encontra-se disponível no site myIP.
+		Adicionando este IP no Firewall será possível estabelecer uma conexão remota entre o meu computador e o servidor;
+
+		- Verificar também se o a instância do SQL Server está fazendo conexões remotas. Como vejo isso ?
+
+			- Abrir o SQL Server
+			- Na instância do SQL Server - botão direito - propiedades 
+			- Conexões 
+			- Allow remote connections
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+SQL Server Security
+
+A necessidade de proteção dos dados começa quando precisamos autorizar e autenticar o acesso de usuário a dados especificos. Para esse fim 
+o SQL Server tem um mecanismos de autenticação para verificar as credenciais de usuários que estão tentando se conectar ao SQL Server.
+
+Server roles são mantidos pelo (DBA) e aplicados a todo o servidor, não somente para um individual banco de dados;
+
+O função de servidor public define configurações básicas para todos os usuários. Portanto, todo usuário que é adicionado ao SQL Server é 
+automaticamente adicionado a função public.
+
+Database roles são aplicados para banco de dados individuais
+
+Há varárias Database roles já pré-definidas:
+
+db_owner: Membros tem full acesso
+db_accessadmin: Membros desse grupo podem gerenciar Windows Groups e SQL Server logins
+db_datareader: Members podem ler todos os dados
+db_datawriter: Membros desse grupo podem adicionar, deletar ou modificar os dados nas tabelas
+db_ddladmin: Membros podem gerenciar os membros de um função e gerenciar as permissões
+db_bckupoperator: Membros desse grupo podem fazer backup
+db_denydatareader: Membros desse grupo não podem ver os dados de dentro do banco de dados
+db_denydatawriter: Membros não podem mudar or deletar os dados em uma tabela ou view;
+
+
+Fixed roles: Há várias funções de servidor já pre-definidas
+
+SysAdmin: Algum membro desse grupo pode realizar qualquer ação no servidor	
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Como adicionar um novo usuário ao banco de dados com todas as suas restrições ??
+
+1º É importante ressaltar que há diferenças entre permições de servidor e permissões de banco de dados
+
+Add um novo usuário
+
+	Dentro da instânica -> Pasta Security -> Login -> New User
+
+		Colocar o nome do usuário, senha (SQL Server Authentication), tirar o check do Enforce password expiration
+		Escolher o Default database daquele usuário, escolher a linguagem padrão daquele usuário
+
+		No canto esquerdo em Server Roles (Funções de Servidor), nós podemos definir qual será a função desse usuário dentro do Servidor como um Todo, ou seja, ele será o sysadmin, poderá fazer backup, gerenciar os discos, gerenciar os processos e etc
+		Por default deixar como public, que possui o minimo de acesso
+
+		Na canto esquerdo também, já podemos mapear os banco de dados que esse usuário terá acesso e já pensando em funções de banco de dados, definir qual será o papel desse usuário no banco de dados que estamos adicionando, ou seja, ele será o db_owner do banco, backupoperator e etc.
+
+		Na opções Securables, podemos restringir ainda mais o acesso do usuário dentro dos objetos do servidor, ou seja, o que esse usuário podera alterar dentro do servidor.
+
+		Na opção status, vemos se usuário tem permissão para conectar na instância e se o login dele está ativo ou não;
+
+	** Adicionei um usuário para um banco de dados especifico e no meu servidor eu Tenho 4 Bancos de dados e só queria que ele pudesse ver um. Como faço isso ?? **
+
+		Delete o usuário do banco que ele precisa ter acesso 
+
+		Rode o seguinte script
+
+		 
+			USE NerdStore
+
+			ALTER AUTHORIZATION ON DATABASE::NerdStore to rafael
+
+			USE MASTER
+
+			DENY VIEW ANY DATABASE TO rafael
+
+
+	 - Para poder criar um banco de dados dentro do SQL Server tem que possuir no minimo o Server Role de db_creator
+		
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Como funcionam os Jobs no SQL Server ????
+
+
+	Primeiro de tudo precisamos definir o que queremos colocar no Job. Se for uma Procedure é mais fácil, pois o que precisamos 
+	é ir na Procedure e clicar com o botão direito, Script Stored Procedure as -> Execute to -> New Query Editor Window
+
+	Aqui o Sql Server irá nos mostrar a query que devemos utilizar para executar essa procedure
+
+	Em SQL Server Agent -> Jobs -> Botão direito New Job Abrira um Wizard para que possamos criar um novo Job
+
+		Guia General 
+
+			Name: Nome do Job que iremos criar 
+			Owner: Quem será o usuário proprietário desse Job (Normalmente colocamos o usuário que tem acesso ao banco, como por exemplo, RISWC)
+			Category: A função desse campo é organizar os Jobs 
+				  Você pode ir na pasta Jobs -> Manager Job Categories. Irá abrir uma janela com todas as categorias  
+				  e todos os Jobs que estão associados a essa categoria.
+			Description: Lugar onde podemos colocar uma simples descrição de como esse Job deverá funcionar.
+
+		
+		Steps: Nessa área é onde definimos todos os passos do Job em questão, ou seja, o que ele vai executar mesmo. Pode ser a query que ira rodar a Procedure;
+
+			Name: Nome da etapa que o Job irá executar
+			Type: O tipo de execução que o Job deverá executar. Como estamos falando de um Query é um (T-SQL)
+
+			Command: Basicamente você colocar o comando que deverá ser executado. Ele pode ser executado através de um script que você copiou e colocou ou um script que você tem na sua máquina e vai usar
+
+		   Advanced: Aba Advanced no Guia Steps
+
+			On success action: Aqui devemos colocar a ação que queremos executar caso o comando seja executado da forma certa
+				Retry Attemps: Quantas vezes vamos tentar repetir o comando que falhou;
+				Retry Interval Minutes: Intervalo, em minutos, que o comando deverá ser executado novamente;
+			On failure action: Ação que deverá ser executada em caso de falha
+
+			Output file: é um arquivo que devemos associar para gravar as saídas dessa etapa. Por default ele é sempre substituído, mas ele também pode pode fazer um append no arquivo, basta selecionar o checkbox;
+			
+			Log to table: Ao invés de colocar um arquivo para guardar a saída do comando, podemos gravar essa saída em uma tabela do banco de dados e ir fazendo o append nela. 
+				      Para vizualizar o conteúdo dessa tabela, basta clicarmos em View;
+
+			Include step output in history: Inclui a saída dessa etapa no histórico. É importante ressaltar que a saída só será gravada se não houver erros na execução do comando;
+			
+			Run as user: definir um proxy para executar o Job (Entender melhor)
+
+		
+
+		
+
+		Schedules: Onde definimos como deverá ser a escala desse Job
+
+			Name: Nome da escala do Job
+	 		Schedule Type: Há 4 tipos de escala no SQL Server (Iniciar quando o SQL Server Agent iniciar, Iniciar quando a CPU estiver ociosa, Recorrente, Uma vez)
+			
+			Frequency: Definimos a frequência desse Job
+
+			Occurs: Quantas vezes ele irá se repetir (Diariamente, Semanalmente,Mensalmente)
+			Recurs every: Quantas vezes ele deverá se repetir
+			
+			Daily frequency: O horário que essa escala vai rodar
+				
+				Occurs once at: O horário unico que esse job vai rodar
+				
+				Occurs every: Intervalo em horas que ele vai se repetir
+
+					Você defini o intervalo em horas a hora inicial e a hora final
+			
+			Duration: É o intervalo de datas que esse Job deverá ser executado, ou seja, começa quando e termina quando esse Job.
+		
+
+		Alerts:
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

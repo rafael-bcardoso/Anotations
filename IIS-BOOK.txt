@@ -1,0 +1,118 @@
+
+	Quando surgiu o IIS ?
+
+		Tem mais 15 anos, desde a sua primeira encarnação no Windows NT 3.51
+
+	IIS Versions
+
+		1.0 para 4.0
+
+	O IIS foi lançado com o Service Pack 3 para Windows NT 3.51, como um conjunto de serviços que fornecem HTTP. Essa versão do IIS tinha
+	muitas funcionalidades legais, mas muitos dos usuários ainda escolhiam software de terceiros para o provisionamento de suas aplicações. 
+	Muito porque o IIS demorou para ser lançado e tinha poucas integrações com o sistema operacional Windows.
+
+		Windows NT 4.0
+	
+	Com o lançamento do Windows NT 4.0 o IIS foi amadurecido para a versão 2.0. A mais notavel feature que podia ser destacada no IIS 2.0
+	era a integração completa com o sistema operacional Windows NT. O IIS 2.0 introduziu o suporte ao HTTP Host headers, que permitia que 
+	multiplos sites rodassem no mesmo endereço de IP. Também foi introduzido no IIS 2.0 um web browser para o gerenciamento e indexação de conteúdo
+	através do Microsoft Index Server (Microsoft Index Server era ti)
+
+		IIS 3.0
+	
+	A versão do IIS 3.0 foi lançada junto com o Windows NT Service Pack 3 e introduziu no mundo o ASP (Active Service Pages) e o conceito da
+	Microsoft para application servers. Um precusor para o ambiente ASP.NET, esse ASP que foi introduzido com o Windows NT Service Pack 3.0
+	hoje é conhecido como ASP Classico. O ASP é um ambiente serve-side scripting para o fornecimento de páginas dinamicamente. O browser faz
+	uma requisição para o servidor e ele devolve uma página
+
+		IIS 4.0
+
+	O IIS 4.0, foi disponizado no NT Option Pack, introduziu o ASP 2.0. Um ponto importante que podemos destacar no IIS 4.0 é que ele 
+	foi a ultima versão do IIS que era baixada e instalada fora do Sistema Operacional;
+
+
+		IIS 5.0 e 5.1
+
+	Com o lançamento do Windows 2000, o IIS tornou-se integrado ao Sistema Operacional Windows
+
+	O IIS 5.0 estava presente no Windows 2000 e o IIS 5.1 estava presente no Windows XP
+
+	Quando o IIS foi integrado ao Windows 2000 ele tornou-se um serviço do sistema operacional
+
+
+		IIS 6.0
+
+	O IIS 6.0 foi lançado junto com o Windows Server 2003 e a ediçao Windows XP Professional 64-bit, que foi criada com base no código 
+	do Windows Server 2003 Service Pack 1. Portanto, o IIS 6.0 é identico nas duas versões de Windows
+
+			Seguro por default
+
+		O IIS 6.0 e o Windows Server 2003 enviaram um estado securo. e o IIS não era instalado por default
+
+	O IIS 6.0 alterou o modo como o IIS processava as requisições, eliminando o que teria sido um grande obstaculo no provisionamento de 
+	multiples sites pelo IIS
+
+		O IIS 6.0 utilizava o HTTP.sys para receber as requisiçoes e então as entregrava ao process worker ao qual a requisição 
+	estava direcionada. Esses worker process estava isolados em application pools e os administradores poderiam assina especificos application pools
+	para sites especificos ou aplicações. Com isso muito mais requisiçoes poderiam ser processadas simultaneamente. Essa arquitetura também 
+	prove um ambiente mais isolado para as aplicações em casa de algum erro em uma site ou API que esteja rodando no IIS, pois 
+	como cada uma está no seu próprio process worker dentro do ser application pool, o erro não influencia nas outras aplicações ou sites.
+	
+		IIS 6.0 mudou a forma como os aplicativos se comportavam em memória, isolando as aplicações em application pools. Com isso, os administradores podem  configurar
+	separados pools de memória para separar as aplicações, evitando assim que quando uma aplicaçõa vem a falhar todas as demais acabem por falhar também. 
+	Isso é muito importante para um web server, especialmente em aplicações ASP.NET
+
+		FTP Service cresceu no IIS 6.0, pois fornecia mais segurança e isolamento através do uso do AD e do Windows Account. Com isso,usuários poderiam 
+	restrigir as pastas que iriam usar para o FTP evitando assim a sobrescrita de arquivos ou a utilização compartilhada.
+
+
+		IIS 7.0 e 7.5
+
+	O IIS 7.0 teve uma completa reescrita do código fonte do IIS 6.0, disponivel no Windows Vista e Windows Server 2008. IIS 7.0 foi introduzido no Windows 7 que consistia em um 
+	IIS 7.0 plus. Os usuário poderiam atualizar do IIS 7.0 para o IIS 7.5 instalando os módulos necessários
+
+		O IIS 7.0 foi uma reescrita do zero do IIS 6.0. Integrado com o ASP.NET framework feita para APIs. Segurança que incluia a delegação da configuração e um completo diagnostico
+	através de request tracing e logs avançados que satisfazia a maioria dos desejos dos administradores
+
+		Integração com o ASP.NET
+
+	Uma das maiores mudanças no IIS 7.0 foi a finalização da integração com o ASP.NET e ASP.NET process
+	O IIS 7.0 introduziu o conceito de shared configuration, onde um unico arquivo de configuração, teria a configuração de deploy de N aplicações
+
+
+	O IIS 7.0 introduziu o applicationHost.config para armazenar as configurações e opções de sites individuais ou web applications for movidas para o web.config
+
+		Gerenciamento e Delegação
+
+	Nas versões anteriores ao IIS era feito concedendo privilegios locais de admin para o usuário ou através Windows Management Instrumentation
+	(WMI) e o AD. Logo qualquer usuário poderia gerenciar todo o IIS. Já no IIS 7.0 a delegação da administração ficou dividida por server, site e niveis de aplicação
+
+		Autenticação e Autorização unificadas
+
+		No IIS 7.0, a autenticação e autorização migrou para o processo de autenticação e autorização do ASP.NET, isso permitiu administradores e desenvolvedores
+	usarem a autenticaçao do  ASP.NET para todos os arquivos, pastas e aplicações
+
+
+		Gerenciamento Remoto
+
+	Apesar do IIS já nas versões anteriores poder ser gerenciado usando o IIS Manager sobre RPC, isso não era muito confiavel para o firewall.
+	Uma pagina HTML também já existia, mas não permitia o gerenciamento do todas as features do IIS.	
+		O IIS 7.0 introduziu um conceito de IIS Users, esses usuários não existiam fora do IIS. IIS Users não usam o Windows CALs.
+
+		AppCmd.exe Command Line Utility
+	
+	Com o IIS 7.0 foi lançado um novo cmd
+
+		Powesheel Integration
+
+	IIS 7.0 fez a integração com o PowerSheel
+
+		Dianosticos
+
+	Foi desenvolvido um novo tracing para que os desenvolvedores ou administradores de redes possam logar qualquer tipo de conteúdo ou request
+	em um arquivo de log
+
+
+	Página 13
+
+		

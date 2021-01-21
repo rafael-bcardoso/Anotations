@@ -1,0 +1,286 @@
+Como saber se um valor é "", 0, undefinied, null or NaN ??
+	Se você negar esse valor ele retorna true
+
+Como para um foreach em js ?
+
+	Impossível para-lo. Para isso será necessário utilizar outro tipo de for;
+
+	for of
+	Array.prototype.every();
+	Array.prototype.some();
+	Array.prototype.find();
+	Array.prototype.findIndex();
+
+	Os métodos every(), some(), find(), findIndex() são exemplos de métodos que precisam de alguma condicional para encontrar o elemento que estamos querendo achar;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Function Slice
+
+	Retorna um novo array a partir de um inicio e um fim que é opcional
+
+	Ex: 
+
+	var numbers = [1,3,4,5,6];
+
+	var result = numbers.slice(1, 4);
+
+	result = [3,4,5];
+
+	Ou seja, o indice chamado de fim não entra na contagem;
+
+	O método slice também pode ser chamado para converter Array-like objects/collections em um novo Array. Nós só precisaremos encadear o método no Array;
+
+	[].slice.call(arguments);
+
+	O que é um Array-like ???
+
+
+	Em javascript há um tipo de dado chamado Array cuja declaração é feita como demonstrado abaixo: 
+
+		let numbers = [1, 2, 3, 4];
+
+	Esse array possui a propriedade length que diz a quantidade de itens que esse objeto possui;
+
+		numbers.length = 3;
+
+	No entanto, não há mudanças significativas entre um array e um objeto. Com isso podemos inferir que podemos iterar por todas as propriedades de um objeto como se 
+	ele fosse um array. No entanto, precisaremos adicionar a propriedade length a esse objeto para que ele possa ser iterado e criar o objeto como se ele fosse um array;
+		
+		let person = { "0": "Rafael Cardoso", "1": "26", "2": "M", lenth: 3 }
+
+	Podemos observar um exemplo no código descrito abaixo:
+
+		for(let i  = 0; i < person.length; i++) { console.log(person[i]); }
+
+	Como podemos observar na imagem acima, é possível iterar sobre um objeto de forma que ele funcione igual a um array, mas devemos considerar as particularidades desse objeto;
+	Também é importante destacar que esse objeto, mesmo se parecendo com um array, não possui os métodos nativos de um array. Como por exemplo o forEach
+	Também podemos destacar que quando adicionamos um novo item a esse array, sua propriedade length é atualizada de forma automatica. O que não pode ser obsevado 
+	na quando estamos falando de um objeto;
+
+	Quando temos um objeto que se parece com um array, ele é chamado "array-like", ou seja, um objeto "parecido com um array".
+
+	Saber se um dado objeto é um array-like só é importante quando você necessita que esse objeto também tenha os métodos de um array;
+
+	Também é possível iterar sobre um objeto usando a forma explicíta do seu protótipo:
+
+		Array.prototype.forEach.call(person, function( item ) { console.log( item ); });
+
+	Podemos adicionar uma propriedade a um objeto utilizando seu prototype de forma que seu length seja atualizado dinamicamente:
+		
+		let person = { length: 0 }
+		
+		Array.prototype.push.call( person, 10 )
+
+		return = 1; 
+
+		person = { "0": 10, length: 1 }
+
+	Também é importante destacar que em JS todas as propriedades de um objeto são textuais: 
+
+	Ex: 
+
+		let array = [1, 2, 3, 4]
+		array[0] = 1;
+
+		Internamente é como se estivessemos fazendo isso: 
+
+		var arr = Object.create(Array.prototype, { "0", "1", "1": "2", "2": "3", "3": "4", length: 4 } )
+		arr["1"] = 4;
+
+	Conceitualmente falando, para um objeto ser considerado X-like ele deve possuir uma interface implicita que é compatível, até certo ponto, com o tipo X. 
+
+	Ou seja, ainda que ela não pertença à classe, e essa classe não possua um contrato explícito, mas esse objeto ainda cumpra o suficiente do contrato, ele será considerado X-like;
+
+
+	 Array.prototype.slice.call(steps, 0)
+
+		Nesse exemplo acima estou chamando o método slice de array, passando um NodeList e o fim, que é opcional, eu passo como 0;
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	O que representa o prototype ??
+
+	Praticamente todos os objetos em Javascript descendem de Object; 
+	E todos os métodos o propriedades são herdados de Object.prototype, mas eles podem ser sobrescritos (Exceto um Objeto com protótipo null)
+
+	Alterções no objeto prototype são propagadas a todos através do encadeamento de protótipos, a menos que os objetos filhos façam uma nova sobrescrita de métodos;
+
+	Com isso, podemos inferir que por tratar de uma herança isso deve ser usado com parcimônia, pois o mecanismo de herança é bem falho e pode causar grandes dores de cabeça;
+
+	Object.prototype.constructor => Nos diz a função que será usada quando criamos um objeto protype;
+	
+	Cada objeto em javascript tem um link para outro objeto chamado prototype. O link se dá pelo atributo _proto_
+	Esse outro objeto chamado de protype também tem um link para outro objeto prototype e assim por diante até chegarmos ao valor null, que por definição não possui um prototype.
+
+
+	Javascript não possui métodos, como em linguagens como C#, Java e etc;
+	Em Javascript cada função pode ser adicionada a um objeto em formato de propriedade. Portanto, herança de funções é igual a herança de propriedades que não sejam funções. Podendo até realizarmos 
+	a sobrescrita dessa funções.
+
+	É importante destaca que quando fazemos herança de funções a propriedade this aponta para o objeto que está herdando as propriedades, não para o objeto pai onde a função foi implementada;
+
+	Ex: 
+
+	var pessoa = {
+		this.idade: 26;
+		somarIdade: function(idade) {
+			this.idade += idade;
+		}
+	}
+
+	let rafael = new pessoa();
+	rafael.somarIdade(1);
+	console.log(rafael.idade);
+
+
+	var outraPessoa = Object.create(pessoa);
+
+	outraPessoa.somarIdade(10);
+	console.log(outraPessoa.idade);
+
+	No exemplo acima, outraPessoa é um objeto que foi herdado de pessoa. Com isso a function somarIdade está no seu prototype que é pessoa;
+	
+
+	Contructor é somente um function que pode ser chamada pelo operador new;
+
+	function Pessoa() {
+		this.name = "";
+		this.idade = "";
+		this.salario = 0;
+		
+		this.somarSalario = function(salario) {
+			this.salario += salario;
+		}
+
+	}	// Primeiro modo de adicionar um function em uma function que age como objeto;
+
+	
+
+	function Pessoa() {
+		this.name = "";
+		this.idade = "";
+		this.salario = "";
+
+	}
+
+	Pessoa.prototype = {
+		somarSalario = function(salario) {
+			this.salario += salario;
+		}
+	}
+
+
+	Para criarmos a herança o ECMAScript 5 introduziu o novo método Object.create. Invocando esse método podemos criar outros objetos baseados em um dado objeto pai;
+
+	var pessoa { idade: 1 };
+	
+	pessoa --> Object.prototype --> null
+
+	var outraPessoa = Object.create(pessoa);
+
+	outraPessoa --> pessoa --> Object.prototype --> null;
+
+	var novaPessoa = Object.create(null)
+
+	novaPessoa --> null;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Toda função em javascript  possui as propriedades call, bind e apply
+
+Call é uma propriedade em javascript que é capaz de alterar o valor de this;
+
+Então eu preciso de uma função que manipula o valor de this e pode receber alguns outros valores como parâmetros.
+
+function printName(name, lastName) {	
+	this.name = name;
+	this.lastName = lastName;
+
+	console.log(`Name: ${this.name} - Sobrenome: ${this.lastName}`);
+}
+
+var pessoa = {
+	name: "Rafael", 
+	lastName: "Cardoso"
+}
+
+printName.call(pessoa, "Pâmela", "Cirino");
+
+function somarNumeros(numberOne, numberTwo) {
+	console.log( this * numberOne * numberTwo);
+}
+
+somarNumeros.call(2,3,4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

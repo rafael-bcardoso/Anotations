@@ -1,0 +1,257 @@
+Arquivos pricipais em um projeto Android
+
+Se o projeto estiver com a visualização de projeto: View -> Tool Windows -> Project e no drop down (à esquerda da página) Estiver selecionada a visualização "Android"
+
+Haverá o seguinte arquivo
+
+	app > java > com.example.myfirstapp > MainActivity
+
+	Este é o MainActivity do projeto, basicamente é o ponto de entrada da aplicação. Quando um app é criado e rodamos ele, o sistema lança uma instancia dessa Activity a então carrega este layout;
+
+	app > res > layout > activity_main.xml
+
+	Este XML define o layout para a activity (User Interface). Ele que contém um elemento chamado TextView com o texto "Hello World!"
+
+	Gradle Scripts > build.gradle
+
+	Podemos observar que há dois este nome. 
+
+	Um está se referindo ao projeto build.gradle(Project: Meu projeto aqui);
+
+	E um está se referindo ao app module - build.gradle (Module: app)
+
+	Cada módulo do projeto possui seu próprio build.gradle. Como este projeto que criamos possui apenas um módulo, vemos apenas o (Module: app)
+
+
+	app > res > values > strings.xml
+
+	Esse arquivo é um arquivo onde podemos especificar todas as strings que serão utilizadas na nossa página. Permitindo que a nós possamos centralizar todas as strings em um mesmo lugar;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Os componentes que estamos arrastando para o projeto chamam-se Android Studio Layout Editor
+
+As interfaces de usuário do Android são em forma de Arvore. 
+
+Layouts == ViewGroup objects, containers que controlam como seus filhos irão estar posicionados na tela;
+Widgets == View objects, UI Components como botões, text boxes e etc;
+
+O android prove um XML para seus ViewGroups e Views objects, portanto, muitas UI são definidas em XML files. Contudo, em vez de ensinar a escrever cada um dos XML, você pode usar o Android Studio Layout Editor, que basicamente
+é um arrasta e solta de componentes;
+
+ConstraintLayouts é um layout que define a posição para cada component baseado em restrições (constraints) para componentes irmãos a parent layouts. Com esse tipo de layout não precisamos mais de layouts aninhados. Um layout aninhado, 
+é um layout dentro de outro layout
+
+Um chain é uma restrição bidirecional entre dois os mais componentes que permite você exibir as visualizações encadeada em unissono;
+
+Match constraints: Significa que o componente irá se expandir até o final da largura que ele pode ir == width: 100%;
+
+
+-------------------------------------------------------------
+
+Chain são regras de alinhamento entre os componentes. Basicamente, é possível você distribuir os componentes de forma uniforme na tela sem a necessidade de usar guide-lines, ou seja, o próprio Android te da essa possibilidade;
+
+Constrain: Cria regras de constrain com base no primeiro parent que o component possui;
+
+Expand Horizontaly: Expandi o componente na largura total da tela que estamos trabalhando; Respeitando os componentes que estão ao redor;
+
+Center: Centraliza o component de acordo com a nossa necessidade;
+
+
+-------------------------------------------------------------------------------------------------
+
+FrameLayout: 
+		Permite que você coloque imagens ou components um sobre o outro;
+
+		Para centralizar um botão podemos utilizar o gravity, tanto para constraint layout como para frame layout;
+
+CordinatorLayout 
+	
+		Possui a mesma função do frameLayout, mas é uma evolução do frameLayout. Com o cordinatorLayout nós temos mais possibilidades configurações;	
+		
+		Para utilizar o cordinatorLayout é necessário definir alguns recursos (dependencias)
+
+GridLayout
+
+		Para utilizar o gridLayout é necessário defini-lo via código, pois via interface de usuário não é possivel definir o GridLayout; 
+
+		Qual a diferença entre o gridLayout e o GridView ???
+
+			O gridLayout te dá a possibilidade de criar um layout somente utilizando a interface do Android Studio. O GridView exige que tudo seja feito via código;
+
+		Uma galeira de fotos é um bom exemplo de utilização de GridLayout;
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Componentes de tela;
+
+Caixas de textos:
+
+	Por default os campos de texto vem com um valor já setado. Para tira-lo é só ir no campo [text] e apagar o valor. 
+	Para definir um valor para o placeholder é mais fácil. Apenas indo no campo [hint] e apagando já resolvemos esse problema.
+	Para definir que queremos apenas teclados do tipo number é bem simples. Em cima do campo [hint] há um campo chamado [inputType] que basicamente diz qual será o valor a ser inputado nesse campo;
+
+	O componente que não esconde o placeholder é o {textInputLayout}, ele coloca o placeholder em cima do campo;
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+Para acessar os campos de uma tela por um component, é necessário que ele receba como paramentro a class  View view, para que assim possamos chamá-lo da tela 
+
+Ex.1 
+
+public void Enviar(View view) {
+	String txtName = findViewById(R.id.txtName);
+
+	String name = txtName.getText().toString();
+}
+
+A classe MainActivity pega o XML que criamos e monta a visualização para o dispositivo que queremos;
+
+
+-------------------------------------------------------------
+
+	Estudos sobre layouts no Android 
+
+	1) Orientação de Telas
+		
+		app -> manifests -> AndroidManifest.xml (Arquivo onde podemos colocar configurações globais do nosso aplicativo)
+
+		 há nesse arquivo xml uma tag chamada 
+		
+		<activity android:name=".MainActivity"> 
+		</activity> 
+		Essa tag é a responsável por dizer para o aplicativo quem é a classe principal do nosso app, ou seja, a classe responsável pela inicialização de todo o aplicativo;
+		Activity, basicamente, é um tela do nosso app;
+
+
+		Dentro da tag activity é possível colocarmos a orientação da tela através de uma propriedade chamada 
+		android:screenOrientation="tipo_orientacao"
+
+			Ex: portrait 	= vertical
+			    sensor 	= muda conforme viramos o aparelho
+			    landscape 	= horinzontal
+
+	2-) Customização de Temas no Android
+
+		app -> res -> values -> styles.xml ==> Nesse arquivo conseguimos alterar todas as configurações de cores e criar novas variaveis para uso no nosso projeto;
+			
+			Dentro de styles nós definimos o nosso theme cujo nome é AppTheme
+				Podemos ter N themes no nosso projeto e podemos seleciona-los na nossa application lá em AndroidManifest.xml
+				em: 
+
+				<application
+					android:theme="@style/AppTheme"
+				>
+				</application>
+			
+
+		app -> res -> values -> colors.xml ==> Conseguimos centralizar todas as cores do nosso app
+
+			* O colorAccent é uma cor que colocamos em alguns componentes apenas, como por exemplo o Switch, quando ele é selecionado ele utliza a cor do colorAccent
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Constraint Layout	
+		
+		Começou na versão 2.2 do Android Studio
+
+		Constraint Layout usa regras matemáticas para posicionar os componentes na tela independente do dispositivo (TV, Celular etc)
+
+		Antes do Constraint Layout, o Android Studio fazia os posicionamentos de forma fixa levando em consideração a altura e a distância do componente a parede da equerda;
+
+		Infer Constraint: Cria as regras de layout sozinho pra você KK
+
+		Quando um elemento está com wrap content habilitado, isso quer dizer que todo o conteúdo dele será considerado. Ele irá 
+		crescer conforme o seu conteúdo interno;
+
+		Há também o fixed, que como o proprio nome diz é deixa o tamanho do elemento fixo
+
+		Há também o match contraint que basicamente é um width: 100% na tela kk ignorando todas as constraints; Muito utilizado em imagens, quando queremos que ela ocupe toda a largura da tela;
+
+			O que é a Unidade de medida dp ???
+			
+		Tamanho da tela = Tamanho fisico da tela 
+		Densidade da tela = quantidade de pixels em uma área fixa da tela dpi => dots per inch
+
+		dp é uma medida virtual, pois os dispositivos android possuem uma variedade muito grande de densidade;
+
+
+		Podemos ter 2 aparelhos de mesmo tamanho com densidades de imagens totalmente diferentes, ou seja, um com mais e outro com menos;
+
+		dp tem idependencia de densidade é conseguida porque o dp é uma unidade virtual
+
+
+		Em uma densidade baixa 1px == 1dp
+
+		Em uma densidade média 1dp == 1.5px;
+
+		Em uma densidade alta  1dp == 2px;
+
+		é virtual pois em tela com mais pixels, o tamanho dos componentes seriam diferentes pois em uma mesma area teriamos mais pixels 
+
+
+		Ex: 1cm^2 em uma tela com baixa densidade tem 10pixels			
+
+		    1cm^2 em um tela com alta densidade possui 100pixels, por exemplo. Logo o componente que precisa só de de 10pixel vai ficar muito menor;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Como inserir imagens no Android ??
+
+		CTRL + C e CTRL + V em App -> res -> drawable
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Como alterar o caminho onde os disposivos são salvos dentro da máquina 
+
+	Ir nas variaveis de ambiente e colocar essa variável
+
+	ANDROID_SDK_HOME e colocar o seguinte caminho: D:\Users\Rafael\AppData\Local\Android\Devices
+
+	Neste caso estamos querendo que todos os devices que vamos utilizar esteja no outro disco
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

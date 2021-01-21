@@ -1,0 +1,33 @@
+Criar o nome do site diferente do nome da pasta funciona ?
+
+	R: Sim, sem problema nenhum
+
+Como publicar uma aplicação no IIS ?
+	
+	- Crie uma pasta no caminho C:/inetpub/wwwroot/nome_projeto
+
+	- Abra o IIS 
+	
+	- Crie um novo site: Sites -> Criar novo site
+
+		- Aponte o site para a pasta que está em: C:/inetpub/wwwroot/nome_projeto
+		- Defina um porta qualquer
+		- Fecha a porta 
+
+		O site já está no ar ?
+			Se sim 
+				Deu tudo certo 
+			Se não 
+				Ocorreu o erro de w3svc ?
+					Se sim 
+						cmd -> run admin -> net start w3svc
+					Se não 
+						Pesquisar o que ocorreu
+
+	- Abra o Visual Studio para publicar o projeto na pasta C:/inetpub/wwwroot/nome_projeto
+	
+	- Ele pode ser publicado tanto por IIS como por Folder é só seguir as configurações básicas;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+O endereço de IP que colocamos em C:\Windows\System32\drivers\etc\hosts é o IP que recebemos do DHCP da rede, ou seja, o IPv4 dinâmico;

@@ -1,0 +1,727 @@
+Aplicações coorportativas em suma possuem um fim comercial. 
+Um jogo é um aplicação e uma aplicação nem sempre precisa ser com fins lucrativos
+
+ - Oferecem uma solução
+ - Gerenciam um operação (Bancos, Intuitive)
+ - Automatizar um processo (Montadoras)
+ - Oferecer um produto ou serviço digital (Desenvolvedor.io)
+ - Realizar integrações entre N empresas
+ 
+Essa aplicações podem possuir N tamanhos, ou seja, podem ser pequenas, médias e grandes. 
+
+	Não importa o tamanho da aplicação o objetivo principal é sempre oferecer as seguintes caracteristicas
+		
+		- Atender um setor comercial da empresa
+		- Atender uma regra de negócio (A complexidade da aplicação se dá nas regras de negócio)
+		- Implementar características do mundo real
+		
+	O que vai determinar a arquitetura da aplicação é o desafio e a complexidade que deverá ser aplicada para entregar uma aplicação que 
+	atenda todas as  necessidades de negócio em TODOS os cenários possíveis.
+
+O desenvolvimento de uma aplicação coorporativa requer uma série de preocupações tais como:
+	
+	Facilidade nas mudanças das regras de negócio
+	Estabilidade
+	Escabilidade
+	Performance
+	Segurança - Dependendo da aplicação esse quesito é o principal
+	Baixa complexidade (a menor possível)
+
+*** Microsservices não é uma bala de prata - NEVER ***
+
+Para aplicações de pequeno e médio porte, nem sempre precisamos de microsservices
+Os microsservices vai muito mais além de muitas APIs
+
+O que é um API Gateway ??
+
+	Ela vai orquestrar as requisições entre os serviços. Portanto, quando estamos falando em Microsservices precisamos 
+	ter endpoints mais inteligentes, não podemos expor os endpoints das APIs de forma arbitrária.
+
+Decisões de arquitetura
+
+	O ASP Net MVC é Server Side, ou seja, ele processa a tela do lado do Servidor. Portanto, o que temos é uma aplicação
+	Client/Server Apps
+
+	SPA roda Client Side. Qual a vantagem do SPA sob o MVC, o processamento das requisiçoes, pois o MVC recebe a requisições e faz 
+	outra requisição para as APIs, já o SPA ele faz a requisição direto para as APIs em forma de JSON;
+
+		** A melhor tecnologia é aquela que você sabe utilizar **
+	
+	Um desenvolvedor C# precisa saber utilizar uma aplicação MVC;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Por onde começar uma aplicação ?? 
+
+	SEMPRE PELO SERVIÇO DE AUTENTICAÇÃO - SEMPRE
+
+	Quando criamos uma projeto blank solution - O visual studio já cria um diretório com a solução dentro
+
+	Ex: Criei um projeto NerdStoreEnterprise como Blank Solution
+
+	Pasta Host/NerdStoreEnterprise/NerdStoreEnterprise.sln
+
+
+	É muito importante em um projeto ASP Net Core, criar as pastas físicas antes de criarmos as soluções.
+	
+	Dentro da pasta NerdStoreEnterprise devemos criar as pastas src, tests, sql. Com isso, temos criadas todas as pastas físicas da aplicação. 
+	Agora precisamos criar todas as pastas lógicas. Neste ponto é importante destacas que a função da Solution Explore é apenas organizar o projeto 
+
+
+	*** Em um projeto MVC a flag Enable Razor runtime compilation é o reload automático da página, ou seja, ele vai ficar fazendo o reload que nem o VS Code faz
+
+
+	Packages Identity Server 
+
+		* Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 3.1.9
+		
+		
+		* Install-Package Microsoft.AspNetCore.Identity.UI -Version 3.1.9
+			
+			This package consist a default UI for asp.net core identity web app. When you use default UI feature in identity
+			it prepare some razor pages with their implementation
+		
+		* Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 3.1.9
+		
+			This package is for implementation of default stores in asp.net core identity that implemented by EntityFramework Cor
+
+		- Para rodar as Migrations são necessários o seguinte package:
+			
+			* Install-Package Microsoft.EntityFrameworkCore -Version 3.1.9
+ 
+			* Install-Package Microsoft.EntityFrameworkCore.Design -Version 3.1.9 (this is important for running EF Core migrations commands)
+			
+			* Install-Package Microsoft.EntityFrameworkCore.Abstractions -Version 3.1.9
+
+			* Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 3.1.9
+			
+			* Install-Package Microsoft.EntityFrameworkCore.Tools -Version 3.1.9 - (if you want to install EF Core tools for Nuget Package Manager).
+
+
+		Como gerar um banco de dados pelo EntityFrameWork
+
+		Criar a ConnectionString, 
+		Fazer o data context
+		]
+
+
+		Update-Database
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Controller 
+
+	Como criar um controller no ASP .Net Core ??
+
+	Primeiro criamos uma class que herda de controller 
+
+	Criamos um método e o decoramos com o verbo que queremos chamar pelo cliente e retornamos o que a gente quiser, desde uma string a um ActionResult ou IActionResult
+
+	No entanto, para que tudo funcione bem, é necessário também decorar a controller com a rota, pois sem a rota o ASP .Net não consegue fazer o mapeamento da controller 
+
+	[Route("{controller}")]
+	public class AuthController : Controller {
+
+		[HttpGet]
+		public IActionResult Get() {
+			
+			return Ok("Teste");
+		
+		}
+	
+	}
+
+	
+	[Route("auth")]
+	public class AuthController : Controller {
+
+		[HttpGet]
+		public IActionResult Get() {
+			
+			return Ok("Teste");
+		
+		}
+	
+	}
+
+
+	Para deixar a controller melhor ainda seria interressante dizer que aquela controller é uma controller de API. Para isso temos um decoration chamado [ApiController] que deve ser 
+	adicionado na Controller junto com a rota
+
+	[ApiController]	
+	[Route("auth")]
+	public class AuthController {
+		
+
+		[HttpGet]
+		public IActionResult Get() {
+
+			return Ok("Bem-Vindo");
+		}
+
+	}
+
+
+	Bom, até aqui o que vimos foi todo um desenvolvimento de como criamos uma API básica e simples no C#. No entanto, um ponto importante que devemos nos atentar é como 
+	devemos criar as nosssas rotas dentro da aplicação.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Adicionar o Swagger para fazer o doc da páginas 
+
+	No package manager adicionar o seguinte pacote: Install-Package Swashbuckle.AspNetCore -Version 5.6.3
+
+	No Services da Startup devemos adicionar 
+
+		services.AddSwaggerGen();
+
+	O Swagger é capas de gerar um json com todas as informações sobre os endpoints, por isso é interessante adicionar o middleware para realizar essa operação 
+	
+
+	// Esse middleware pode ser adicionado antes de todos os outros, pois como trata-se de uma documentação seria interessante que ela iniciasse antes dos demais middlewares
+
+	publi void Configure(IApplicationBuilder app, IWebHosting env) {
+			
+
+		app.UseSwagger();
+		
+		app.UseSwaggerUI(c => 
+		{ 
+
+			c.SwaggerEndPoint("/swagger/v1/swagger.json", "NS.Identity.Api V1");
+		});
+
+		Demais Middlewares abaixo do Swagger
+
+	}
+
+	Para encontrar o json que o Swagger gerar conforme a sua especificação descrita na documentação do OpenApi, após a aplicação estar no ar é só ir em: 
+		
+		https://localhost:port/swagger/v1/swagger.json
+
+	Para visualizar a UI do Swagger é só irmos em 
+	
+		https://localhost:port/swagger/index.html
+
+	** Dica
+
+		E se quisermos que o Swagger atenda na raiz da aplicação, ou seja, em: https://localhost:port/ - No barra eu já quero ver o Swagger no ar
+
+	public void Configure(IApplicationBuilder app, IWebHosting env) {
+		
+		app.UseSwagger();
+		
+		app.UseSwaggerUI(c => 
+		{
+
+			c.SwaggerEndPoint("/swagger/v1/swagger.json", "NS.Indentity.Api - v1");
+			c.RouterPrefix = string.Empty;
+		});
+	}
+		
+		
+	Com essa linha de código a UI do Swagger aparece no barra depois da porta na URI
+
+	Pra ficar melhor ainda é só dizer lá no lauchSettings.json que as aplicações vão ser lançadas na raiz, ou seja, launchUrl: "". Pronto, com isso já temos o Swagger aparecendo no: 
+		
+		https://localhost:port/
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como melhorar a class Startup, pois ela tende a crescer indefinidamente 
+	
+	Devemos utilizar o recurso de Extension Methods
+
+
+	Criar uma pasta chamada Configurations na Api e para cada Service que vamos add e usar devemos ter uma classe com as seguinter características
+
+	public static class SwaggerConfig {
+
+		public static IServiceCollection AddSwaggerConfig(this IServiceCollection) 
+		{
+			// Adicionar tudo que foi utilizado para adicionar o Swagger como um service na aplicação
+		}
+		
+		public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder) 
+		{ 
+			// Adicionar aqui tudo que foi utilizado para adicinar o Swagger no pipeline de Middlewares
+		}
+
+	}
+	
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Configurando o Identity
+
+	Adicionar os packages: Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 3.1.9 ; 
+			       Install-Package Microsoft.AspNetCore.Identity.UI -Version 3.1.9
+
+
+	Criamos uma pasta chamada Data onde nela criamos uma classe de contexto para o Entity Framework 
+
+	Diferente do que o Entity Framework essa classe não herda de DbContext, ela herda de IdentityDbContext porque essa classe fornece  todas as propriedades DbSet
+	necessárias para gerenciar as tabelas de identidade no SQL Server.
+
+	Ao analisarmos todas as heranças da classe IdentityDbContext é possível observar que ele herda também de DbContext o que nos remete as origens do Entity Framework
+
+
+	Agora precisamos adicionar o Entity Framework Core ao projeto para podermos utiliza-lo. Para isso são necessários os seguintes packages:
+
+		Install-Package Microsoft.EntityFrameworkCore -Version 3.1.9
+		Install-Package Microsoft.EntityFrameworkCore.Abstractions -Version 3.1.9
+		Install-Package Microsoft.EntityFrameworkCore.Relational -Version 3.1.9
+		Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 3.1.9
+		Install-Package Microsoft.EntityFrameworkCore.Tools -Version 3.1.9
+
+	Após adicionarmos os packages precisamos adicionar o context do Entity Framework ao projeto
+
+	public void ConfigureServices(IServiceCollection services) {
+		
+		// Esse ApplicationDbContext nada mais é que uma classe onde configuramos o DbContext da aplicação. Essa classe herda de IdentityDbContext
+	
+		services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
+		// Agora precisamos adicionar o Identity ao projeto
+
+		services.AddDefaultIdentity<IdentityUser>()
+				.AddRoles<IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
+		
+		
+		// A class IdentityUser possui todos os atributos que o Identity utiliza para gerenciar os usuários que são adicionados ao seu sistema. Se o seu usuário possui atributos diferentes da classe Identity, é só herdar 
+		// da classe IdentityUser, codificar quais campos seus usuários precisam que não estão dentro da classe IdentityUser e depois passar dentro do DefaultIdentity a classe que você acabou de criar.
+
+		// De forma analoga é o IdentityRole. É uma classe do próprio Identity que pode ser modificada com uma pequena herança;
+
+		// Qual o tipo de ORM que vamos utilzar para gerenciar nossos usuários ?? Como vamos utilizar o Entity Framewok Core, dizemos isso para o Identity através do campo AddEntityFrameworkStores
+
+
+	}
+
+
+	Por fim precisamos adicionar o Middleware de Autenticação ao pipeline do programa 
+	
+	Há um detalhe muito importante nesse ponto;
+
+	app.UseRouting(); // Middleware que nos diz que estamos usando roteamento
+
+	app.Authentication(); // Primeiro precisamos autenticar para depois autorizar
+
+	app.Authorization();  // Agora nós autorizamos o usuário onde ele pode ir
+
+	app.UseEndPoints(endpoints => 
+	{
+		endpoints.MapControllers();
+	}); // Nesse ponto temos o Middleware MVC. Com isso, podemos concluir que queremos Authenticar o Usuário antes que ele atinga as minhas rotas, por isso é obrigatório o Middleware de Authenticação está antes no pipeline;
+
+	
+
+	Nesse ponto já adicinamos o Entity Framework Core na API, também já adicionamos o Identity e criamos o banco de dados
+
+	Add-Migration Intital // Para criar a primeira Migration com o Identity
+		
+	Update-Database // Para Criar o banco de dados com todas as Tabelas do Identity
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+	JWT no asp net core
+	
+	para executar a autenticação do usuário precisamos das informações do username, senha e qual seu perfil
+
+	Packages: Install-Package Microsoft.AspNetCore.Authentication -Version 2.2.0
+		  Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 3.1.9 -- Para versões do ASP Net Core 3.1.9
+
+	
+	Primeiro prcisamos definir quais serão as configurações que vamos usuar no sistema, ou seja, qual a nossa chave de segurança (Secret), 
+	qual o nosso emissor (Issuer), quem são os clientes que podem usar usar essa url (Audience) e precisamos do tempo em que esse 
+	token é válido (ExpirationHours). Dito isso, o que precisamos é coloca-las dentro das nossas configurações de appsettings.enviroment.json
+
+	Como exemplo abaixo:
+
+	"SecuritySettings": {
+		
+		"Secret": "MINHACHAVESECRETA",
+		"Audience": "https://localhost",
+		"Issuer": "Api.Identity",
+		"ExpirationHours": 2
+	}
+
+	
+	Devemos criar uma class que represente esse dados dentro da nossa Api. Portanto, dentro do diretório raiz->Extensions->ApiSettings.cs
+	
+	namespace NS.Identity.Api.Extensions {
+
+	public class SecuritySettings{
+		
+		public string Secret { get; set; }
+		public string Audience { get; set; }
+		public string Issuer { get; set; }
+		public int ExpirationHours { get; set; }
+	}
+
+	}
+
+	Com isso, o que temos é um classe que respresenta os dados que gravamos nas nossas configurações de sistema.
+
+	Vamos preenche-los agora;
+
+	Na classe Startup.cs vamos buscar essa chave e associa-la a essa class
+	
+	// Aqui buscamos lá no JSON as configurações dependendo do ambiente
+	
+	var securitySettingsConfiguration = Configuration.GetSection("SecuritySettings");
+
+	// Vamos associa-las a class que criamos. 
+
+	var securitySettings = securitySettingsConfiguration.Get<SecuritySettings>();
+	
+	
+	Tudo isso que fizemos até aqui é para configurarmos o serviço de autenticação do sistema.
+
+	services.AddAuthentication(options => 
+	{
+		// Há vários esquemas de autenticação que podemos utilizar no asp net core. Também podemos até adicionar mais tipos se julgarmos necessário.
+		
+		// Essa linha diz que o método AuthenticationAsync() usará o scheme que foi passado abaixo e também o Middleware que adicionamos ao pipeline através da propriedade app.UseAuthentication(); usará esse scheme para configurar o contexto de autenticação do usuário
+		options.DefaultAuthenticationScheme = JwtBearerDefaults.AuthenticationScheme;
+		
+		// ChallengeAsync() usará esse scheme, polices que não utilizam nenhum scheme também deverão usar esse scheme;
+
+		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	}
+	
+	Pronto! Acima configuramos o tipo de autenticação e qual será o modelo de autenticação que vamos usar (Challenge). No nosso caso, todos estão no modelo Jwt
+
+	Depois que informamos que vamos utilizar o Jwt como nosso tipo de autenticação, precisamos configura-lo
+
+	
+	service.AddAuthentication(options => 
+	{
+		options.DefaultAuthenticationScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	})
+	.AddJwtBearer(bearerOptions => 
+	{	
+		// Simples, obriga as requisições serem feitas com metada
+		beaereOptions.RequireHttpsMetada = true,
+		
+		// Diz se o token deverá ser salvo depois da autenticação do usuário
+		bearerOptions.SaveToken = true,
+		
+		// Parametros que configuram o de que forma o token deverá ser considerado valido
+		bearerOptions.TokenValidationParameters = new TokenValidationParameters
+		{	
+		
+			ValidateIssuerSignKey = true,	
+			IssuerSigningKey = new SymmetricSecurityKey(chave),
+
+			ValidateIssuer = true,
+			ValidIssuer = securitySettings.Issuer,
+		
+			ValidateAudience = true,
+			ValidAudience = securitySettings.Audience
+					
+		};	
+	
+	});
+	
+	Pronto!! Com essas configurações na startup já temos o método de autenticação configurado para usar o Jwt
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+	Classe Startup:
+	
+	The Startup services class configures services, all services, and app's request pipeline	
+	app's request pipeline are sequence of middleware in the application.
+
+	The Startup Class
+		
+	Optionally includes a ConfigureServices method to configure the app's services.
+	But, What is a service in ASP.Net Core?
+
+	A Service is a reusable component that provides app functionality. 
+	Service are registered in ConfigureServices and consumed across the app via dependency injection (DI) or ApplicationServices.
+
+	Includes a Configure method to create the app's request processing pipeline.
+
+	Both,ConfigureService and Configure are called by the ASP.NET Core runtime when the app starts:
+
+	When the Startup class is created?
+
+	Simple! The Startup class is specified when the app's host is built.
+	The Startup class is typically specified by calling the WebHostBuilderExtensions.UseStartup<Startup> method on the host builder.
+
+
+	Class Program.cs is the host of application
+
+	The host provides services that are available to the Startup class constructor.
+	The app adds additional services via ConfigureServices
+
+
+	BOTH the host and app services are available in Configure and throughout the app.
+
+	IMPORTANT** Only the following service types can be injected into the startup constructor when using the GenericHost(IHostBuilder):
+		
+			IWebHostEnviroment
+			IHostEnviroment
+			IConfiguration
+
+		What's .NET Generic Host in ASP.NET Core ?
+		
+			First point The ASP.NET Core templates create a .NET Core Generic Host(HostBuilder)
+
+				Host Definition
+
+					Simple!! A host is an object that encapsules an app's resources, such as:
+
+					- Dependency Injection (DI)
+					- Logging
+					- Configuration
+					- IHostedService implementations
+
+				When a host starts, it calls IHostService.StartAsync on each implementation of IHostedService
+				registered in the service containeir's collection of hosted services.
+				In a web app, one of the IHostedService implementations is a web service that starts an HTTP server implementation.
+				
+				** Information principal 
+
+				it calls IHostService.StartAsync on each implemtation of IHostedService registered in the service container's
+				of hosted services.
+
+				Ex: In a web app, one of the IHostedService implementations in web service that start an HTTP server implementation.
+
+
+				The main reason for including of the app's interdependent resouces in one object is lifetime management: control over app startup and graceful shutdown
+				
+
+				Set up a host
+
+				The host is typically configured, built and run by code in the Program class.
+
+				The main method:
+
+					- Calls a CrateHostBuilder method to create and configure a builder object;
+					- Call Build() and Run() methods on the  builder object.
+				
+			Dependency Injection (services)
+
+				Services are typically resolved from DI using constructor injection
+				With constructor injection, a class declares of either TYPE or an INTERFACE
+
+				THE DI framework provides an instance of this service at runtime
+
+
+			Middleware
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+		THE STARTUP CLASS
+
+		The ASP.NET Core usa a statup class, which is named Statup by convetion. The Startup class:
+
+			- Optionally includes a ConfigureServices method to configure the app's services
+			  But what's a services in ASP.NET Core ???
+				
+
+				The Service is a reusable COMPONENT that provides app funcionality.
+				Services are registered in ConfigureServices and consumed across the app via dependency injection (DI) or 
+				ApplicationServices
+			
+			- Includes a Configure method to create the app's request processing pipeline
+
+		BOTH ConfigureService and Configure (Middlewares) are Called by the ASP.NET Core runtime the app starts;
+
+
+
+		Where the Startup class is specified ??
+
+		Simple! The Startup class is specified when app's host is build.
+		The Startup class is specified by calling the WebHostBuilderExtensions.UseStartup<TStarup> method on the host builder
+
+		** The host provides services that are available to the Startup class constructor.
+		   The app adds aditional services via ConfigureServices. 
+
+			Both the host and app services are available in Configure and throughout the app
+
+		Only the following services type can be injected into the Startup constructor when using the Generic Host(IHostBuilder)
+
+			- IWebHostEnviroment
+			- IHostEnviroment
+			- IConfiguration
+
+		How to I know my Host ???
+
+		it's Simple!
+
+		The Host could be found in Program class. Difference between IHost and IWebHost
+
+			The difference one could see n .NET Core 3.0 vs .NET Core 2.2.
+			.NET Core 3.0 use the Generic Host while .NET Core 2.2 use the Web Host for the web application
+			The Generic Host got included with ASP Core 2.1 and became the de-facto standard for the future version of .NET Core
+			Though the Generic host got included in .NET Core 2.1 it was only used for non HTTP workloads
+
+			But in .NET Core 3.0 it became a universal standard (HTTP + non HTTP workloads)
+
+			To reason for shifiting WebHost builder to more generic Host Builder is because the WebHost builder was tied
+			more to HTTP request and works well for Web Application but with the advent of Microsservices and Docker it felt 
+			the need of a more generic Web Host
+
+			With Generic Host it is possible to utilize the logging, configuration, and DI libraries within a console application
+
+
+			To create a Host we can use the new HostBuilder, which has a similar set of methods and extensions as the existing
+			WebHostBuilder. There is one main difference to be aware of that is 
+
+				HostBuilder doesn't provide an extension method that allows you use a startup class as we can with the WebHostBuilder
+
+				This decision was made primarily to avoid the need to create two separate DI Container's behind the scenes.
+				With the Generic Host, a single service collection is configured and then used to build the final service provider.
+
+					a little known feature in ASP.NET Core 2.x was that you could partially configure your dependency  injection container in Program.cs
+					and inject the configured classes into Startup.cs I used this approach to configure strongly typed settings and then use those settings when
+					configuring the remainder of the dependency injection container.
+				
+					What's the problem with code?
+
+					The fundamental problem whith injecting services into Startup that it requires building the dependency injection container twice.
+					For example. We need the Connection string object in constructor of the Startup class. The only way
+					for it to know to create one is to build an IServiceProvider based on the "partial" configuration
+					(that we supplied in the ConfigureSettings() extension method)
+
+					But why is this a problem???
+					the problem is that service provider is a temporary "root" service provider. It create the services and 
+					injects them into Startup.
+
+					The remainder of the dependency injection container configuration then runs as part of ConfigureServices,
+					and the temporary service provider is thrown away.
+
+					A new Service provide is then created which now container "full" configurarion for the application.
+
+					The upshot of this is that even if a service is configured with a Singleton lifetime, it will be created twice
+
+						- Once using the "partial" service provicer, to inject into Startup
+						- Once using the "full" service provider, for use more generally in the application
+
+
+				Multiple Startup
+
+					When the app defines separate Startup classes for different enviroments(for example StatupDevelopment), 
+					the appropriate Startup class is selected at runtime
+
+					The class whose name sufix matches the current enviroment is prioritized. 
+
+					** If the app run in the Development enviroment and includes both a Startup class and a StartupDevelopement class.
+					    the StartupDevelopement class is used.
+
+		ConfigureServices method
+
+			Called by the host before the Configure method to configure the app's services.
+			The host may configure some services before Startup methods are called. 
+			For feature that require substantial setup, there are Add{service} extension method on IServiceCollection.
+
+		The Configure Method
+
+			The configure method is used to specify how the app responds to HTTP requests.
+			The request pipeline is configured by adding middlware components to an IApplicationBuilder instance
+
+
+			** IApplicationBuilder is available to the configure method, but isn't registered in the service container.
+
+			*** Host creates an ApplicationBuilder and passes it directly to Configure.
+
+			The ASP.NET Core configure the pipeline with support for: 
+			 
+			- Developer Exception Page
+			- Exception Handler
+			- HTTP Strict Transport Security (HSTS)
+			- HTTP redirection
+			- Static Files
+			- ASP.NET Core MVC and Razor Pages
+
+
+		Each Use extension method adds one or more middleware component to the request pipeline
+
+		Each middleware component in the request pipeline is responsible for involking the next component in pipeline
+
+	
+	Configure Services Without Startup
+		
+		Simple! To configure services and the processing pipeline without using a Startup class, call ConfigureServices and Configure
+		convience methods on the host builder
+
+
+	Extend Startup with startup filters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	

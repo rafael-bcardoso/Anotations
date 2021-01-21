@@ -1,0 +1,507 @@
+Antes de qualquer configuração em um servidor é necessário definir o HostName e IP da máquina
+
+	Entrando na máquina, no Server Manager em Local Server há o nome da máquina e as configurações das placas de rede;
+
+Redes baseadas em grupo de trabalho
+
+	- Cada grupo possui o seu conjunto de contas e grupos
+	- A administração é centralizada
+	- Login local
+	- Contas armazenadas no SAM (System Accounts Manager)
+	- Ideal para ambientes pequenos (Máximo 15 máquinas)
+
+Redes baseadas em domínio
+
+	- Informações armazenadas de maneira centralizada
+	- Computadores ingressados no domínio confiam no Active Directory (AD)
+	- A administração é centralizada
+	- Login unico no ambiente
+	- Ideal para ambientes com mais de 15 computadores
+
+Active Directory (AD)
+	
+	- Banco de Dados para armazenamento de objetos do domínio
+	- Os controladores de domínio (DC) hospedam esse banco de dados
+	- Os computadores do domínio confiam nas informações presentes no AD
+
+
+-----------------------------------------------------------------------------------------------------------
+
+	Antes de instalar o Active Directory é preciso definir o nome do Server e o IP fixo da máquina
+
+	Ir em Local Server para ver o nome da máquina e ver as placas de redes para configurar o IP fixo que nós precisamos;
+
+		Computer name
+		Ethernet
+
+
+	Como eu defino o IP da placa de rede ?
+
+		Clicar em Ethernet -> Escolhe a placa de rede -> botão direito propriedades -> Internet Protocol Version 4 (IPv4) 
+		-> properties -> Use the following IP Address
+
+	Como alterar o nome do computador ?
+		
+		Computer name -> Change -> Computer name (Como ainda não temos um Domain vindo do active directory, podemos deixar em Workgroup mesmo)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Install AD 
+
+		Dashboard -> Add Roles and Features -> next -> Role-based or Feature-based intallation -> next
+		
+		Select Server or pull Severs -> Choose service to installation -> Active Director Domain Service -> Add adtional features YES -> next -> Install
+
+
+	Como ingressar uma máquina no Dominio ??
+
+		Primeiro ela deve apontar para o IP do Servidor, ou seja, ir na placa de rede, propriedades, IPv4, alterar o IP, pois ele não será atribuido por um servidor DHCP
+		Depois em DNS preferencial é só colocar o IP do Servidor
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como remover o usuário local após adicionar o usuário que usará a máquina pelo Active Director
+
+	Windows -> Configurations -> logado como o admin na máquina -> Outras pessoas -> remove user local
+
+	Se não remover: cmd (como admin)  -> net user user /delete
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+	Quais são os tipos de restrições que conseguimos fazer no Windows Server ??
+
+		Podemos fazer restrições de máquina
+		Podemos fazer restriçoes de horário
+
+	Server Manager -> Computers and Users -> Folder User -> Select User -> Right button -> properties -> account -> logon hours or logon to
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+	IIS No Windows Server - Estudando ainda
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+	Configurando o DHCP no Servidor para que ele fornceça os IP para as máquinas que estão no Domínio
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+O que é o Windows Server 2016 ??
+
+Um servidor é um computador onde temos um sistema operacional que tem por função prestar serviços para uma rede.
+
+Como por exemplo: Fornecimento de IPs, Gerenciamento de Máquinas, Gerenciamento de usuários entre outros;
+
+Windows Server 2016 Essentials = Voltado para pequenas empresas
+Windows Server 2016 Standard = Mais popular e é meio barato
+Windows Server 2016 DataCenter = Top de linha e tem tudo
+Microsoft Hyper-V Server 2016 = Gratis para fazer virtualização somente linha de comando
+Windows Storage Server 2016 Workgroup = Feito para gerenciar espaço em disco
+Windows Stoage Server 2016 Standard = Para servidores mais profissionais;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Melhor jeito para atualzar um Servidor??
+
+Você pode fazer uma migração ou uma atualização.
+
+Qual é o melhor ? Nenhum dos dois kkk O melhor jeito é ir do nada e reconfigurar tudo.
+
+Atualizar == Pegar o pen drive do Windows Server 2016 e colocar em uma máquina que possui o Windows Server 2012, atualizando todas as funções
+e aproveitando todas as configurações já existentes;
+
+Tem que ser da mesma edição para o maior 
+
+	Ex:
+
+		Windows Server 2008 Standard -> Windows Server 2016 Standard -> Windows Server 2019 Standard
+
+		Windows Server 2008 Standard -> Windows Server 2016 DataCenter -> Windows Server 2019 DataCenter
+
+		** Requer a mesma arquitetura de processadores, ou seja, não da pra ir de um 64bits para um 32bits
+
+Vantagens de Atualizar 
+
+Uma atualização preserva os arquivos, as configurações e os aplicativos que são instalados no servidor orignal. 
+Na atualização você deseja manter todos esses itens e prefere continuar a usar o mesmo servidor. Uma atualização requer uma arquitetura 
+de Processador x64 e uma edição x64 do sistema operacional Windows Server
+
+
+	Atualização para o Sevidor
+
+Vantagens em Migrar
+
+Ao migrar nós temos a vantagem de migrar somente aquelas funções que são realmente necessárias de um sistema operacional antigo para o 
+Windows Server 2016 novo, aproveitando todas as funcionalidades do 2016	mas parametros e dados são copiados do servidor original da função.
+Permite testes e avaliação da função sem que o serviço original tenha que ser desabilitado imediatamente.
+
+	Migração não para o Servidor
+
+Ferramentas de apoio a uma migração
+
+	MDT: Automatiza implatações do Windows Server 2016 ou de outros sistema operacionais
+	MAP Toolkit para Windows Server 2016: Executar o inventário da infraestrutura de TI, Gerar relatórios com base na avaliação de Prontidão do Windows Server 2016
+	Ferramentas de Migração do Windows Server: Migrar funções, recursos, configurações do sistema operacional, dados compartilhados do servidor
+
+Qual as diferenças entre funções e recursos ??
+
+	Funções é tudo que meu servidor irá prestar para a rede 
+	Recursos são as ferramentas necessárias para que o serviço funcione.
+	Como tela de Administração, powershell, failover
+
+O controlador de domínio em uma rede é a principal máquina de uma rede de computadores. É quem vai gerenciar a rede;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+O que está rodando quando instalamos o Windows ??
+
+	Na página de instalação do Windows o que está rodando é o Windows PE, ou seja, Windows Pre Enviroment
+	Que é um Windows feito pra fazer instalações de sistema operacionais e é a base do Windows RE para fazer recovery
+
+Criar imagem NanoServer Dentro do Windows Server 2016 
+
+copy D:\NanoServer\NanoServerImageGenerator\*.ps C:\PathTarget
+
+Import-Module C:\PathTarget\NanoServerImageGenerator.psm1
+
+New-NanoServerImage -DeploymentType Guest -Edition Datacenter -MediaPath D:\ -BasePath .\Base 
+-TargetPath .\NanoServer.vhd
+
+Discos Rigidos (Básicos): 
+
+	Posso ter no máximo 4 partições em um Servidor Windows. Onde 3 Podem ser partições primárias e 1 partição estendida que pode possuir N unidades lógicas, como por exemplo: E:, F:, G:^
+
+	Partiçoes primárias são partições que podemos instalar sistemas operacionais
+	Partições estendidas não podem ter sistemas operacionais instalados;
+
+Discos Dinâmicos
+
+	É mais rapido, tolerante a falhas, é mais flexivel de forma que podemos fazer arranjos de discos dinâmicos de tal forma a melhorar a performance, possibilitar uma 
+	tolerãncia a falhas se um disco rigido falhar;
+
+	Disco básico é formado por partições 
+	Disco dinâmicos são formados por volumes; Posso Ter N Volumes
+
+	Volume Simples: Posso instalar o SO e adicionar dados;
+	Volume Espandido: É uma expansão do meu volume geral, onde eu posso ter até 32 discos;
+
+	Ex: Tenho um Disco C com 1TB e coloco mais um disco com 1TB ele aumenta pra 2TB dinamicamente;
+
+Striped Volume ou Distribuído (RAID 0)
+	
+	Podem ser combinadas áreas de espaços livre de até 32 discos. Não apresenta nenhum mecanismos de tolerância a falhas, pois se um dos discos do Striped Volume falhar, toda 
+a informação estará comprometida. Uma das vantagens é que o desempenho melhora muito, uma vez que as informações são gravadas nos diversos discos ao mesmo tempo;
+
+	Volume Espelhado(Mirrored volume - RAID	1)
+	
+	É formado por duas cópias idênticas do mesmo volume sendo as cópias são mantidas em discos separados. Volumes espelhados oferecem proteção contra falha, uma vez que um dos 
+discos falhar, a informação do outro disco pode ser utilizada. O espelhamento pode ser desfeito, o disco defeituoso substituído e o espelhamento pode ser refeito. O único incoveniente 
+é que devido a duplicidade das informações, o espaço de armazenamento necessário é o dobro; Só podem ter 2 DISCOS NO MÁXIMO
+
+
+	Volume do Tipo RAID-5:
+
+	Um volume do tipo RAID-5 é um Striped Volume, porém com tolerância a falhas. Junto com dados, o Windows Server grava a informações de paridade (obtidas através de calculos matemáticos)
+	no vários discos que formam o RAID-5. Com isso, no evento de falha de um dos discos, toda informação do disco com problemas pode ser resconstituída a partir das informações de paridade
+dos outros discos. O disco defeituoso pode ser substituído e a informação nele contida pode ser recriada a partir da informação de paridade nos demais discos do RAID-5. Para que possamos construir
+um RAID-5 um minimo de três discos é necessário. Porém, se dois discos falharem ao mesmo tempo, não será possível recuperar a informação;
+
+
+
+	tipo de disco tolerante a falhas ?
+
+	Espelho ou RAID-5
+	
+	Preciso ter o máximo de aproveitamento de espaço dos discos?
+
+	RAID-5
+
+	Só tenho 2 discos ?
+	Usar o espelhamento, pois para o RAID-5 é preciso 3 ou mais;
+
+	Não me interressa a paridade == RAID-0, pois é um disco dinâmico que absorve os discos de forma clara;
+
+
+	MBR X GPT
+
+	MBR vem lá da década de 80, já funciona bem. Se o cliente não tem discos maiores que 2TB continue usando MBR
+
+	Se tem partiçoes maiores que 2TB, use o formato GPT, 
+
+	GPT suporta até 128 partições
+		
+
+	Sistema de Arquivos
+
+	FAT,
+	
+	FAT Comum - Até 4Gb
+	FAT32 - Até 32Gb e não pode ter arquivos maiores que 4Gb
+	exFAT desenvolvido para flash drives
+
+	NFTS
+	Muito melhor de usar tem até segurança
+
+	Refs
+	Suporte de compatibilidade com versões anteriores para NTFS
+	Verificação de dados melhorada e correção de erros
+	Suporte para arquivos, diretórios, volumes maiores
+	Não é para SO, muito bom para guardar arquivos
+
+	Para converter de disco básico para dinâmico, eu não perco os dados. No entanto, quando eu tento voltar de dinâmico para básico eu preciso formatar o disco;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Sistema de Arquivos 
+
+	Quando eu uso MBR e GPT
+
+	Primeiro de tudo, MBR é um padrão mais antigo, surgiu nos anos 80 e tem algumas limitações
+
+		No Windows Só é possível criar partições de no máximo 2Tb e o máximo de partições que podemos criar são 4 
+		Sendo 3 primárias (onde podemos colocar S.O) e uma lógica, onde podemos criar varios partiçoes lógicas dentro;
+
+		Partições primárias são partições onde podemos instalar sistemas operacionais (boot multiplos), mas isso não é tão facil assim
+		somente uma partição é dita ativa para o sistema operacional, que basicamente diz a partição onde o sistema operacional está para ser inicializado. E uma, e somente uma partição, 
+		pode ser designada como estendida. Não há limite para as partições estendidas.
+
+	GPT é um padrão mais atual que surgiu nos anos 90 
+	
+		Pode ter até 128 partições 
+		Pode ter uma partição de até 1 ZetaByte
+
+
+	Passos para adicionar uma partição no Windows 
+
+		Quando vamos em iniciar -> botão esquerdo -> Disk Management
+		
+		Abre a tela onde podemos escolher os discos que ainda não foram reconhecidos pelo computador
+
+		Cricamos no disco com o botão esquerdo e dizemos vamos inicializa-lo
+
+		Podemos escolher se o disco será GPT ou MBR
+
+		GPT == 128 partições, sem limite de tamanho
+		MBR == Max 4 partições com 3 primárias e 1 lógica e com cada partição sendo limitada a no Max 2 Tb
+
+		Depois de inicializar o disco o Windows, por default, já o deixa como básico.		
+
+		O que significa um disk básico;
+
+			Disco básico incluem partiçoes primárias e unidades lógicas.		
+
+		Discos dinâmicos as partições são conhecidas como volumes dinâmicos.
+		Os volumes dinâmicos incluem: 
+			
+			- Volume Simples - Que encontramos nos discos básicos
+			- Volumes distribuídos
+			- Volumes estendidos
+			- Volumes espelhados
+			- RAID-5
+
+		** Volume é uma área de armazenamento no disco. Com isso, um volume é formatado usando um sistema de arquivos
+		como a tabela de alocação de arquivos FAT ou sistema de arquivos NFTS, e tem uma letra de unidade atribuída a ele
+
+		Antes de converter discos básicos em discos dinâmicos, determine se você precisa de recursos fornecidos por discos dinâmicos. 
+		Se você não exigir volumes estendidos, volumes distribuídos, volumes espelhados ou conjuntos RAID-5, talvez seja melhor usar discos básicos
+		
+		Se meu disco é básico eu só consigo criar Volumes Simples nele, ou seja, volumes RAID-5, Espelhados, distribuídos e etc são tudo para discos dinâmicos;
+	
+		FAT - Comum e tamanho máximo dos arquivos até 4Gb
+		FAT32 - Até 32Gb e os arquivos não podem ter mais que 4Gb
+		NTFS - Não tem tamanho de arquivos, ou seja, o arquivos pode ocupar todo o tamanho do disco;
+
+		Recurso					ReFS			NTFS
+
+		Tamanho Máximo para nome de arquivo	255 Caracteres unicode	255 Caracteres unicode
+		Tamanho máximo do caminho		32K Caracteres unicode	32K Caracteres unicode
+		Tamanho máximo do arquivo		35 PB (petabytes)	8 PB
+		Tamanho máximo do volume		35 PB			8 PB
+
+
+		Volume label: Allows you to give your drive a memorable or cute name for easy identification.
+
+		File system: Except on some Enterprise installations the file system in Windows 10 will nearly always be locked to NTFS. Small partitions will also offer legacy options for MS-DOS era FAT and FAT32 file systems.
+
+		Perform a quick format: A standard format checks the drive for hardware errors (bad sectors) while the quick format skips these tests.
+
+		Enable file and folder compression: Applies file compression to every file stored on the partition. Generally, it is not used due to the performance hit it introduces.
+
+
+		Allocation Unit Size define o tamanho dos blocos de arquivos que o disco terá 
+
+		Por Exemplo: Coloquei que o Allocation Unit Size será default == 4096K (4K)
+
+		Se eu quero gravar um arquivo de 1MB == 1024K
+
+		Então teriamos um total de blocos de 1024 / 4 = 256 blocos, mas se os  blocos fossem de 64K
+
+		1024 / 64 = 16 Blocos, ou seja, muito mais rapido de ser encontrado;
+
+
+	Spanned Volume (Expandido): Consiste em 2 a 32 Discos fisicos, os quais devem ser essencialmente discos dinâmicos.
+	Basicamente, um volume espandido é, essencialmente, um método para combinar espaço de vários discos dinâmicos num único 
+	volume grande
+
+	Ex: Tenho um disco dinâmico A com 5GB sobrando numa máquina 
+	    Tenho um disco dinâmico B com 15GB sobrando na mesma máquina 
+		
+		Posso criar um volume espandido de 10 GB com o Disco A e o Disco B
+
+	    O Windows Server Grava no Volume espandido primeiro e depois grava nos discos adicionais, ou seja, você pode espandir um volume
+	    que já foi espandido. 
+		
+	    Um volume espandido não é tolerante a falhas, isto é, se um disco falhar todos os discos falharão. Com isso, podemos inferir se 
+	    um dado do disco falhar o disco inteiro se perde;
+
+	
+	Striped Volume (Distribuído): Consiste em pegar de 2 a 32 Discos fisicos, que devem ser discos dinâmicos. A diferença entre os discos 
+	distribuídos e os discos espandidos é que, em um sistema de discos distribuídos o S.O grava em faixas, ou seja, quando o sistema operacional 
+	precisa de um dado ele procura esse dado de forma mais rapida em cada disco, pois cada um tem um pequena parte do dado. Também não é tolerante a falhas, mas é possível estendê-los após a criação
+	Se um disco distribuído falhar todos os os dados do volume são perdidos; 
+
+	A diferença entre um disco dinâmico que está espandido e um disco dinâmico distribuído é que o espandido funciona com o objetivo 
+	apenas de aumentar o tamanho. Quando acaba o espaço em um disco ele vai para o outro e assim sucessivamente
+	Já o distribuído tem um vantagem com relação a ele, pois ele distribuí os dados em todos os discos de forma que ele é mais 	
+	rápido para gravar e mais rápido para ler também, ou seja, ele faz tudo com mais rapidez. No entanto, nenhum dos dois é tolerante a falhas 
+	se um disco sumir do distribuído, toda a informação é perdida. Da mesma forma o disco espandido que pode ter a informação comprometida;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Tipos de Armazenamento 
+
+	DAS - Direct Attached Storage
+	
+	DAS pode incluir discos que estão fisicamente localizados dentro do próprio servidor ou está fisicamente conectado ao servidor. DAS vem de vários tipos de discos
+	como SATA, SAS ou SSD, que afetam a velocidade e o desempenho do armazenamento, e tem vantagens e desvantagens
+
+	NAS - Network Attached Storage
+	
+	NAS é o armazenamento que é ligado a um  dispositivo de armazenamento e, em seguida, acessada através da rede. Nas é diferente de DAS onde o armazenamento não está diretamente 
+	ligado  para cada servidor, mas é acessível através da rede para vários servidores.
+
+	Desvantagens: Não é uma solução corporativa e por estar na rede o tempo de acesso é mais lento;
+
+	SAN
+	
+	SAN é basicamente uma rede de alta velocidade que conecta sistemas especializados de computadores ou servidores host para alto desempenho com subsistemas de armazenamento. Uma
+	SAN permite que vários servidores acessem um  conjunto de armazenamento em que qualquer servidor pode acessar potencialmente qualquer unidade de armazenamento.
+
+	Vantagens do SAN: 
+	
+	- Tempos de acesso mais rápidos
+	- Facilmente expansível
+	- Armazenamento centralizado
+	- Alto nível de redundância
+
+	Desvantagens: 
+	
+	- Alto custo
+	- Requer pessoal especializado
+
+	O que é host swap ?? é quando você pode trocar um disco sem desligar o servidor;
+
+
+	Armazenamento em bloco X Armazenamento em arquivo
+
+	Armazenamento em nível de bloco:
+	
+	- Apresenta alto desempenho
+	- Geralmente é baseado em SAN
+	- Apresenta LUNs a servidores - Está na rede, mas para o computador local parece que está conectado nele mesmo; Como se fosse um DAS
+
+	Armazenamento em nível de arquivo:
+	
+	- É entregue por NAS, um servidor de armazenamento ou um servidor de arquivos
+	- Usa CIFS/SMB (pastas compartilhadas) ou NFS (exportações)
+	- Usa armazenamento em nível de bloco no back-end de armazenamento
+
+	O armazenamento em nível de bloco é de mais baixo nível, ou seja, ele tem N blocos numerados e cada bloco tem um tamanho fixo. 
+	Já o armazenamento ao nível de arquivo é de mais alto nível, isto é, ele está no nivel do sistema opercional. Ele gerencia os dados como um hierarquia nomeada de arquivos e pastas.
+
+	Ambos geralmente são acessados através de uma rede SAN, para armazenamento em bloco, usando protocolos como iSCSI ou Fiber Channel ou um servidor de arquivos NAS (Network Attached Storage)
+	ou um "arquivador" para armazenamento arquivos, usando protocolos como CIFS (commom internet File System) ou o NFS (Network File System)
+
+	Seja anexado diretamente ou anexado à rede, bloco ou arquivo, esse tipo de armazenamento está diretamente associado ao servidor e ao sistema operacional que está usando o armazenamento.
+
+
+
+	Comparação Fiber Channel e iSCSI (Windows Server)
+
+	O que é o Fiber Channel ??
+
+	É uma tecnologia de rede de alto desempenho usada principalmente para conectar a SANs. Traduzindo, é utilizar fibra ótica para conectar um servidor a um conjunto de discos, um Storage.
+	É uma tecnologia muito eficiente e rápida, porém  com um custo muito elevado. 
+	Pode alcançar velocidades de largura de banda de 128Gbps.
+
+	O que é o iSCSI ??
+	
+	ISCSI é um protocolo que suporta acesso a dispositivos de armazenamento remotos com base em SCSI por uma rede TCP/IP
+
+		Através do iSCSI os servidores Windows 2016 podem ser usados como servidores NAS
+
+	Protocolos iSNS, DCB, MPIO
+
+	iSNS emula comandos de fibra e ajuda a achar os discos no servidor. Cria um banco de dados de informações sobre o servidor e os discos.
+	DCB ajuda a outros protocolos a trabalharem, melhora o comportamento da placa de rede, aloca banda na rede;
+	MPIO Forneça alta disponibilidade a um servidor de discos e um cliente de discos para um cliente iSCSI.  
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+	O que é um disco iSCSI ??
+		
+	Um disco iSCSI é um disco que está no servidor e é compartilhado via rede para máquinas clientes. Ele pega um disco físico do servidor
+	e libera ele para outros discos na rede;
+
+	Mas como isso é feito por baixo dos panos ??
+	Eu crio discos VHDs e esses VHDs que eu disponibilizo na rede, ou seja, são discos virtuais que eu coloco na rede para todo mundo usar;
+	O recomendado é que não seja seu disco C: para disponibilizar na rede. Deve-se tentar utilizar um disco extra para que seja utilizado pelas máquinas clientes;
+
+	A ideia é que você tenha um disco físico na máquina e ao invés de você criar partições desses discos, você cria discos vhds e publica esses discos na rede;
+
+	Qual a diferênça entre usuários autenticados e todos os usuário ?
+	
+	Todos os usuários são todos os usuários da rede
+	Usuários autenticados: São todos os usuário e computadores que pertencem ao domínio; Portanto, é mais seguro
+
+
+	Regras NTFS são conhecidas como regras de segurança;
+
+	Grupo Modificar é maior que o Grupo Gravar, pois o Grupo Gravar não pode apagar arquivos de outros grupos. Já o Grupo Gravar pode fazer isso para todos os Grupos!
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Quando o Windows Server não é iniciado no Virtual Box
+
+	LewisHolt21 wrote:
+	Hyper-V is enabled on this machine as I do have Windows' Hyper-V Manager which works fine, just wanted to use Virtualbox.
+	Your VM is not frozen, it's simply moving at the speed of molasses during winter in the Arctic circle. You can't have Hyper-V active and expect good (or even adequate) VirtualBox performace:
+		00:00:35.805161 HM: HMR3Init: Attempting fall back to NEM: VT-x is not available
+		00:00:35.819970 NEM: WHvCapabilityCodeHypervisorPresent is TRUE, so this might work...
+	Hyper-V is enabled, just as you stated. You can tell if this is true from the status bar where the "slow" icon (Image) shows. Look in the "Control Panel" » "Programs and Features" » "Turn Windows features on or off", and make sure that the none of the following are active:
+	Hyper-V
+	Virtual Machine Platform
+	Windows \Hypervisor Platform
+	If VirtualBox is running without Hyper-V enabled, where proper, hardware virtualization is actually available, then the standard virtualization icon (Image) would show. Disable Hyper-V in your host and see what happens...
+
+	PS. For future reference you should ZIP your logs. It helps you, it helps us, it helps the server, it helps save a (virtual) tree or two... ;)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

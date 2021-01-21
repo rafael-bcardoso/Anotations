@@ -1,0 +1,133 @@
+	O básico que é preciso saber sobre a estrutura da web é que ela é composta, principalmente, pelas tags
+html, head, body e no topo da página é necessário colocar o <!DOCTYPYE html> para dizer para o browser que 
+o arquivo é um html.
+
+	Como principais tags html podemos destacar:
+ 	
+	tag <p></p>
+		- A tag <p></p> é uma tag de parágrafo e como o próprio nome já diz é utiliza para dizer ao navegador que ali está sendo iniciado um novo parágrafo na página
+	tags <h1></h1>, <h2></h2>, <h3></h3>, <h4></h4>, <h5></h5> e <h6></h6>
+		- Essas tags são utilizadas para dizer ao navegador que ali encontra-se um título, ou seja, sempre que quisermos utilizar um título em uma página devemos utilizar as tags h. 
+		  Uma observação importante é que seria interressante possuir apenas um tag <h1></h1> na página.
+	
+
+	tags <strong></stong>	
+		- É uma tag que deixa o palavra ou texto em negrito e traz semântica ao navegador.		
+	tags <b></b>
+		- A tag <b></b> é uma tag que deixa o texto ou palavra em negrito, mas traz tanta semântica ao navegador.
+	
+	tags <em></em>
+		- A tag <em></em> é uma tag utilizada para deixar o texto em negrito só que para o navegador ela é bem mais semântica.
+	tags <i></i> 
+		- A tag <i></i> também é um tag que deixa a palavra ou o texto em ítalico, mas não traz tanta semântica para o navegador como a tag <em></em>
+	
+	<DOCTYE html> == Diz que aquele documento é HTML e que está utilizando HTML5
+	
+	<html lang="pt-br"> Diz que a linguagem que o site está utilizando é Português.
+	
+	<meta charset="utf-8"> = Metadado para a página que diz que está utilização utf-8 para acentos
+
+	tags <img> 
+		- A tag img é conhecida como tag null, porque não tem fechamento. 	
+		- Ela pode ser utilizada para mostrar imagens que estão dentro do projeto ou fora (link web) através do atributo src
+		- Também é importante colocar o atributo alt, pois ele é quem diz para o navegador o que é aquela imagem e também auxilia o uso do site por pessoas com deficiência visual
+	
+	tags <br>
+		- A tag <br> também é uma tag null e é utilizada para quebra uma linha em textos.
+	     	  Ex: 
+			<h1> Eu sou um Texto </h1> se eu quiser que a palavra texto apareça na linha debaixo como eu devo fazer ??
+			<h1> Eu sou um 
+			Texto </h1> --> Jeito errado de fazer				
+			<h1> Eu sou um <br> Texto </h1> --> Jeito correto de fazer
+
+	tags <ul></ul>
+		- Unorderlist == Uma lista não ordenada que cria bullets para cada um dos itens da lista
+	
+	tags <li></li> 
+		- Tag que exibe o item de uma dada lista no navegador
+	
+	tags <ol></ol>
+		- Tag muito utilizada para ordernar os itens de uma dada lista; 
+
+	tags <a></a>
+		- Tag ancora que é utilizada para fazer o link entre diferentes páginas do site.
+		- A tag <a></a> faz isso através do atributo href;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	Tags estruturais
+	
+	tags <div></div>
+		- São tags que não possuem responsabilidades semânticas na página, mas possuem uma função muito importante na estruturação da página; 
+		- A tag <div></div> também é um tag que "gosta" de ficar isolada na página, ou seja, quando ela é colocada dentro de uma outra tag, ela quebra uma linha como se fosse um parágrafo;
+	tags <span></span> 
+		- São tags que não possuem significado semântico algum, mas possuem um papel muito importante na estruturação da página;
+		- Uma característica importante da tag <span></span> é que ela possui a característica de ser um elemento em linha;
+
+	tags article <article></article>
+		- São tags que possuem a mesma função que uma <div></div>, mas o seu significado semântico para o navegador é muito maior;
+		- Essa tag também é caracterizada por possuir começo, meio e fim de alguma informação dentro da página;
+	
+	tags <section></section>
+		- São tags de estruturação também e que possuem um significado semântico muito maior que a div;
+		- São tags que possuem uma semântica de ser indepedente, podendo até estar dentro da tag <article></article>
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Formulários 
+
+	Tag formulário: <form action="paginaQueRespondeAoSubmit" method="post" name="usuarios"></form>
+
+	Dentro de um formulário podemos colocar vários outros elementos, principalmente <label></label> e <input>
+
+	Ex: 
+
+	<form action="usuario.php" method="post" name="usuarios">
+
+		<label for="nome">Nome</label>	
+		<input id="nome" name="nome" type="text" required>
+		
+		<label for="sobrenome">Sobrenome</label>
+		<input id="sobrenome" name="sobrenome" type="text">
+
+		<label for="email"></label>
+		<input id="email" name="email" type="email">
+		
+		<label for="observacao"></label>
+		<textarea id="observacao" name="observacao"></textarea>		
+
+		<button id="enviar" name="enviar" type="submit">Enviar</button>
+		
+	</form>
+	
+	Ainda falando sobre formulários, há um diferença entre o atributo id e atributo name, ou seja, quando estamos fazendo o POST de um formulário na WEB, ele irá buscar, primariamente, 
+	os atributos name na tag input. Esses campos são os campos que foram preenchidos pelo usuário e serão enviados em um POST http; 
+	Já o atributo id é um atributo que é muito utilizado pelo CSS e pelo Javascript document.getElementById('#id'). 
+	Portanto, a relação entre o atributo (for) do label é com o atributo (id) do atributo input;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
