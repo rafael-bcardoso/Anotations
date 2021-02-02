@@ -1,0 +1,19 @@
+Strategy é um padrão comportamental
+
+Padrão Builder: É um padrão de criação, junto com o abstract factory, Factory Method, Prototype e Singleton. 
+
+Como o padrão Builder funciona??
+	
+	Por definição: Tem o objetivo de separar a construção de um objeto complexo da sua representação de modo que o mesmo
+		       processo de construção possa criar diferentes representações.
+
+	O que isso significa??
+		
+		Temos um objeto complexo e delegamos a criação desse objeto complexo para outro objeto (o Builder), que cria o objeto-produto
+		parte por parte.
+
+		Um ponto importante que podemos destacar nesse padrão é o objetivo de criar um objeto parte por parte. É essa característica que 
+		o difere dos demais padrões.
+
+		O que significa criar diferentes representações? é justamente o fato de podermos criar um objeto utilizando 
+		um de vários builders concretos, obtendo assim um produto diferente.
