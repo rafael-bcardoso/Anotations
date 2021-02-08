@@ -17,3 +17,39 @@ Como o padrão Builder funciona??
 
 		O que significa criar diferentes representações? é justamente o fato de podermos criar um objeto utilizando 
 		um de vários builders concretos, obtendo assim um produto diferente.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Uma classe coesa é aquela que possui apenas um única responsabilidade. Portanto, em orientação a objetos o objetivo é SEMPRE buscar
+classes mais coesas.
+
+Complexida Ciclomática: De maneira simplificada, é o número de diferentes caminhos que seu método pode executar. Por exemplo, 
+quando adicionamos um "if" no código, automaticamente geramos dois diferentes caminhos: um caminho onde a condição do if é verdadeiro
+e outro caminho onde a condição é falsa. Quanto maior a combinação de ifs e fors e coisas do gênero, maior será esse número.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
