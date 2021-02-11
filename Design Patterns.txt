@@ -27,6 +27,30 @@ Complexida Ciclomática: De maneira simplificada, é o número de diferentes cam
 quando adicionamos um "if" no código, automaticamente geramos dois diferentes caminhos: um caminho onde a condição do if é verdadeiro
 e outro caminho onde a condição é falsa. Quanto maior a combinação de ifs e fors e coisas do gênero, maior será esse número.
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Dizemos que uma classe está acoplada a outra quando existe alguma relação de depedência entre elas.
+
+	** Classes altamente coesas e pouco acopladas são dificeis de serem projetadas **
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Vantagens das Dependencias Explicitas
+
+	É considerada uma boa prática deixar todas as dependências da classe de forma Explicita. Por exemplo, 
+	quando decimos colocar a dependência de uma interface no construtor da classe é facil para quem vai consumir aquela classe 
+	que a mesma possui uma dependência.
+
+	Em segundo lugar, ao saber que a classe possui um dependência no construtor, isso facilita a sua extensão. 
+	Por meio do polimorfismo poderíamos passar algum filho da classe que implementou a Interface, ou outra implementação 
+	da interface também. Com isso, alteramos o seu comportamento sem precisarmos mudar a classe.
+
+	Quando trabalhamo com TDD, deixar as dependências de forma explicita facilita em muito o trabalho na hora de testarmos, pois 
+	sem explicitarmos as dependências de uma classe é impossível criamos os mocks dela.
+
+	No entanto, uma classe que precisa de muitas dependências no construtor são chamadas de God class, pois geralmente elas contèm
+	muita regra de negócio e apenas coordenam o processo de outras classes.
+
 
 
 
