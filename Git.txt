@@ -1,0 +1,13 @@
+Como voltar tudo que foi feito localmente??
+
+	Busca o ultimo commit que está no github. Com o ultimo commit em mãos é so usar esse comando
+
+		git reset --hard ddc1553386d132cc41caf878c49fc22c902079ac
+
+Como adicionar um arquivo no que já está sendo rastreado no git ??
+
+	Primeiro precisamos remover ele do tracking do git
+
+		git rm -r --cached FOLDER
+
+	Agora precisamos rastrear todos os arquivos
