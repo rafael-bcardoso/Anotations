@@ -1,15 +1,485 @@
-the, be, to, of, and, a, in, that, have, I, it, for, not, on, with, he, as, you, do, at, this, but, his, by, from, they, we, say, her, she, 
-or, an, will, my, one, all, would, there, their, what, so, up, out, if, about, who, get, which, go, me, when, make, can, like, time, no, just,
-him, know, take, person, into, year, your, good, some, could, them, see, other, than, then, now, look, only, come, its, over, think, also, 
-back, after, use, two, how, our, work, first, well, way, even, new, want, because, any, these, give, day, most, us
+How many times has Italy won the world cup?
+
+	Italy is one of the most successful national teams in the history of the world cup. having won four titles, just one fewer than Brazil.
+
+Where were the last Olympic Games?
+	
+	The Olympic Games is one the most important competition in the history of the world. The last Olympic Games were in Brazil.
+
+Why are you always late?
+
+	I should go to bed early, but I don't know to do it.
+	I go to bed late. It's the reason why I'm always late.
+
+Does Pâmela like rainy weather?
+No, she doesn't.
+She likes fall weather.
+
+	Yesterday was rainy weather, and we were at home.
+
+When was the last world cup?
+	
+	The world cup is one of the most important competitions in the world. The last world cup was in Brazil, and the team Brazil lost German.
+
+I'm want to be somebody, so I need to speak English this year.
+
+	I need to speak English because in my career English is necessary for found new jobs.
+
+When we were there?
+	
+	We were there yesterday.
+
+Is he used to teaching kids?
+	
+	Yes, he used to teach kids at church. He used to teach histories of the bible.
+
+Did you use to do it?
+
+	I'm used to do my tasks, but I didn't do do things of the other people.
+
+Don't take your coat off.
+
+	Today, the weather is snowing.
+
+He intends to join in the marines
+
+	Yes, really? I intend to join the army.
+
+Did they already clean the car?
+	
+	Yes, they already cleaned the car.	
+
+Are they thinkin of coming to China?
+
+	Yes, they are thinking of coming to China to work.
+
+He is not supposed to go alone.
+
+	Yes, it's true. He is supposed to go with his sister.
+
+When will you join the team?
+	
+	I don't know the date, but I'll join the team next month.
+
+This is a dead on street.
+
+	It's a dead-on street because this street is one way.
+
+What's sports did you use to play when you were a teenager?
+
+	I used to play soccer when I was a teenager.
+
+How was your trip?
+
+	My trip was good because I have a lot of money today.
+
+When driving, always observe the speed limit.
+
+	It's very important because when we are observing the speed limit, we are paying attention to cars and people on the street or avenue.
+
+Does he have a girlfriend?
+
+	Yes, He has a girlfriend.
+
+She wasn't well.
+
+	She was very sick yesterday.
+
+We didn't use to go to summer camp.
+
+	This first reason. I don't like summer camp.
+
+You're supposed to send package back.
+
+	Yesterday, My family sent a package back.
+
+They're used to only speaking English.
+
+	Yes, they are. They're used to only speaking English, but they are learning how to speak Portuguese too.
+
+Wasn't he home?
+
+	Yes, he wasn't. He wasn't he home yesterday.
+
+I bet she is not coming today. 
+
+	I bet she is not coming today, because my fiancé is very busy.
+
+He likes to please his guests.
+
+	He likes to please his please his guests, because his guests are funny people.
+
+He didn't sing in the choir.
+
+	My brother argued at church, and he didn't sing in the choir that year.
+
+I wasn't doing it.
+
+	I'm here! I wasn't doing it, mom.
+
+She's supposed to go through customs.
+
+	The customs is one place where we go to validate our passport.
+
+You are so pretty to me. 
+
+	Pâmela, are so beautiful and wonderful for me.
+
+He has a valid passport.
+
+	When I go to German, I had to valid my passport. So, I had a valid passport.
+
+When he was here?
+
+	The bible said that Jesus was here when we were lost.
+
+What course are you taking?
+
+	I'm taking the Java course in Udemy.
+
+Wasn't it your manager who called you?
+
+	Yes, he was. He called me to talk, that I'm the manager of the project now.
+
+How are you feeling?
+
+	I'm feeling very well this morning.
+
+I choose not to talk about it anymore.
+
+	This situation is complicated for me, and I choose not thinking about it anymore forever.
+
+She's sixteen. Straight up?
+
+	Yes, my son grew up quickly.
+
+When will your license expire?
+
+	My license expires next month, unfortunately.
+
+When are you going to travel?
+
+	I'm going to travel next holiday. I go to Miami beach.
+
+When was the last time he cleaned his house?
+
+	I don't know, because Fabio pays for Mari to cleaned his house every week for about ten years.
+
+Have you ever lost your keys. 
+
+	Yes. I've lost my keys in the girlfriend's house.
+
+He's thirty years old
+
+	He is a man today, he needs marriage very fast.
+
+You're a really attractive woman. Straight up!
+
+	Yes, you are a beautiful girl and very attractive.
+
+We need to hurry.
+
+	We need to hurry for church.
+
+It wasn't she who bought it.
+
+	Yes, she was. She was that who bought it for me yesterday.
+
+Does he like sunny weather?
+
+	No, he doesn't like sunny weather. 
+
+We stand againg at a historic crossroads
+
+	This crossroads is very important for the history of England.
+
+When will the next world cup?
+
+	I don't know. I think the next world cup will be in Qatar next year.
+
+He intends to live in another country.
+
+	Yes, he intends to live in another country with his wife next year.
+
+She used to work as a hostess here.
+
+	Yes, she works as a hostess for about ten years.
+
+They were pleased with it.
+
+	Yes, they were. They get a new toy, and they were happy.
+
+Can I put it here?
+
+	Yes, you can. You can put it here and get the new cup.
+
+Was it your brother who got a scholarship abroad?
+
+	Yes, was he. It was my brother who got a scholarship abroad in Canadá.
+
+What the most important thing that happened in the world was in the past decade?
+
+	The most important thing that happened was President Trump and Correia's president together.
+
+She used to be a naughty child.
+
+	It's true. She used to be a naughty child at school and with her grandfather and grandmother.
+
+Did you access the internet today? Yes, I did. I access the internet through my machine and the internet it's okay.
+
+	Great. Good sounds, because I need to find my Curriculum Vitae on the Internet.
+
+He died after along illness.
+
+	Bad sounds. I give him a new cell phone before he died.
+
+It didn't work as well as we expected.
+
+	Really? I will find the new car for you.
+
+When will the next Olympic Games be?
+	
+	The next Olympic Games be in next year.
+
+Do you sometimes get angry when things are not done quickly?
+
+	Yes, I get angry when things are done quickly, because I'm very anxious.
+
+Were you going to buy a one-way ticket?
+
+	Yes, I was. I was going to buy a one-way ticket to THE USA.
+
+When was the last time he cleaned his bedroom?
+
+	The last time he cleaned his bedroom was in the past year if I remembered correctly.
+
+I'm not going to the party tomorrow.
+
+	My father is very sick today, and I'm with him.
+
+I can manage to meet you in an hour.
+
+	Yes, greats sounds. We should meet in the meeting room.
+
+He used to work as a bartender.
+
+	This is a great job. I was working as a bartender last year in the restaurant.
+
+It was Jane who pass by us.
+	
+	Yes, was she. She was very angry.
+
+Where was he yesterday?
+
+	I don't know. I thinking he was working in the office.
+
+I started learning English in 2009.
+
+	Where did you start learning English? What was the name of your school?
+
+Is it going to snow tomorrow?
+
+	Yes, is it.
+
+It wasn't good. 
+
+	Yes, it was. It wasn't good because we need to call more people to the party.
+
+I'm supposed to finish by nine.
+
+	I would like to finish the class at this time because my students need to take the bus at about 9 PM.
+
+What is the largest planet in the solar system.
+
+	The largest planet in the solar system, I think so is Saturn.
+
+Are you going to join us for dinner?
+
+	Yes, I'm. I'm going to join you for dinner. I would like to eat pasta.
+
+His ID matched ours. 
+
+	Yes, it matched. This ID matched ours because he borns where us born.
+
+How old is she?
+
+	She's thirteen years old and I'm twenty-seven years old.
+
+Can you give a ride home?
+
+	Yes, I can. I can give you a ride home because your home is on way to my house.
+
+It's easy or difficult to get a college scholarship in this country.
+
+	I think getting a college scholarship depends on the student. Good and Intelligent students get college scholarships easily.
+
+Do you believe in God?
+
+	Yes, I believe in God. God has all control in your hands.
+
+Who wrotes the twilight saga?
+
+	I don't know who wrotes the twilight saga.
+
+She started learning English in 2009.
+
+	Yes, good sounds. I started learning English in 2019 because I didn't have money in the past.
+
+Where is the last World Cup?
+
+	The last World Cup was in Brazil. I remembered that Brazil loses to Germany.
+
+Wasn't she supposed to be here?
+		
+	Yes, she was. She was supposed to be here because she loves our tasks.[
+
+Will you meet us this evening?
+
+	Yes, I meet you this evening to think about another job.
+
+Where is the boarding gate?
+
+	The boarding gate is ahead of the snack bar.
+
+We're used to living here.
+
+	I'm living here for about ten years.
+
+They went to China in 2006
+
+	I went to USA in 2023.
+
+She is not used the cold weather.
+
+	Yes, she's not.  She's used to sunny weather.
+
+Do you intend to study overseas?
+
+	Yes, I intend to study overseas. My dream is to study in another country.
+
+Why don't you come over and we'll discuss it?
+
+	Yes, I'll talk with you today.
+
+They were going to the city because they were loking for work.
+
+	Great! I was looking for work in the same city last month.
+
+My parents gave total freedom to do whatever I liked.
+
+	Great sounds! My parents gave me total freedom too. I studied computer engineering and I love my occupation.
+
+She was interested in buying a new printer.
+
+	I was interested in buying a new computer and a new appartment with my girlfriend.
+
+We are supposed to inspect it.
+	
+	The deal said that we are obliged to inspect it every month.
+
+We can't pretend it's okay.
+
+	Yes, but we can pretend now.
+
+They are supposed to give us a ride.
+	
+	Yes, they are. After my wedding, they are supposed to give us a ride in their Mercedes car.
+
+A motorcycle helmet.
+
+	The motorcycle helmet saves a lot of people.
+
+She is used to managing a business.
+
+	Yes, she is used to managing a business until she was a teenager.
 
 
-1- vc não vai aprender só assistindo;
-2- Seriados do cotidiano;
-Passo a passo para estudar inglês com seriado:
-1- áudio e legenda em inglês;
-2- vão pausando o seriado;
-3- repita tudo o que o personagem fala;
-4- Não precisa traduzir TUDO;
-5- Analise as estruturas das falas;
-6- Palavras novas anote no seu caderno de vocabulário fugindo da tradução (use frases, imagens)
+Where is the ticket that I gave you.
+
+	I don't know where is the ticket that you gave me yesterday.
+
+When was he born?
+
+	I don't know when he was born. I think that he was born in Diadema city in 1994.
+
+He was going to server in the marines.
+
+	Yes, he was. He was going to server in the marines because he doesn't like the army.
+
+
+What size do you wear?
+
+	I don't know what size I wear, because my mother buys my clothes.
+
+They all joined the army.
+
+	I didn't like joining the army, because I don't like war.
+
+Would you like to order the appetizers?
+
+	Yes, I would like to order the appetizers now.
+
+Is that the car that you bought?
+
+	Yes, This car I bought last year.
+
+How much is minimum wage nowadays?
+
+	I don't know what is the minimum wage nowadays.
+
+This shirt doesn't fit me anymore.
+
+	I'm fat today.
+
+What bands or singers did you listen to when you were a child?
+
+	My favorite band is Nirvana.
+
+Do you considered yourself a disciplined person?
+
+	Yes, I'm a disciplined person. I'm studying English every morning.
+
+Don't ride a bike without a helmet.
+
+	Yes, I will ride a bike with a helmet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

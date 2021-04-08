@@ -1,0 +1,59 @@
+
+GET - https://grupouniseter.api.com/api/customers?funcionario_id=1&service_point_id=2
+
+GET - https://grupouniseter.api.com/api/occurrences/customers?funcionario_id=1&customer_id=2
+
+customers -> ocorrencias -> funcionarios -> login -> 
+
+GET - https://api/customers/occurrences/dashboard?funcionario_id=1 -- Query Paramenter para toda a URI
+
+GET - https://
+      grupouniseter.api.com
+      /api/customers;customer_id=1,2;status=true/occurrences;funcionario_id=1,2,3;service_point_id=1,2 -- NÃO SUPORTADO PELO ASP NET CORE
+      ?queryString
+
+GET - https://api/customer;customer_id=1,2/occurrences;funcionario_id=1,2,3;service_point_id=1,2/dashboard -- NÃO SUPORTADO PELO ASP NET CORE
+
+
+GET - https://
+      grupouniseter.api.com/ 
+      occurrences;funcionario_id=1,2;service_point=1,2/customers
+      ?queryString
+
+GET - https://
+      grupouniseter.api.com/
+      shedule-tasks/customers
+      ?queryString
+
+GET - https://
+      grupouniseter.api.com/
+      customers?
+      active=true&create_date=last-year
+
+GET - https://
+      grupouniseter.api.com/
+      companies
+
+
+	{
+	  id:1,
+	  name: "ABE FARMA",
+	  createDate: '2020-01-01'
+	  customers: "https://grupouniseter.api.com/companies/customers",
+	  "https://grupouniseter.api.com/companies/customers"
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

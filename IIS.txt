@@ -31,3 +31,32 @@ Como publicar uma aplicação no IIS ?
 -------------------------------------------------------------------------------------------------------------------------
 
 O endereço de IP que colocamos em C:\Windows\System32\drivers\etc\hosts é o IP que recebemos do DHCP da rede, ou seja, o IPv4 dinâmico;
+
+Ex: de como simular o ping em uma api publica
+
+# 192.168.15.10 api.elodashboard.intuitive-sw.com
+# 192.168.15.10 www.elodashboard.intuitive-sw.com
+# 192.168.15.10 brafe-teste.intuitive-sw.com
+# 192.168.15.10 dashboardgrupouniseter.intuitive-sw.com
+
+# 192.168.0.103 grupouniseter.intuitive-sw.com
+
+# 192.168.15.10 api.grupouniseterdashboard.intuitive-sw.com
+# 192.168.0.105 bikcraft-teste.intuitive-sw.com
+# 192.168.100.10 bikcraft.intuitive-sw.com
+# 192.168.15.11 api.nerdstore.com
+
+192.168.0.102 api.grupouniseterdashboard.intuitive-sw.com
+
+chrome://flags/#allow-insecure-localhost
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Para alterar o usuário e senha do FTP ?
+
+	 Windows -> Computer Management -> User and Groups -> Escolher o usuário e troca a senha dele
+
+	Se após isso não der pra logar no FTP 
+
+		Verificar se será preciso liberar o IP public no Site FTP em: FTP IP Address and Domain Restrictions

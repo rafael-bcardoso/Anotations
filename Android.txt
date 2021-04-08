@@ -1,4 +1,4 @@
-Arquivos pricipais em um projeto Android
+	Arquivos pricipais em um projeto Android
 
 Se o projeto estiver com a visualização de projeto: View -> Tool Windows -> Project e no drop down (à esquerda da página) Estiver selecionada a visualização "Android"
 
@@ -217,20 +217,413 @@ A classe MainActivity pega o XML que criamos e monta a visualização para o dis
 
 	Neste caso estamos querendo que todos os devices que vamos utilizar esteja no outro disco
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Estrutura de um projeto Android 
+
+	app
+	Gradle Scripts
+	
+	app
+		manifests	
+			AndroidManifest.xml
+
+			O que é o AndroidManifest.xml??
+			É um arquivo de configuração do Android para que possamos colocar as principais configurações do app Android. Como por exemplo, o ícone do projeto
+
+			Quando criamos um projeto em branco, temos a criação de um label e podemos também configurar diferentes themes para a aplicação.
+
+			E sem sobra de dúvidas o que temos de principal no AndroidManifest.xml é qual é a aplicação principal que temos na aplicação.
+
+			Onde temos as permissões do projeto é no AndroidManifest.xml
 
 
+		java
+
+			com.example.helloworld
+				
+				Nada mais é que o diretório onde temos a classe principal do projeto. Quando um projeto em branco é criado essa é a classe que é criada com ele.
+
+		java (generated) 
+			
+			com.example.helloworld
+				
+				Diretório onde temos alguns informações sobre o build da aplicação em ambiente de desenvolvimento.
+
+		res
+			drawable
+				Colocamos nesse diretório: Imagens, Músicas e qualquer arquivo necessário para o projeto.
+			layout
+				Colocamos os arquivos de interface
+
+					login.xml
+			mipmap
+				Parece com o drawable, mas só colocamos ícones nesse diretório.
+			values
+				Colocamos configurações globais para o app em arquivos xml
+
+					colors.xml
+					strings.xml
+					styles.xml
+
+		Wrap content: Está relacionado ao elemento que estamos trabalhando, ou seja, o elemento terá o tamanho de seu conteúdo
+		Fixed: Como o próprio nome diz, deixa o elemento com tamanho fixo e com isso se seu conteúdo for dinâmico o elemento terá problemas. O fixed joga o texto para baixo se não couber dentro do tamanho esperado;
+		Match contraint: Ocupa todo espaço que estava separado para as constraints
+
+		Seguindo ainda na parte de layouts do Android é possível adicionar imagens utilizando o ImageView. Quando adicionamos imagens ainda conseguimos definir no 
+		elemento ImageView como será suas contraints: Match Constraint, Fixed ou Wrap Content. Match constraint a imagem fica do tamanho geral das constraints, 
+		Wrap Content -> a imagem fica do tamanho original dela mesmo, fixed a gente define o tamanho da imagem.
+
+			Depois definir o tamanho da imagem, podemos adicionar outra propriedade muito importante para as imagens, O Scale Type. Essa propriedade nos ajuda 
+			a definir como será a escala utilizada para a imagem que estamos trabalhando.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Guideline: O que são guideline? são as linhas que utilizamos para nos horientarmos de onde devemos colocar o componente. 
+			Quando a gente vai colocar um textbox, a própria IDE do Android Studio já nos apresenta algumas linhas que podemos 
+			utilizar como referência para posicionar nosso componente. E com isso podemos fazer o componente ficar cada vez em melhor 
+			posição.
 		
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Layout Relativo e Layout Linear foram muito utilizados antes do Constraint Layout
+	
+	Layout Relativo: Permite alinhar os elementos um baseado no outro. O Relative Layout sempre utiliza espaçamentos fixos. 
+			 Isso impossibilita seu uso para telas maiores e a responsividade.
 
 
+	Linear Layout:  Como o próprio nome diz ele alinha os elementos de forma linear, tanto vertical como horizontal;
 
 
+	Frame Layout:  Antes do Constraint Layout, para colocar um item sobre o outro era utilizado o FrameLayout
+
+	Cordinator Layout é uma evolução do Frame Layout
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+	Para zerar o padding da TextInputEditText será necessário usar esses atributos na Tag TextInputEditText
+
+	<com.google.android.material.textfield.TextInputEditText
+		android:paddingStart="0dp"
+	        android:paddingEnd="0dp"/>
+
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 
+	Como que o Android instacia uma interface?
+
+		Ele não instancia uma interface o que ele faz é por baixo do panos criar uma classe anonima que implementa essa interface e com isso podemos utilizar essa classe anônima.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Todos os recursos globais da aplicação podem ser acessados através da classe Context;
+
+	Uma propriedade definida como final não pode ter seu valor alterado;
+
+	Conseguimos acessar o Context da aplicaçao pelo this e pelo método getApplicationContext();
+
+	Custom Toast Is deprecated in API 30.
+  
+---------------------------------------------------------------------------------------------------------------------------------------
+
+	Visibility: visible - Aparece na tela.
+		    invisible - Não aparece na tela, mas o componente ainda está lá. 
+		    gone - O componente sumiu totalmente da tela.
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+COMPONENT TYPE ABBREVIATIONS (This list shows two letters which is plenty)
+Frame Layout: fl
+Linear Layout: ll
+Table Layout: tl
+Table Row: tr
+Grid Layout: gl
+Relative Layout: rl
+
+Text View: tv
+Button: bt
+Check Box: cb
+Switch: sw
+Toggle Button: tb
+Image Button: ib
+Image View: iv
+Progress Bar: pb
+Seek Bar: sb
+Rating Bar: rb
+Spinner: sp
+WebView: wv
+Edit Text: et
+
+Radio Group: rg
+List View: lv
+Grid View: gv
+Expandable List View: el
+Scroll View: sv
+Horizontal Scroll View: hs
+Search View:* se
+Tab Host: th
+Video View: vv
+Dialer Filter: df
+
+Include: ic
+Fragment: fr
+Custom View (other): cv
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+	Ciclo de vida de uma activity:
+
+		Quando abrimos uma activity ela começa chamando o método 
+
+			onCreate()
+			onStart()
+			onResume()
+
+		Quando mudamos para outro app ela chama os seguintes métodos
+
+			onPause()
+			onStop()
+
+		Quando retornamos para o nosso app ele chama os seguintes métodos:
+
+			onRestart()
+			onStart()
+			onResume()
+
+		Quando fechamos o nosso App por completo, ele chama o seguinte método
+
+			onPause()
+			onStop()
+			onDestroy()
+
+		Quando retornamos para o app depois que ele foi destruido tudo começa no método:
+
+			onCreate();
 
 
+		Para passar um objeto de uma activity para outra, devemos utilizar o método putExtra("chave","valorSimples");
+
+		Agora se quisermos passar um objeto complexo de uma activity para outra, devemos dizer que o método implementa a interface 
+		Serializable que convert esse objeto para bytes, podendo ele ser armazenado no próprio aparelho ou enviado para outras activies;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 
+	Remover as bordar de um ImageButton: android:background="?attr/selectableItemBackgroundBorderless"
 
+	Colocar uma imagem em um botão normal após a API 30
+
+		<Button
+        		android:id="@+id/button6"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:background="@drawable/botao_jogar"	-- Important!
+        		app:backgroundTint="@android:color/transparent" -- Important!
+        		app:backgroundTintMode="add"			-- Very Important
+        		app:layout_constraintBottom_toBottomOf="parent"
+        		app:layout_constraintEnd_toEndOf="parent"
+        		app:layout_constraintStart_toStartOf="parent"
+        		app:layout_constraintTop_toBottomOf="@+id/imageView"
+        		app:layout_constraintVertical_bias="0.491" />
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+		
+	Se temos uma cor que vai ser usada no Background de muitas activities, podemos coloca-la nos themes da aplicação no atributo background;
+
+		<item name="android:colorBackground">@color/green_background</item> -- Dessa forma;
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+	O método finish() dentro de uma activity encerra essa activity;
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+	Fragments: O fragment representa um comportamento ou uma porção de interface com usuário na activity
+		   Permite a reutilização de códigos, uma vez que eu posso utilizar meu fragement em diversos pontos da minha aplicação
+		   Permite a escrita de interfaces mais dinâmicas.
+
+	Para utilizar os Fragments é preciso criar uma estrutura chamada FrameLayout. Essa estrutura é necessária para carregar os 
+	fragments dentro dela, funciona como um (wrapper)
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+	O gravity alinha os elementos dentro do container que ele está. Se você quer que um elemento TextView fique no centro do aparelho 
+	ou você alinha o parent ou você fala que o o TextView tem match_parent com o aparelho
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+	O FRAGMENT DEVE SER INDEPENDENTE DE TELA, OU SEJA, ELE NÃO PODE ESTAR ASSOCIADO A COMPONETES DE UMA DETERMINADA ACTIVITY;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	O SnackBar não está inseridos nos componentes padrão do Android. Ele é um recurso a parte que pode ser configurado;
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+	O conteúdo principal do app é feito num arquivo chamado content_main.xml e o activity_main.xml apenas carrega ele através 
+	da TAG <include layout="@layout/content_main" />
+
+	O include funciona semelhante ao partial class do C# o nome do arquivo e o conteúdo é diferente, mas eles podem ser carregado pelo 
+	elemento pai.
+	
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+	O que são os xmlns??
+	São as demarcações dos namespaces das propriedades. Eu posso ter a mesma propriedade, com o mesmo nome, em diferentes namaspaces
+	
+
+	<person>
+		<name>Rafael</name>
+		<city>
+			<name>São Paulo</name>
+		</city>		
+
+	</person>
+
+	Como eu vou saber se a propriedade name que eu estou tratando é de person or city?
+	Do jeito que está é impossível saber essa informação.
+
+	<personxml:person xmlns:personxml="http://www.yourperson.com/xml/person
+			  xmlns:cityxml="http://www.yourcity.com/xml/city>
+
+		<personxml:name>Rafael</personxml:name>
+		<cityxml:homecity>
+			<cityxml:name>São Paulo</cityxml>			
+		</cityxml>		
+	<personxml:person>
+
+	A declaração do namespace sem um identificador como essa: xmlns="http://www.yourexample.com", isso diz que esse é o default namespace do document
+
+	xmlns = xmlnamespace para validar o namspace com tags e propriedades únicas;
+
+	O namespace pode ser declarado pelo atributo xmlns, que geralmente segue o seguinte padrão: xmlns:prefix=”URI”.
+
+	Um namespace é padrão quando não possui um prefix;
+
+	<livros xmlns=”http://livros.com/lista">
+    		<livro>
+        		<titulo>O jogador número 1</titulo>
+        		<autor>Ernest Cline</autor>
+    		<livro>
+	</livros>
+
+--------------------------------------------------------------------------------------------------------------------------
+
+	Para remover o elevation do Action bar
+
+	getSupportActionBar().setElevation(0);
+-----------------------------------------------------------------------------------------------------------------------------
+
+	Há duas formas de para adicionar um fragment a uma activity;
+		1 - Dinamicamente usando JAVA
+		2 - Staticamente usando XML
+
+	Para que um fragment possa ser usado em uma activity ele deve extender de FragementActivity or AppCompatActivity que já dá suporte 
+	ao FragmentActivity
+
+	Para adicionar um Fragment de forma estática é só utilizar a Tag 
+	
+		
+    		<fragment
+        		android:name="com.example.android.FooFragment"
+        		android:id="@+id/fooFragment"
+        		android:layout_width="match_parent" 
+        		android:layout_height="match_parent" />
+
+	O segundo caminho para adicionar um Fragment é dinâmicamente através do FragmentManager
+
+	O FragmentManager class adiciona o FragementTransaction class, que nos permite add, remove e alterar os Fragments 
+	na Activity em tempo de execução
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+	Para que um button possa possuir o evento onClick() é necessário configurar o evento de click antes de retornar o botão
+
+	View view = inflater.inflate(R.id.you_fragment,container,false);
+	Button btnPlay = view.findViewById(R.id.your_button_in_fragment);
+	btnPlay.setOnClickListener(new View.OnClickListener() {
+
+		@Override
+		public void onClick(View view) {
+
+			// Tasks, call other Fragments and etc
+
+		}
+	});
+
+	return view; // Dentro do método onCreateView() no Fragment
+
+------------------------------------------------------------------------------------------------------
+
+	Component navigation
+
+	Uma das partes mais importantes do component de navegação é o navigation host. O navigation host
+	é um container vazio onde os destination são armazenados. 
+
+	Um navigation host deve derivar do NavHost. O componente NavHost, com a implementação
+	NavHostFragment, que gerencia os fragments de destino
+
+	A navegação no app é feita pelo objeto NavController, esse objeto gerencia todas as 
+	navegações dentro do NavHost
+
+	Cada NavHost possui seu próprio NavController. Há várias formas de obter uma instância do NavController
+
+	NavHostFragment.findController(Fragment);
+	Navigation.findController(Activity, @IdRes int viewId);
+	Navigation.findController(View)
+
+
+	Forma de chamar outro Fragement em um navigation
+
+	btnIntuitive = view.findViewById(R.id.btnIntuitive);
+        btnIntuitive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BlankFragmentDirections.ActionBlankFragmentToIntuitiveFragment action = BlankFragmentDirections.actionBlankFragmentToIntuitiveFragment();
+
+                action.setMessage("Texto");
+
+                Navigation.findNavController(v).navigate(action);
+
+                // Primeira solução
+                /*NavController navController = NavHostFragment.findNavController(BlankFragment.this);
+                navController.navigate(R.id.action_blankFragment_to_intuitiveFragment);*/
+
+                // Segunda solução
+                //Navigation.findNavController(v).navigate(R.id.action_blankFragment_to_intuitiveFragment);
+
+                // Terceira solução
+                //NavHostFragment.findNavController(BlankFragment.this).navigate(R.id.action_blankFragment_to_intuitiveFragment);
+            }
+        });
+
+        // Quarta solução
+        //btnIntuitive.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_blankFragment_to_intuitiveFragment));
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	@+id/nome serve para associar um nome ao componente, ele cria uma entrada na classe R.
+
+	@id/nome apenas identifica/referencia o componente, como por exemplo num RelativeLayout quando se quer indicar a posição de um componente em relação a outro.
+
+	@id/nome só pode ser utilizado após a utilização de @+id/nome.
+
+	Se você quiser pode utilizar apenas e sempre @+id/nome
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+	O type de uma intent é definido em uma lista de mime-types que pode ser encontrado no link abaixo
+	
+	https://www.sitepoint.com/mime-types-complete-list/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+	Para materials componets, a cor do ícone só é pega se for definida da seguinte forma:
+		
+		app:tint="@null"
 
 
 
