@@ -625,14 +625,138 @@ Custom View (other): cv
 		
 		app:tint="@null"
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+	Gradle: cada projeto android possui um top-level build.gradle onde as configurações lá colocadas afetam todos so módulos do aplicativo
+	
+
+	build.gradle(Module:app): Todos os módulos do aplicativo possui seu próprio build.gradle. Onde as configurações colocadas 
+	nesse arquivo afetam somente o módulo a qual o arquivo pertence;
 
 
+	Top-level build file
+
+	The top-level build.gradle file, Define todas as configurações que são aplicadas para todos os módulos do projeto.
+
+	Por default o build file usa o buildscripts block para definir os Gradle repositórios e dependencias que são comuns a todos os módulos.
 
 
+	buildscript {
+
+		Repositories: Configura todos os repositórios Gradle para Download das dependências. Gradle já tem suport para
+		JCenter, Maven Central e Ivy. Nós podemos também ter repositórios locais ou nossos próprios repositorios globais
 
 
+		repositories {
+
+			google()
+			jcenter()
+
+		}
+
+		O bloco de dependencias configura as dependências Gradle necessárias para criar o projeto. 
+		O código abaixo adiciona o Gradle na versão 4.1.0 como uma classpath dependência.
+		
+
+		dependencies {
+		
+			classpath: 'com.android.tools.build:gradle:4.1.0'
+		}
+
+		O block allprojects é onde nós podemos configurar os repositórios e dependências que são usadas por todos os módulos no projeto.
+		como plugins de terceiros or bibliotecas. Contudo, você deveria configura depedências que são especificas de cada módulo dentro de cada
+		módulo no seus respectivos build.gradle. Para os novos projetos o Android Studio já aciona o Google e o JCenter como repositórios defaults,
+		mas isso não configura algumas dependências 
+
+		allprojects {
+			repositories {
+				goolge()
+				jcenter()
+
+			}
+		}
+		
+
+		Para projetos que possuem muitos módulos, pode ser util definir propriedades que são comuns ou compartilhadas por muitos módulos
+	
+		Esse módulo encapsula propriedades customizadas que são disponiveis para todos os módulos do projeto.
+		ext {
+
+			compileSkdVersio = 28
+
+			supportLibVersion = "28.0.0"
+
+		}
+
+		Como eu acesso essas propriedades de dentro de um módulo??
+
+		android {
+			compileSdkVersio rootProject.ext.compileSdkVersion
+
+		}
+
+		Portanto, para acessar um propriedade que está no root deve-se usar a seguinte sintaxe:
+
+			rootProject.ext
+	
+
+		The module-level build file
+
+		o arquivo build.gradle localizado em cada diretório módulo/projeto, permite-nos definir propriedades que são especificas para cada
+		módulo. 
+
+		Essa primeira linha no build configuration aplica o Android plugin para Gradle para esse build
+		Essa linha faz com que o android block esteja disponivel para o build po
+		apply plugin: 'com.android.application'
+		
+		Dentro de android nós configuramos todas as propriedades especificas.
+
+		android {
+			
+			Especificação de que API que o módulo devera ser compilado
+			compileSdkVersion 28
+			
+			Especifica a version de tools que o módulo deverá ter
+			buildToolsVersion "29.0.2"
+		
+			O bloco defaultconfig encapsula todas as variaveis de ambiente do projeto e também pode sobrescrever algumas 
+			propriedades do AndroidManifes.xml			
+
+			defaultConfig {
+			
+				/**
+   				  * applicationId uniquely identifies the package for publishing.
+				  * However, your source code should still reference the package name
+				  * defined by the package attribute in the main/AndroidManifest.xml file.
+     				*/
+
+    applicationId 'com.example.myapp'
+
+    // Defines the minimum API level required to run the app.
+    minSdkVersion 15
+
+    // Specifies the API level used to test the app.
+    targetSdkVersion 28
+
+    // Defines the version number of your app.
+    versionCode 1
+
+    // Defines a user-friendly version name for your app.
+    versionName "1.0"
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+		
+    Para colocar um componente dentro de um component 
+	CordinatorLayout
+	app:layout_behavior="@string/appbar_scrolling_view_behavior" 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Task Plany Upgrade
 
 
+		"javax.annotation:jsr250-api:${javaxAnnotationVersion}", Essa biblioteca era necessário em versões do Dagger anteriores a versão 2.1
+		por causa do @Generated annotation usado no Dagger. Essa annotation não é incluída na Android API jar, então é necessário usar essa biblioteca.
 
 
 

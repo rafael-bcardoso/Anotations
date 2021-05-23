@@ -721,7 +721,10 @@ Controller
 					It's is also the safest option among all other service types, since we don't need to bother about the thread-safety and memory leaks
 
 
-			Constructor Injection
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Colocar os erros que são gerados na API dentro de um objeto chamado ValidationProblemDetail.
+	Esse objeto implementa um RFC e é recomendado pela Microsoft.
 
 
 

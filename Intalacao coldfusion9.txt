@@ -1,0 +1,66 @@
+Primeiro de tudo instalar o java 1.6_41 
+Depois disso tentar instalar o coldfusion, com compatibilidade para o Windows 7 e rodando como ADM
+Vai dar erro, 
+ir até a pasta %temp%  e procurar pela pasta que comece com l15042.. algo assim
+
+Abrir essa pasta 
+vai ter um executavel do coldfusion
+nas propiedades desse executavel é só colocar que vai rodar com compatibilidade para Windows 7 e vai rodar com ADM.
+Depois ir até a past Arquivos de programa -> Java e copiar a pasta jre6 para dentro da pasta resourse da pasta %temp%, excluir a pasta jre que lá está.
+Instalar o programa.
+Na hora do server NÃO ESQUECER DE COLOCAR para build self hosting.
+Pronto, está instalado.
+
+Para configurar o Debugger primeiro é preciso configura o RDS apontando para o localhost, porta 8500 e com login e senha de adm 
+Após isso precisamos dizer que o projeto está apontando para aquele service e dizer que o server é Jrun
+
+
+Open up a web browser and go to: http://www.adobe.com/go/trycoldfusion/
+
+Sign in with your Adobe ID. If you do not have an Adobe account, click on the "Create an Adobe account" button on the left.
+
+Select the appropriate version of ColdFusion you wish to download. If you have a 64 bit system select 'English | Windows 64 bit', else select 'English | Windows'.
+
+Click "Download".
+
+Save the file to your desktop.
+
+Once downloaded, double click the file.
+
+Click "Next".
+
+Accept the terms and click "Next".
+
+When you see the screen below, select "Developer Edition" and click "Next".
+
+Select Server configuration and click "Next".
+
+Leave all checkboxes selected and click "Next".
+
+Leave the "Enable Secure Profile" checkbox unchecked and click "Next".
+
+Provide a password and click "Next". Make sure you remember the password!
+
+Leave the location at C:\ColdFusion10\ and click "Next". If you want to install in a different location you can, but it is important to note that the install instructions will always reference C:\ColdFusion10.
+
+Select 'Built-in web server (Development use only)' and click "Next".
+
+Provide a password and click "Next". Make sure you remember the password; you will need this later on in the install process.
+
+Select 'Enable RDS', provide a password and click "Next". Make sure you remember the password!
+
+Leave the 'Automatically check for server updates' selected and click "Next".
+
+Click "Install".
+
+If you receive any Windows firewall messages, click 'Allow'.
+
+When the installation wizard is done, keep the 'Launch the Configuration Wizard in the default browser' selected and click "Done".
+
+A browser window will open. Enter your ColdFusion Administrator Password and click "Login". (This is the password from step 16)
+
+Once you receive the 'Setup Complete' screen, click the "OK" button.
+
+You will now see the ColdFusion Administrator screen. To access this screen at a later date, you can go to: http://localhost:8500/CFIDE/administrator/index.cfm
+
+You have now successfully installed ColdFusion 10. To access the web root, you can go to: http://localhost:8500/. The web root on the file system is C:\ColdFusion10\cfusion\wwwroot\.
