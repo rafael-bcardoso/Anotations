@@ -1,0 +1,138 @@
+Estudos sobre orientação a objetos
+
+O que é Programação Orientada a Objetos?
+
+Primeiramente, programação orientada a objetos é um paradigma (modelo/padrão) baseado no conceito de envolver atributos (estados do objeto), 
+e comportamentos relacionados aqueles atributos, em uma coleção chamada objetos. 
+Podemos também entender que programação orientada a objetos tem como propósito principal a aproximação do mundo lógico da programação 
+ao mundo em que vivemos. À vista disso, ela parte do princípio que tudo é objeto.
+
+Resumo: 
+	Classe - Plano de Construção criado por programadores com conjunto de estados e comportamentos que definem também qual o conjunto de 
+		 objetos pertencentes a essa classe.
+		 A classe funciona como uma planta de construçao que define a estrutura para os objetos, que por sua vez são instâncias da classe.
+	
+	Objeto - Por definição um objeto é um conjuto de operações encapsuladas (métodos) e um estado (determinado pelo valor dos atributos) que 
+		 grava e recupera o estado dessas operações. 
+		 Portanto, um objeto possui tudo que é necessário para conhecer a si próprio.
+		 Em suma, podemos dizer que um objeto é a instância de uma classe.
+
+A programação orientada a objetos possui 4 Pilares quais são eles?
+
+	Herança, Polimorfismo, Encapsulamento, Abstração.
+
+Abstração: Abstração é um modelo de um objeto ou fenômeno do mundo real, limitado a um determinado contexto, que representa com precisão todos os detalhes 
+relevantes a este contexto, mas omite o resto.
+
+Encapsulamento: É a habilidade de um objeto de esconder parte de seu estado e comportamento de outros objetos, expondo apenas uma interface limitada para o resto do programa.
+
+Herança: É a habilidade de construirmos novas classes em cima de classes já existentes. O maior objetivo da herança é a reutilização de códigos.
+Eu não consigo encapsular um método que foi definido na minha classe mãe. A subclasse também deve implementar todos os métodos abstratos da classe mãe, mesmo 
+que não faça sentido para ela.
+
+Polimorfismo: O polimorfismo é a habilidade de um programa detectar a classe real de um objeto e chamar sua implementação mesmo quando seu tipo real é desconhecido no contexto atual.
+também podemos dizer que polimorfismo é a habilidade de um objeto "fingir" que é outro. Geralmente através de uma classe que ele extende ou de uma interface que ele implementa.
+
+Como se dá a relação de dependência entre 2 objetos?
+
+É um tipo de relacionamento onde uma mudança em uma classe pode afetar o comportamento ou o estado de outra classe.
+
+	Por Ex: Uma classe pedido recebe no construtor a classe Usuário. Se a classe usuário mudar o estado Name para UserName a classe Pedido terá que mudar a forma como 
+	ela pede o nome do usuário. Esse problema é bem frequente quando nosso código usa classes concretas como parametros e classes concretas como estados.
+	Para evitar isso poderíamos utilizar classes abstratas ou interfaces.
+
+Associação: A associação é um tipo especializado de Relacionamento onde o objeto sempre tem acesso aos objetos ao qual ele interage. Em todo o escopo do objeto eu consigo saber 
+quais objetos eu estou interagindo. Um objeto que está associado a outro podemos dizer que ele tem apenas uma associação, diferentemente das agregações onde os objetos
+ajudam a compor o objeto alvo. Na associação os objetos são completamente independentes entre si, mas eventualmente estão associados.
+
+	Ex de Associação:
+		
+		Professor e Aluno -> São objetos completamente distintos, que possuem ciclos de vida independentes, mas que eventualmente podem estar associados.
+
+Ex: 
+
+
+	public class Teacher
+	{
+
+
+		public Student Student { get; set; }
+		public List<Books> Books { get; set; }
+
+		public void Teach(Couse course)
+		{
+			
+			this.Student.remember(couse.getKnowledge());	
+		}
+	}
+
+	Onde temos associação nesta classe?
+	
+	Temos asssociação no estado/propriedae Student. No entanto, essa propriedade também pode ser vista como uma dependência, 
+	pois qualquer mudança na propriedade remember deverá levada para a classe Teacher.
+	
+	Onde temos uma relação de dependência?
+
+	Temos uma relação de dependência no comportamento/método Teach, onde o mesmo recebe o objeto Couse. Se o método getKnowledge for alterado, ou seja receber mais parametros ou até
+	mesmo mudar o nome. Essa mudança deverá também ser refletida na classe Teacher.
+
+	Onde temos uma relação de Agregação ?
+
+	Temos uma relação de Agregação no estado/propriedade Books.
+
+Agregação Simples: É um tipo especializado de associação que representa relações individuais. É uma relação de um objeto como muitos outros objetos, ou seja, um para muitos, 
+muitos para muitos e totais. Qual a diferença entre uma associção simples e uma agregação?
+Simples. A associação é uma relação que um objeto tem com outro. Agregação é uma relação que um objeto tem com muitos outros do mesmo tipo.
+Na agregação não existe a necessidade de um objeto só existir se o outro também existir. Eu posso ter objetos distinto que hora ou outra podem unir-se.
+(Para saber se é uma agregação, deve-se perguntar ao objeto se o objeto ao qual ele irá se relacionar faz parte dele). 
+	
+	Ex: 
+		Diferentemente da associação, na agregação simples também temos objeto com ciclos de vida independentes, mas que o relacionamento entre eles é de composição mesmo, 
+		ou seja, o objeto A é composto por B.
+
+		Professor e Departamentos -> Ambos possuem um ciclo de vida independente. No entanto, a relação de um departamento com um professor é de composição.
+
+Agregação por Composição: É um tipo especifico de agregação. Onde um objeto é composto por uma ou mais instâncias de outros. O objeto A é dependente do Objeto B 
+de forma a contrar o ciclo de vida do objeto B. Se A morrer B também deverá fazê-lo e B não existe se A não existir.
+(Para saber se é uma agregação devemos perguntar ao objeto se ele faz parte). O que mais importa nessa relação de composição é que a parte não exite sem o todo.
+
+Tanto a agregação simples/agregação por composição são tipos especiais de associação entre objetos. 
+Porque o nome agregaçao? Simples! Elas agregam valor ao objeto ao qual estão associadas. 
+
+Sempre que dizemos que temos uma relação de composição. Estamos falando que a parte está contida no todo e que a parte não existe sem o todo.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Quais são os tipos de Padrões de Projeto?
+
+Padrões de projeto criacionais: Fornecem mecanismos para criação de objetos aumentando a flexibilidade e a reutilização de código.
+
+Padrões estruturais: Mostram como montar objetos e classes em estruturas maiores, enquanto ainda mantém as estrutura flexíveis e eficientes.
+
+Padrões comportamentais: Cuidam da comunicação eficiente e da assinalação de responsabilidades entre os objetos.
+
+	Encapsule o que Varia
+
+A idéia é sempre tentar abstrair para um método ou para uma classe partes do código que variam com frequência.
+
+	Programe para uma interface e não para um implementação.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

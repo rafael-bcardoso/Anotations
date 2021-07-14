@@ -1,0 +1,260 @@
+Containers: 
+
+	docker run -d --name rabbitmqname --hostname rabbitmqhostname -p 15672:15672 -p 5672:5672 rabbitmq:3-management3
+
+
+AMQP 0-9-1 Model Explained
+
+ o AMQP 0-9-1 é um dos protocolos suportados pelo RabbitMQ
+
+ O AMQP 0-9-1 (Advanced Message Queuing Protocol) é um protocolo de messageria que permite a comunição entre aplicações através de mensagens 
+ que possuem um certo padrão.
+
+ Brokers e suas Roles
+
+ O messages brokers recebem mensagens de seus publishers (aplicações que publicam mensagens) e routeiam elas para seus consumidores.
+
+ Como isso é um protocolo de rede, os publishers e os consumers podem estar em diferente maquinas.
+	
+ O AMQP 0-9-1 funciona da seguinte forma: 
+	As mensagens são publicadas em exchanges, que são frequentemente conhecidas como mailboxes.
+	As exchanges por sua vez enviam CÓPIAS das mensagens para as filas através de regras chamadas bindings.
+	Então o broker entregas as mensagens para os clientes.Também pode acontecer dos 
+	consumidores realizarem um pull/fetch das mensagens que estão na fila.
+
+ Quando uma mensagem é publicada no Broker ela possui diversos paramentros (message meta-data), o broker poderia usar esses metadados, 
+ mas normalmente esses metadados são usados apenas por quem recebe a mensagem.
+
+ É sabido hoje que as redes são instaveis e as aplicações podem falhar nesse processo de mensageria.O AMQP 0-9-1 model 
+ tem uma notação de mensagem acknowledgements
+ 
+ - Quando uma mensagem é entregue ao consumidor, o consumidor notifica o broker, as vezes automaticamente ou o mais breve que a aplicação conseguir
+ - Quando message acknowledgements estão em uso o message broker não remove a mesagem da fila e só o fará quando receber o message acknowledgements.
+
+ Em alguns casos, se o broker não conseguir achar a fila através do routing key passado, ele poderá retornar a mensagem para quem está fazendo 
+ a publicação, excluir a mensagem ou se o broker em questão possuir uma extension, o broker pode armazenar essa mensagem em um lugar chamado "dead letter queue"
+
+ O que são AMQP entities?
+ Queues, Exchanges e bindings são conhecidos como AMQP entities.
+
+ As aplicações que declaram os AMQP entities que elas precisam, define também o esquema de rotas que ela precisa, e pode escolher
+ excluir AMQP entities quando elas não estão sendo muito utilizadas.
+
+Exchanges e tipo de Exchanges
+
+ Primeiro de tudo, uma exchange é um AMQP 0-9-1 entidade para onde as mensagens são enviadas.
+ A exchange pega essa mensagem e routeia ela entre nenhuma ou muitas filas.
+
+ Esse algoritmo de roteamento entre a exchange e as filas depende do tipo de exchange que estamos falando e também do bindings que estamos utilizando.
+
+ O AMQP 0-9-1 prove  para nós 4 tipos de exchanges: 
+	Direct exchange, Fanout exchange, Topic exchange, Headers exchange. 
+ 
+ Além disso, as exchanges também são declaradas com alguns atributos. 
+	Name -> o nome da exchange
+        Durability -> Se o server for reiniciado essa exchange ainda estará lá. Somente sai do serve se ela for deletada.
+        Temporary -> Sobrevive até que o server seja reiniciado/desligado
+  	auto-delete -> A exchange morre quando o ultimo elemento ligado a ela for desligado, 
+	argum
+
+Tipos de Exchanges:
+
+	Default Exchange:
+	
+   	É uma exchange que não possui nome algum, ela já vem instalada no broker. 
+	Essa exchange tem uma propriedade muito especial que faz ela muito util em aplicações simples
+	Cada fila que é criada é automaticamente vinculada a essa exchange com o nome que foi dado a fila. 
+
+	Ex: Quando criamos uma fila com o nome "nerd-store-app" o broker vai fazer o bind com a default exchange através de um routing key 
+	com esse nome.
+
+	Portando, quando na default exchange com o routing key "nerd-store-app", ele vai envia-la para a fila chamada "nerd-store-app".
+
+	Direct Exchanges: 
+		
+		A Direct Exchange entrega a mensagem para a fila baseada no message routing key
+
+		As Direct Exchanges são muito utilizadas quando queremos entregar tarefas que estão em diferentes workers 
+	(instancias de uma mesma aplicação). É importante entender que o AMQP 0-9-1 é um load balancer entre os consumers 
+	não entre as filas.
+
+	Fanout Exchange: 
+		
+		Mais louca kk Entrega a mensagem para todas as filas não importando seus routing keys. Se temos N filas vinculadas 
+	a uma exchange do tipo Fanout, quando um mensagem chega nessa exchange ela é entregue a todas essas filas.
+
+		IDEAL PARA BROADCAST DE MENSAGENS
+
+	Topic Exchange
+
+		Pode enviar a mensagem para uma ou muitas filas baseada no match da routing key
+		Se eu tenho uma aplicação que escolhe o tipo de mensagem que ela quer receber, eu devo usar uma exchange do tipo Topic
+
+	Headers Exchange
+		
+		Headers Exchange foi construida para rotear muiltiplos atributos que são mais facilmente expressado nos messages header que 
+	no routing key. As Headers Exchange ignoram o routing key. Para tanto, o que é usado para rotear a mensagem está dentro dos headers atributes.
+
+	Também é possível fazer o matching da fila com a exchange através de mais que um atributo da mensagem.
+
+
+
+	Detalhes sobre os paramentros de uma Exchange:
+
+		exchange: O nome que essa exchange irá ter quando estiver no RabbitMQ
+		
+		exchangeType: O Tipo de Exchange que estamos trabalhando (Direct, Fanout, Topic, Headers)
+
+				Direct: As mensagens chegam em uma Exchange e são enviadas para filas atráves de um routing_key
+
+					Ex: domain_commands, poderia ter duas rounting keys chamadas (create_order_key, create_user_key) onde eu tenho duas filas distintas assinadas para 
+					    essas chaves.
+				
+				Topic Exchange: Ele encontra a fila com base em um coringa em cada routing_key, ou seja, é criado uma regex que diz para onde a mensagem deve ir. Podemos ter mais que uma fila esperando a mesma mensagem.
+				
+				Fanout: Manda a mensagem para todas as filas, sem exceção. Não considera nenhum parametro de routing key
+				
+				Headers: Manda a mensagem com base em parametros que estão dentro dos headers da mensagem, não mais na routing key. São bem parecidos com as Topic exchanges
+		
+		durable: true -> Depois que o service de rabbitmq cair a exchange continua lá. Para verificar isso é necessário reiniciar a máquina.
+			 false -> Se o service cair a exchange morre junto com ele.
+		
+		autoDelete: A exchange é excluída quando a ultima fila é desvinculada dela. É fácil simular esse comportamento, quando dizer 
+			    que uma fila é exclusiva de uma conexão, pois basta encerrarmos essa conexão que a fila morre junto. 
+ 			    Se a fila morrer e houver um bind entre a fila e essa Exchange e o parametro dessa Exchange for autoDelete=true, a Exchange morrerá também.
+		
+		arguments: Usada para plugins e especificas features de broker.
+
+		** Quando estamos criando a base é importante lembra que eu posso ter muitos channels para um conexão, mas um channel só pode ter uma conexão.			
+		   Essa conexão também deverá ser um singleton, ou seja, não é aconselhavel criar conexão a cada requisiçao como se ela fosse um service scoped.
+		   Se uma conexão cair, todos os channels, consumidores e publicadores que estavam associados aquela conexão inevitavelmente caem também.
+		   Não é aconselhavel dois publicadores no mesmo channel, pois como trata-se de um buffer, podemos ter problemas com isso no futuro. Lembrando que eles podem compartilhar conexão SEMPREEE!
+		   Um consumidor pode compartilhar channel sem grandes problemas.
+
+		   Primeiro desenho de arquitetura possível de ser implementado: Tanto os produtores quanto os consumidores estão em conexões distintas e em channels distintos também. No entanto, esse desenho de arquitetura consome muitos recursos do RabbitMQ.	
+		   Segundo desenho possível: Como o produtor não compartilha channel, eu tenho um channel para o produtor em um única conexão. Depois disso, eu tenho uma conexão com 3 channels e 3 consumidores em cada um desses channels.
+		   Terceiro desenho: Eu tenho uma conexão com um channel para o produtor. Depois tenho uma conexão e um channel para os consumidores.
+
+
+Filas
+
+	Filas no AMQP 0-9-1 model são muito similares as filas e sistemas de filas: Elas armazenam as mensagens que serão consumidas pelas aplicações.
+
+ 	Parameters of queues:
+	
+		Name: O nome da fila
+		Durable: Se a fila irá estar no quando o serviço for reiniciado
+		Exclusive: Usado para dizer que a fila só terá um conexão e quando a conexão terminar a fila será excluída.
+		Auto-Delete: Quando o ultimo consumidor deixa de escutar essa fila a fila será excluída também.
+		Arguments: parametros opcionais como: message TTL, tamanho da fila.
+
+
+		Filas que iniciam com amq. são reservadas para uso interno dentro do broker
+		
+		As filas podem ser declaradas como duráveis ou transientes. 
+		Quando duráveis os metadados são armazenados no disk e quando são do tipo transient são armazenados na memória.
+
+	Detalhes sobre os paramentros de uma Queue:
+
+		Name: Nome da fila 
+
+		Durable: true -> Se a máquina for reiniciada a fila ainda continuará lá.
+			 false -> Se a máquina for reiniciada a fila será excluída do RabbitMQ.
+
+		Exclusive: true -> Quando a connection dessa fila for fechada a fila também será excluída (ATENÇÃO TOTAL A ESSE PARAMETRO)
+			   false -> Quando a connection dessa fila for fechada a fila não será excluída (PARÂMETRO CORRETO)
+
+		Auto Delete: true -> Quando o ultimo consumidor realizar o unsubscriber da fila, ela também será excluída.
+			     false -> Quando o último consumidor realizar o unsubscriber da fila, ela não será excluída.
+
+		Arguments: Usado para plugins, e features tal como mensagen TTL.
+
+
+Bindings:
+
+	Bindings são utilizados pelas exchanges para rotear as mensagens para as filas corretas. Portanto, os bindings são instruções para 
+as exchanges para rotear mensagens para as filas.
+	Em curtas palavras o routing key é como se fosse um filtro para as mensagens que vão para as filas.
+
+	Fazendo uma analogia: 
+	As filas são como a nossa casa
+	Exchanges são como o aeroporto de Guarulhos
+	Pode ter nenhum ou muitos caminhos para chegar em casa.
+
+Consumers:
+
+	Armazenar mensagens em uma fila é inutil se ninguém irá consumi-la. Portanto, o AMQP 0-9-1 tem 2 caminhos para fazer isso.
+
+	Subscribe: o consumidor se inscreve na fila para ficar escutando quando chegar uma nova mensagem.
+	Polling: (pull api): é um caminho de baixar as mensagens da fila e deve ser evitado ao máximo. 
+	
+	Cada consumidor tem um id chamado consumer tag
+
+Message Acknowledgements: 
+
+	Quando eu deve remover a mensagem da fila???
+
+	Para isso há dois jeitos de gerenciar quando uma fila deve remover a mensagem
+
+		- Depois do Broker enviar a mensagem para o consumidor
+		- Depois de receber o acknowledgement do consumidor
+
+	O primeiro é conhecido como acknowledgement automatico e o segundo é conhecido como acknowledgement  model.
+
+Rejecting Messages:
+
+	Quando um consumidor recebe uma messagem e por alguma razão não consegue processá-la. Ele pode dizer para o broker 
+que a mensagem foi rejeitada e o broker pode discartar essa mensagem ou envia-la novamente.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	Eu criei um container do RabbitMQ, usei a factory para criar um conexão com o RabbitMQ depois criei um channel para fazer a comunicação com o mesmo.
+	Dito isso, eu criei um exchange do tipo Direct que não é duravel. No entanto, quando restartamos o container essa Exchange não some. 
+	Para que ela suma é necessário Reiniciar a máquina.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Messageria é a simples definição para a comunicação entre um produtor e um consumidor.
+	Dito isso, Message Broker nada mais é que o módulo responsável por controlar esse fluxo de mensageria. Não que esse controle seja algo fácil
+	para realizar essa operação o Message broker necessita de uma série de skils para isso.
+
+	O que a mensageria ajuda a resolver.
+
+	1- Acoplamento entre sistemas.
+
+	Acoplamento está intimimamente associado a depedência entre dois ou mais módulos de um sistema. Problemas de acoplamento arquitetura podem 
+	e são resolvidos com message brokers. Para isso é necessário criarmos uma abstracação entre os dois módulos.
+	Com o message broker no meio da arquitetura, o aplicação não sabe de qual sistema ela está recebendo a mensagem e nem tão pouco 
+	para qual sistema ela está enviando. A aplicação simplementes envia a mensagem para o Message Broker e este por sua vez envia para as aplicações.
+
+	2- Integraçoes heterogêneas.
+	Como sabemos, hoje em dia as aplicações estão usando diferentes tecnologias, tal como Java, .Net, Node. Portanto, nós devemos ser 
+	capazes de realizar a integração entre essa aplicações de forma a conectar uma a outra. Para resolver esse problema nós podemos usar 
+	message brokers. Messages Brokers tem a capacidade de enviar e receber mensagens sem entrar em detalhes sobre quem está enviando e quem irá receber
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

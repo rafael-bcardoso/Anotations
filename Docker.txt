@@ -1,0 +1,70 @@
+docker images -> lista todas as imagens que foram baixadas 
+
+docker ps -> lista todos os services que estão em execução.
+
+Diferença entre --name e --hostname
+
+Quando nós usamos o docker run o docker cria um container e assina esse container
+com um Id do tipo UUID. Portanto, podemos utilizar esse Id (UUID) para 
+nos referirmos ao container que acabara de ser criado. No entanto, 
+escrever esse Id (UUID) pode ser algo trabalhoso e complicado. 
+Para facilitar nós podemos utilizar a tag --name no docker command. 
+Agora nós tanto podemos utilizar o Id (UUID) que foi assinado ao container 
+com também o --name que passamos para ele.
+
+a flag --hostname da valores ao hostname de dentro do container. A flag --name é usada para dar um nome ao container
+que depois poderá ser usada para gerenciar o container, ou seja, quando usamos o docker ps, a flag --name que acabamos de passar
+ir ser printada na tabela que o docker ps printa. Para entender melhor, a flag hostname é uma merda no que tange as redes do docker
+Ele só é visto dentro do container, não serve de nada fora dele. Em contra proposta a flag name é super util dentro fora dos containers
+e é o que utilizaremos para a comunicação entre os containers.
+
+	O parametro --hostname é o valor que será setado dentro do container em:
+
+		/etc/hostname e /etc/hosts. 
+	Consequetemente esse valor aparece no command line do container.
+	Esse valor não é um valor fácil de acessar de fora do container
+
+
+*	docker exec -it some-rabbit env -> Command que printa todas as variaveis de ambiente do container
+
+* 	docker container exec -it app ping db -> é um comando que ira rodar um comando dentro do container. É como se estivessemos utilizando 
+um terminal dentro do container.
+
+
+Redes no Docker
+	
+	Bridge:
+
+	Todo container que é criado dentro do docker é assinado a uma rede por default. Essa rede é a rede Bridge.
+A menos que você diga explicitamente qual é a rede a rede que seu container será associado é a rede Bridge.
+
+	None:
+	Cria um rede isolada dentro do docker host, ou seja, dentro dessa rede os containers não tem qualquer comunicação com a rede externa.
+
+	Host:
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Como entrar dentro do container??
+	
+	docker etc -it <id or namecontainer> /bin/bash
+
+	inside container: apt-get update && apt-get install -y iputils-ping && apt-get install vim nano
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Instalação do Portainer para gerenciamento dos containers e images
+
+		docker volume create portainer_data
+		docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
+	Como remover um container que está rodando 
+
+	docker container stop container_id -> para pausar o container
+
+	docker container rm container_id -> para remover o container

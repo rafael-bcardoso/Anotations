@@ -58,12 +58,52 @@ e para fazer isso é somente usar o AppRoutingModule;
 Como adicionar uma biblioteca com uma versão especifica ??
 	npm install ngx-owl-carousel-o@3.1.1
 
+-------------------------------------------------------------------------------------------------------------
+
+	Object.assign({}, this.user, this.cadastroForm) -> 
+	É utilizado principalmente para clonar ou fazer o merge de um objeto;
+
+	let firstName = { name: 'Rafael' }
+	let lastName = { lastName: 'Cardoso' }
+
+	let result = Object.assign(firstName, lastName);
+
+	firstName => { name: 'Rafael', lastName: 'Cardoso' }
+	lastName => { lastName: 'Cardoso' }
+	result => { name: 'Rafael', lastName: 'Cardoso' }
+
+	Copy um object
+
+	let copy = Object.assign({}, result);
+
+	copy => { name: 'Rafael', lastName: 'Cardoso' } 
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+	Dentro do módulo, no array de declarations, nós precisamos dizer quais são os componetes daquele módulo. 
+	Com o tempo isso pode ficar muito complicado.
+	
+	é possível, no Angular, criar um arquivo chamado index.ts onde teremos a centralização de todos os componets e apenas chamamos esse arquivo no modulo.
 
 
+	export const components: any[] = [
+		UserComponent
+	]
+	
+	import * as fromComponents 'pathOfConstantComponents';
 
+	@NgModule({
+		declarations: [
+			fromComponents.components
+		],
+	});
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+HERANÇA DE COMPONENTS
 
+Quanto temos um component que possui o mesmo template que o pai e não queremos mudar o template do pai, apenas os comportamentos e estados. Devemos apontar o templateUrl e styles
+para o pai.
 
 
 

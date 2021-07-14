@@ -726,10 +726,142 @@ Controller
 	Colocar os erros que são gerados na API dentro de um objeto chamado ValidationProblemDetail.
 	Esse objeto implementa um RFC e é recomendado pela Microsoft.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Em C# um evento está encapsulado em um delegate.
+
+	O delegate define a assinatura do event handler de quem vai se inscrever para receber esses eventos.
+
+	O subscriber deve se increver no evento que ele quer ser notificado e deve ter um método que possui uma assinatura igual 
+	ao delegate do Publisher.
+
+	Como eu declaro um evento em uma class?
+
+		Há duas forma de declarar um evento. 
+			
+			Criando um delegate
+			Criando uma variavel do tipo delegate através da palavra event.
+
+	Normalmente, para enviar um evento é necessário declarar um método no publisher com nome On<NameEvent> e esse método 
+	deve ser protected virtual. O método dever ser protected e virtual para que as classes que herdam dessa classe possam poder alterar
+	o comportamento desse método; Mas a classes derivadas devem sempre chamar a classe pai para garantir que os subscriber foram notificados.
+
+	Func é um delegate que está incluído no System namespace. Por definição o Func pode ter 0 ou vários valores de entrada e possuir uma saída.
+
+	public delegate TResult Func<in T, out TResult>(T arg);
+
+	T - Input
+	TResult - Outputs
+
+	Na declaração de um Func, não é preciso colocarmos as variáveis, somente os tipos são suficientes.
+
+	Limitações do Func:
+		
+		Só pode ter até 16 parametros de entrada.
+	
+	Ao invés de criarmos uma Func que aponta para um método. Podemos cria-la de forma que ela seja um função anonima ou com uma lambda empression.
+
+		Curiosidades: 
+
+		Qual a diferença entre Lambda Expression e Anonymous Method??
+
+		Antes da versão 2.0 do C# só era possível criar delegates com método nomeados (Métodos escritos tradicionalmente);
+
+		No C# 2.0 foi incluída a possíbilidade de colocarmos os métodos anonymous e no C# 3.0 foi incluída as lambdas expressions.
+
+		Lambdas expressions podem ser convertidas para delegates e arvores de expressão.
+		Metodos anonimos podem somente ser convertidos para delegates.
+
+		Lamda permite que os tipos dos inputs possam ser inferidos em tempo de execução.
+
+	Action também é um tipo de delegate definido no System namespace. É identica ao Func, com a diferença que ele não retornar valores.
+	Também pode ter até 16 parametros de entrada. Pode utilizar um método anonimo para assinatura do método, assim como uma lambda expression.
+
+	Vantagens: 
+		Fácil e rápido para definirmos delegates.
+		Deixa o código pequeno
 
 
+	Predicate
 
+	É um delegate igual ao Func e o Action. Com a diferença que ele é um método que aceita um conjunto de critérios e verifica se esses critérios foram aceitos.
 
+	Ele deveria pegar um valor de entrada e retornar um boleano. 
+	
+	Também é definido no System namespace.
+
+	public delegate bool Predicate<in T>(T obj);
+	
+	Assim como os demais delegate, o Predicate pode ser associado a um método, um lamda expression e um método anonymous.
+
+	O predicate é o mais bobo de todos
+
+	static bool IsUppercase(string value)
+	{
+
+		return value.Equals(value.ToUppe());
+	}
+
+	static void Main(string[] args)
+	{
+
+		Predicate<string> verifyUpperCase = IsUppercase;
+
+		var result = verifyUpperCase("Olá mundo");
+		
+		Console.WriteLine(result);
+
+	}
+
+	output => false;
+
+	O que vem a ser um método anonimo??
+
+	Um método anônimo é um método, como o próprio nome já nos sugere, sem nome.
+
+	Ele pode ser definido utilizando a palavra reservada delegate e pode ser associado a um delegate.
+
+	Ex:
+
+	public delegate void Print(string value);
+
+	static void Main(string[] args)
+	{
+
+		Print print = delegate (string value)
+		{
+
+			Console.WriteLine(value);
+		}
+
+		print("Rafael Cardoso");
+
+	}
+	
+	Podem ser passado como parametro para outras funções que esperam um delegate.
+
+	Podem ser usado como eventHandlers;
+
+	Sabendo o que são delegates podemos entrar no mérito de descobrir o que são Events.
+
+	Event nada mais é que um delegate encapsulado. O delegate irá definir o event handler que a classe que irá se inscreve no evento deverá ter.
+
+	Beleza, mas como eu declaro um event???
+
+	A declaração de um event é feita em duas etapas.
+
+	Declarando um delegate
+	Declarar uma variável para o delega com a palavra event.
+
+	A classe que faz o publish do event deve ter um método que envia o evento e a classe que vai se inscrever no evento deve possuir um método que possui
+	a mesma assinatura que o delegate da classe pai possui.
+
+	O .Net possui alguns event handlers já. Para não precisarmos criar nosso delegate com nossa assinatura. Há dois tipos de event handlers no C#. Um que 
+	não recebe parametros e outro que recebe.
+
+	A classe EventArgs é a classe base para todos os eventos no .Net
+
+	Parametros simples podem ser lançados diretamente pela classe. Se quisermos passar mais que um parametro, nossa classe deve herdar da classe base EventArgs
 
 
 

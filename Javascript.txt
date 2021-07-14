@@ -217,10 +217,9 @@ function somarNumeros(numberOne, numberTwo) {
 
 somarNumeros.call(2,3,4);
 
+---------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
+	Javascript é uma linguagem interpretada. 
 
 
 

@@ -860,7 +860,41 @@ Qual a diferença entre o '' e o > no CSS quando queremos selecionar elementos ?
 
 	Para usar grid dentro de grid sempre precisamos utilizar o .row
 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
+	Seletores CSS
+
+	Operador + : Busca os filhos de um dado elemento
+
+	A + B Vai buscar o primeiro B que está logo "abaixo de A"
+
+	<a></a>
+	<b></b> <--- Vai buscar esse aqui ---/>
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+	Como funciona o box-shadow?
+
+	box-shadow: x y blur (espalhamento do blur) color
+
+	rgba(red, green, blue, opacidade)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	Como transforma uma lista vertical em uma lista de botões horizontais?
+
+	Fácil, é só estilizar a lista e transformá-la em pequenos botões. Depois é só colocar display: inline-block; 
+	Se for uma lista de icons? Colocar o background-color e o color do texto da mesma cor. Só vai ficar os ícones;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	O que acontece quando temos um container flex-box com dois elementos dentro sendo que queremos que um flutue a direita do outro
+	
+	Simples: no primeiro elemento definimos que ele terá flex-grow: 1; com isso, ele vai empurrar o outro elemento até a parede da página
+	respeitando o seu conteúdo interno para parar de empurrar;
+
+	O elemento que possui o flex-grow ele irá crescer para  emburar o outro até a parede da página. Como pará-lo?
+	Simple! É só colocarmos o max-width nesse elemento que tudo será resolvido.
 
 
 
