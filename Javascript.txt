@@ -221,11 +221,131 @@ somarNumeros.call(2,3,4);
 
 	Javascript é uma linguagem interpretada. 
 
+	Operadores aritimeticos de uma string
+
+	Soma: '100' + 50 = 10050 -> Eu não consigo somar uma string com um número
+	Subtração: '100' - 50 -> Eu não consigo subtrair uma string da outra, ele vai tentar converter o primeiro valor para um número. Se ele conseguir ele faz a divisão.
+	Divisão: '100' / '50' = 2 -> Mesma ideia da subtração. Como não é possível dividir strings, ele vai tentar transformar em um número e realizar a divisão.
+	Multiplicação: '100' * '2' = 200 -> Ele vai tentar converter o número para uma string e depois realizar a operação.
+	
+	Caso em que o que está na string não é um número
+
+	'Comprei 10 carros' + 10 -> NaN
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+O QUE É O THIS
+
+	let person = {
+		
+		name: 'Rafael',
+		lastName: 'Cardoso',
+		fullName: function(){
+		
+			this.name + ' ' + this.lastName;
+		}
+	}
+
+	o this foi criado para não precisar escrever o nome do objeto dentro do objeto, pois é possivel fazer referência as propriedades do objeto usando o nome do objeto
+
+		this.name === person.nome => Neste caso, this é uma forma de facilitar nessa escrita;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SHALLOW COPY and DEEP COPY
+
+	let person = { name: 'Rafael' }
+
+	let personClone = person
+
+	// Object { name: 'Rafael' }
+
+	person.name = 'Pam';
+	// Object { name: 'Pam' }
+
+	personClone 
+
+	// Object { name: 'Pam'}
+
+	Os dois objetos fazem referência ao mesmo local na memória, ou seja, se um mudar o valor de qualquer propriedade o outro muda também
 
 
+	DEEP COPY
+
+	let personClone { name: person.name }
+	// Object { name: 'Rafael' }
+
+	person.name = 'Pam';
+	// Object { name: 'Pam' }
+
+	personClone
+	// Object { name: 'Rafael' }
+
+	O objeto personClone ocupa outro lugar na memória e pegou apenas o valor de person.name
+
+	Object.assign(targe, souce) -> copia as propriedades de um objeto para outro objeto e retorna o objeto que foi criado com base em um objeto alvo
 
 
+	let person = { name: 'Jonas', children: [ { name: 'Rafael} ] }
+	
+	let personClone = Object.assign({}, person)
 
+	// Object { name: 'Jonas', children: [ name: 'Rafael'] }
+
+	Essa copia é considerada uma shallow copy, se eu alterar as propriedades do objeto que são primitiva ele não altera a copia e vice e versa. No entanto, se eu alterar 
+	as propriedades que são um objeto/array dentro da copia ou do original, ele alterar as duas, por isso é considerado uma copia rasa.
+
+	---- COMO CRIAR UM OBJETO JÁ COM AS PROPRIEDADES DE OUTRO
+
+	let data = { filtros: {} }
+
+	Eu quero que dentro desse objeto filtros já estejam as propriedades do filtroBalancetes e uma string com a url da API
+
+	filtroBalancetes: { codEntidade: 1, dataBalancete: '2020-08-01' } 
+	urlAPI: 'balancetes/test' 
+
+	console.log(data)
+	
+	// Object { filtros: { codEntidade: 1, dataBalancete: '2020-08-01', urlAPI: 'balancetes/teste' } --> Quero já criar o objeto data com essa estrutura.
+
+	
+	let data = { filtros: Object.assign({urlAPI: urlAPI}, filtroBalancetes);
+
+	// Object { filtros: { codEntidade: 1, dataBalancetes: '2020-08-01', urlAPI: 'balancetes/teste' } 
+	
+	ou 
+
+	let data = { filtros: ...filtroBalancetes, urlAPI }
+
+	// Object { filtros: { codEntidade: 1, dataBalancetes: '2020-08-01', urlAPI: 'balancetes/teste' } 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+CONVERTER UM NUMBER PARA MOEDA BRAZIL
+
+var numero = 125.45;
+//com R$
+var dinheiro = numero.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+console.log(dinheiro);
+
+------------------------------------------------------------------------------------------------------------------------------------------
+QUERY SELECTOR 
+
+Retorna sempre o primeiro elemento que atende ao que estamos passand dentro querySelector('ul'), esse comando irá retornar o primeiro
+ul da página.
+
+Para selecionar todos é preciso utilizar o querySelectorAll('');
+
+var allUl = querySelectorAll('ul');
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Qual a diferença entre o HTML Colection e o NodeList
+
+A primeira grande diferença está nas propriedades de ambas, ou seja, uma tem métodos e propriedades que a outra não tem.
+
+O HTMLColletion atualiza a list real-time. O NodeList é estático, ou seja, ele não se atualiza com a adição de novos items.
+
+AMBOS SÃO ARRAYLIKE, ou seja, parecem como arrays, mas não são.
 
 
 

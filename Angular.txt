@@ -105,6 +105,17 @@ HERANÇA DE COMPONENTS
 Quanto temos um component que possui o mesmo template que o pai e não queremos mudar o template do pai, apenas os comportamentos e estados. Devemos apontar o templateUrl e styles
 para o pai.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+MODULES -- ERROR 
+
+Quando um modulo que possui components que estão sendo herdados por outros components. Esses componetes filhos devem estar presentes no módulo, 
+pois o Angular ira dizer que não conhece alguma tag no component pai para dizer para você que tem um B.O no component ou na herança.
+
+Quando ao gerar um component der problema de módulo Error: More than one module matches, quer dizer que ele encontrou dois módulos na arquivo 
+é só preciso dizer em qual módulo que o component deverá ser importado!
+
+Assim: ng generate component /shared/components/customcontrols/drop-down-movimento --module=shared.module
+
 
 
 

@@ -68,3 +68,26 @@ Como entrar dentro do container??
 	docker container stop container_id -> para pausar o container
 
 	docker container rm container_id -> para remover o container
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Docker SQL Server 
+
+	docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+	docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Numsey@Password!' -p 1401:1433 -d --name=windows_sql mcr.microsoft.com/mssql/server:2019-latest
+
+	docker exec -it windows_sql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa
+
+	-- TODO Mudar o nome do container
+
+	docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Desenv@123' -p 1433:1433 -v D:\Docker\Volume\MSSQL:/sampledbs -d mcr.microsoft.com/mssql/server:2019-latest  
+
+
+Docker RabbitMQ
+
+	docker run -d --hostname rabbitmq --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Remove todos os containers
+
+	docker rm $(docker ps -a -q)

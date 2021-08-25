@@ -896,8 +896,58 @@ Qual a diferença entre o '' e o > no CSS quando queremos selecionar elementos ?
 	O elemento que possui o flex-grow ele irá crescer para  emburar o outro até a parede da página. Como pará-lo?
 	Simple! É só colocarmos o max-width nesse elemento que tudo será resolvido.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Unidades de medida em css 
 
 
+	<body>
+
+		<p class="nome-completo">Rafael Cardoso</p>
+
+	</body>
+
+	style.css
+
+		body {
+			font-size: 14px;
+		}
+
+		.nome-completo {
+			font-size: 1.5em; -> Ele terá um fonte que é 1.2 * 14px que herdou do elemento body;
+		}
+
+	Essa tecnica pode ser confusa quando estamos em grids ou em elementos aninhados. Essa aninhamento faz com 
+	vá se multiplicando 1.5 a cada filho. Para corrigir isso foi criada a unidade rem, que pega o valor do elemento raiz ao qual estamos 
+	trabalhando
+
+	 <div class="nome-completo">
+    		Jonas das Neves Cardoso
+    		<div class="nome-completo-child">
+      			Kelly Barroso Cardoso
+      				<div class="nome-completo-child">
+        				Rafael Barroso Cardoso
+      				</div>
+    		</div>
+  	</div>
+
+
+	Se a class nome-completo-child estiver com 1.5rem. ele vai multiplicar 1.5 * o valor que foi definido no elemento nome-completo 
+	e assim por diante.
+
+	width em css é relativo ao elemento pai, se quisermos um width em relação ao viewport temos que usar o vh e vw.
+
+	Essa altura pode ser pêga através do código em javascript window.innerHeight e window.innerWidth;
+
+	Portanto, 1vh é igual 1/100 * window.innerHeight ou 1vw é igual 1/100 * window.innerWidth;
+
+	Se eu quiser ter um quadrado do tamanho total da janela é só fazer assim;
+
+	100vh, pois vh == 1/100 ==> 100/100 * window.innerWidth;
+
+	Quero um titulo que ocupe toda a largura da página que estou, ou seja, isso vai mudar dependendo do viewport que eu estou.
+
+	
 
 
 

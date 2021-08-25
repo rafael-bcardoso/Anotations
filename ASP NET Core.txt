@@ -863,7 +863,14 @@ Controller
 
 	Parametros simples podem ser lançados diretamente pela classe. Se quisermos passar mais que um parametro, nossa classe deve herdar da classe base EventArgs
 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
+ADD MIGRATION NA CAMADA DE INFRA
+
+	Add-Migration initial -c PurchaseContext -s NSE.Purchase.API]
+
+	-c => Class Context 
+	-s => Startup Project onde está a connectionString
 
 
 
